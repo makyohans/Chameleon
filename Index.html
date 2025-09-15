@@ -242,7 +242,7 @@
         
         .vip-ring-admin {
             position: relative;
-            padding: 6px;
+            padding: 4px;
             border-radius: 50%;
             background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #b45309, #92400e);
             box-shadow: 0 0 25px rgba(251, 191, 36, 0.6), inset 0 2px 6px rgba(255,255,255,0.4);
@@ -418,7 +418,7 @@
             </div>
 
             <div class="flex justify-center">
-                <button id="showLoginBtn" class="premium-button px-8 py-3 rounded-lg transition-all font-semibold">
+                <button id="showLoginBtn" class="premium-button px-8 py-3 rounded-lg transition-all font-semibold" onclick="showLoginForm()">
                     <i class="fas fa-shield-alt mr-2"></i>Login Admin
                 </button>
             </div>
@@ -1235,11 +1235,44 @@
         let selectedVipLevel = null;
         let selectedVipPrice = null;
 
+        // Initialize demo data if empty
+        if (members.length === 0) {
+            members = [
+                {
+                    id: 'DEMO001',
+                    name: 'Demo Member 1',
+                    age: 25,
+                    gender: 'Male',
+                    phone: '081234567890',
+                    bank: 'Bank BCA',
+                    accountNumber: '1234567890',
+                    email: 'demo1@example.com',
+                    vipLevel: 'VIP 1',
+                    verified: true,
+                    registrationDate: new Date().toLocaleDateString('id-ID'),
+                    profileImage: null
+                },
+                {
+                    id: 'DEMO002',
+                    name: 'Demo Member 2',
+                    age: 28,
+                    gender: 'Female',
+                    phone: '081234567891',
+                    bank: 'Bank Mandiri',
+                    accountNumber: '0987654321',
+                    email: 'demo2@example.com',
+                    vipLevel: 'VIP 2',
+                    verified: true,
+                    registrationDate: new Date().toLocaleDateString('id-ID'),
+                    profileImage: null
+                }
+            ];
+            localStorage.setItem('vcrMembers', JSON.stringify(members));
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            checkAutoReset();
             setupEventListeners();
-            checkPendingProcessing();
             
             // Check if user is logged in
             const savedUser = localStorage.getItem('vcrCurrentUser');
@@ -1248,6 +1281,11 @@
                 showDashboard();
             }
         });
+
+        // Global function for login button
+        function showLoginForm() {
+            showSection('loginSection');
+        }
 
         function setupEventListeners() {
             // Navigation
@@ -1391,8 +1429,16 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            const phone = document.getElementById('loginPhone').value;
-            const password = document.getElementById('loginPassword').value;
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            // Validate input
+            if (!phone || !password) {
+                alert('Mohon isi nomor HP dan password!');
+                return;
+            }
+            
+            console.log('Attempting login with:', phone, password); // Debug log
             
             // Check for special admin login
             if (phone === '0800' && password === '001') {
@@ -1419,6 +1465,32 @@
                 return;
             }
             
+            // Check for demo admin login
+            if (phone === '089646775883' && password === 'admin123') {
+                currentUser = {
+                    id: 'DEMO001',
+                    name: 'DEMO ADMIN',
+                    age: 25,
+                    gender: 'Admin',
+                    phone: '089646775883',
+                    bank: 'DEMO BANK',
+                    email: 'demo@chamelionagency.com',
+                    password: 'admin123',
+                    vipLevel: 'ADMIN',
+                    verified: true,
+                    registrationDate: new Date().toLocaleDateString('id-ID'),
+                    profileImage: null,
+                    isSpecialAdmin: true
+                };
+                
+                localStorage.setItem('vcrCurrentUser', JSON.stringify(currentUser));
+                showDashboard();
+                alert('🔐 Login Demo Admin Berhasil!\n\n✅ Akses penuh ke sistem\n✅ Dapat mengelola member\n✅ Fitur lengkap tersedia');
+                return;
+            }
+            
+            console.log('Available members:', members); // Debug log
+            
             // Regular user login
             const user = members.find(m => m.phone === phone && m.password === password);
             
@@ -1428,7 +1500,7 @@
                 showDashboard();
                 alert('Login berhasil! Selamat datang ' + user.name);
             } else {
-                alert('Nomor HP atau password salah!');
+                alert('❌ Login Gagal!\n\nPastikan:\n• Nomor HP sudah benar\n• Password sudah benar\n\nUntuk demo, gunakan:\n📱 HP: 089646775883\n🔑 Password: admin123');
             }
         }
 
@@ -1955,818 +2027,4 @@
             localStorage.setItem('vcrMembers', JSON.stringify(members));
             
             document.getElementById('salaryModal').classList.add('hidden');
-            
-            const totalSalary = calculateTotalSalary(members[memberIndex].salaryData);
-            alert(`Data gaji berhasil disimpan!\n\nTotal Gaji (Tanpa Dolar): Rp ${totalSalary.toLocaleString('id-ID')}`);
-            
-            displayMembers();
-            displayAttendanceData();
-        }
-
-        function displayAttendanceData() {
-            const container = document.getElementById('attendanceData');
-            container.innerHTML = '';
-            
-            const table = document.createElement('div');
-            table.className = 'overflow-x-auto';
-            
-            let tableHTML = `
-                <table class="w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 px-4 py-2">Nama</th>
-                            <th class="border border-gray-300 px-4 py-2">ID</th>
-                            <th class="border border-gray-300 px-4 py-2">Umur</th>
-                            <th class="border border-gray-300 px-4 py-2">Bonus Dolar</th>
-                            <th class="border border-gray-300 px-4 py-2">Total Gaji</th>
-                            <th class="border border-gray-300 px-4 py-2">ID Bank</th>
-                            <th class="border border-gray-300 px-4 py-2">Status Pembayaran</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-            
-            members.forEach(member => {
-                const status = attendanceData[member.id] || 'BELUM DI GAJI';
-                const statusClass = status === 'SUDAH DI GAJI' ? 'text-green-600' : status === 'BELUM DI GAJI' ? 'text-red-600' : 'text-gray-600';
-                
-                // Get member salary data
-                const memberSalary = member.salaryData || {};
-                const bonusDolar = memberSalary.bonusDolar || 0;
-                const totalGaji = calculateTotalSalary(memberSalary);
-                
-                tableHTML += `
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">${member.name}</td>
-                        <td class="border border-gray-300 px-4 py-2">${member.id}</td>
-                        <td class="border border-gray-300 px-4 py-2">${member.age}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-yellow-600 font-semibold">$${bonusDolar} (Rp ${(bonusDolar * 17000).toLocaleString('id-ID')})</td>
-                        <td class="border border-gray-300 px-4 py-2 text-blue-600 font-semibold">Rp ${totalGaji.toLocaleString('id-ID')}</td>
-                        <td class="border border-gray-300 px-4 py-2">${member.bank}</td>
-                        <td class="border border-gray-300 px-4 py-2 ${statusClass} font-semibold">${status}</td>
-                    </tr>
-                `;
-            });
-            
-            tableHTML += '</tbody></table>';
-            table.innerHTML = tableHTML;
-            container.appendChild(table);
-        }
-
-        function showProfile() {
-            if (!currentUser) return;
-            
-            const modal = document.getElementById('profileModal');
-            const content = document.getElementById('profileContent');
-            
-            const userRingClass = getVipRingClass(currentUser.vipLevel);
-            const userFrameClass = getFrameClass(currentUser.vipLevel);
-            
-            content.innerHTML = `
-                <div class="bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-xl p-6 border border-white/20 shadow-lg">
-                    <div class="text-center mb-6">
-                            <div class="w-24 h-24 mx-auto mb-4 ${userRingClass}">
-                                <div class="vip-ring-inner">
-                                    <div class="vip-ring-photo">
-                                        ${currentUser.profileImage ? 
-                                            `<img src="${currentUser.profileImage}" alt="Profile" class="w-full h-full object-cover rounded-full">` :
-                                            `<i class="fas fa-${currentUser.isSpecialAdmin ? 'crown' : 'user'} text-3xl ${currentUser.isSpecialAdmin ? 'text-yellow-500' : 'text-gray-500'}"></i>`
-                                        }
-                                        <div class="profile-frame-overlay ${userFrameClass}"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <h3 class="text-xl font-bold ${currentUser.isSpecialAdmin ? 'text-yellow-600' : ''}">${currentUser.name}</h3>
-                            ${currentUser.isSpecialAdmin ? '<div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-bold mt-2">🔐 SUPER ADMIN</div>' : ''}
-                            ${currentUser.verified ? '<i class="fas fa-check-circle text-green-500 text-xl"></i>' : ''}
-                        </div>
-                        
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Nama:</span>
-                                <span>${currentUser.name}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Nomor HP:</span>
-                                <span>${currentUser.phone}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">ID Bank:</span>
-                                <span>${currentUser.bank}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Umur:</span>
-                                <span>${currentUser.age}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Email:</span>
-                                <span>${currentUser.email}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Jenis Kelamin:</span>
-                                <span>${currentUser.gender}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-semibold">ID:</span>
-                                <span>${currentUser.id}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-semibold">VIP:</span>
-                                <div class="flex items-center space-x-2">
-                                    <span class="px-2 py-1 ${currentUser.isSpecialAdmin ? 'bg-yellow-100 text-yellow-800' : 'bg-yellow-100 text-yellow-800'} rounded text-sm">${currentUser.vipLevel}</span>
-                                    ${currentUser.vipLevel === 'Regular' && currentUser.processingStatus !== 'pending' && !currentUser.isSpecialAdmin ? 
-                                        '<button onclick="showVipUpgrade()" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Upgrade</button>' : 
-                                        ''
-                                    }
-                                </div>
-                            </div>
-                            ${currentUser.isSpecialAdmin ? `
-                            <div class="bg-yellow-50 rounded-lg p-3 mt-3">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-shield-alt text-yellow-600 mr-2"></i>
-                                    <span class="font-semibold text-yellow-800">Akses Super Admin</span>
-                                </div>
-                                <div class="text-sm text-yellow-700 space-y-1">
-                                    <p>✅ Akses penuh ke semua member</p>
-                                    <p>✅ Kontrol kehadiran semua member</p>
-                                    <p>✅ Manajemen sistem lengkap</p>
-                                    <p>✅ Tidak perlu upgrade VIP</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            ${currentUser.processingStatus === 'pending' ? `
-                            <div class="bg-blue-50 rounded-lg p-3 mt-3">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-clock text-blue-600 mr-2"></i>
-                                    <span class="font-semibold text-blue-800">Sedang Diproses</span>
-                                </div>
-                                <div class="text-sm text-blue-700 space-y-1">
-                                    <p><strong>Upgrade ke:</strong> ${currentUser.pendingVipLevel}</p>
-                                    <p><strong>Metode Pembayaran:</strong> ${currentUser.paymentMethod}</p>
-                                    <p><strong>Sisa Waktu:</strong> ${getProcessingTimeRemaining(currentUser) || 'Menghitung...'}</p>
-                                    <p><strong>Selesai pada:</strong> ${new Date(currentUser.processingCompletionTime).toLocaleString('id-ID')}</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            <div class="flex justify-between">
-                                <span class="font-semibold">Tgl Pendaftaran:</span>
-                                <span>${currentUser.registrationDate}</span>
-                            </div>
-                        </div>
-                </div>
-            `;
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function showVipUpgrade() {
-            document.getElementById('profileModal').classList.add('hidden');
-            document.getElementById('vipModal').classList.remove('hidden');
-            document.getElementById('vipModal').classList.add('flex');
-        }
-
-        function showPaymentModal() {
-            if (!selectedVipLevel) {
-                alert('Pilih level VIP terlebih dahulu!');
-                return;
-            }
-            
-            // Update payment summary
-            document.getElementById('paymentVipLevel').textContent = selectedVipLevel;
-            document.getElementById('paymentAmount').textContent = 'Rp ' + parseInt(selectedVipPrice).toLocaleString('id-ID');
-            
-            // Hide VIP modal and show payment modal
-            document.getElementById('vipModal').classList.add('hidden');
-            document.getElementById('paymentModal').classList.remove('hidden');
-            document.getElementById('paymentModal').classList.add('flex');
-            
-            // Reset payment selection
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('border-blue-500', 'bg-blue-50'));
-            document.getElementById('selectedPaymentInfo').classList.add('hidden');
-            document.getElementById('processPayment').disabled = true;
-        }
-
-        function showQRISModal() {
-            document.getElementById('qrisModal').classList.remove('hidden');
-            document.getElementById('qrisModal').classList.add('flex');
-        }
-
-        function processVipUpgrade() {
-            if (!selectedVipLevel) {
-                alert('Pilih level VIP terlebih dahulu!');
-                return;
-            }
-            
-            // Get selected payment method
-            const selectedPaymentMethod = document.querySelector('.payment-method.border-blue-500');
-            if (!selectedPaymentMethod) {
-                alert('Pilih metode pembayaran terlebih dahulu!');
-                return;
-            }
-            
-            const paymentMethod = selectedPaymentMethod.dataset.method;
-            const paymentNumber = selectedPaymentMethod.dataset.number;
-            
-            // Check if payment proof is uploaded
-            const paymentProof = document.getElementById('paymentProof').files[0];
-            if (!paymentProof) {
-                alert('Silakan upload bukti pembayaran terlebih dahulu!');
-                return;
-            }
-            
-            // Simulate payment process
-            let confirmMessage = `Konfirmasi pembayaran ${selectedVipLevel} sebesar Rp ${parseInt(selectedVipPrice).toLocaleString('id-ID')} melalui ${paymentMethod}`;
-            if (paymentNumber !== 'Scan QR Code') {
-                confirmMessage += `\nNomor: ${paymentNumber}`;
-            }
-            confirmMessage += `\nBukti pembayaran: ${paymentProof.name}`;
-            
-            const confirmed = confirm(confirmMessage);
-            
-            if (confirmed) {
-                // Set processing status
-                currentUser.processingStatus = 'pending';
-                currentUser.pendingVipLevel = selectedVipLevel;
-                currentUser.paymentMethod = paymentMethod;
-                currentUser.paymentNumber = paymentNumber;
-                currentUser.paymentProofName = paymentProof.name;
-                
-                // Calculate processing time
-                let processingTime;
-                let processingMessage;
-                
-                if (selectedVipLevel === 'ADMIN') {
-                    // ADMIN: 1 hari kerja (24 jam)
-                    processingTime = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-                    processingMessage = '1 hari kerja (24 jam)';
-                } else {
-                    // VIP 1 sampai MASTER: 2 jam
-                    processingTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
-                    processingMessage = '2 jam';
-                }
-                
-                // Set processing completion time
-                const completionTime = new Date(Date.now() + processingTime);
-                currentUser.processingCompletionTime = completionTime.toISOString();
-                
-                // Update in members array
-                const memberIndex = members.findIndex(m => m.id === currentUser.id);
-                if (memberIndex !== -1) {
-                    members[memberIndex] = currentUser;
-                    localStorage.setItem('vcrMembers', JSON.stringify(members));
-                }
-                
-                // Update current user in localStorage
-                localStorage.setItem('vcrCurrentUser', JSON.stringify(currentUser));
-                
-                // Start processing timer
-                startProcessingTimer(currentUser.id, processingTime);
-                
-                document.getElementById('paymentModal').classList.add('hidden');
-                alert(`Pembayaran berhasil melalui ${paymentMethod}! 
-                
-Bukti pembayaran telah diterima dan sedang diproses.
-                
-⏰ Waktu pemrosesan: ${processingMessage}
-📅 Selesai pada: ${completionTime.toLocaleString('id-ID')}
-                
-Akun Anda akan otomatis diupgrade ke ${selectedVipLevel} setelah pemrosesan selesai.`);
-                
-                // Reset selections
-                selectedVipLevel = null;
-                selectedVipPrice = null;
-                document.querySelectorAll('.vip-option').forEach(opt => opt.classList.remove('border-blue-500', 'bg-blue-50'));
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('border-blue-500', 'bg-blue-50'));
-                document.getElementById('paymentProof').value = '';
-                
-                displayMembers();
-                showProfile(); // Refresh profile to show processing status
-            }
-        }
-
-        function checkAutoReset() {
-            const lastReset = localStorage.getItem('vcrLastReset');
-            const now = new Date();
-            const currentMonday = getMonday(now);
-            
-            if (!lastReset || new Date(lastReset) < currentMonday) {
-                // Reset attendance data every 2 weeks on Monday
-                const weeksSinceLastReset = lastReset ? 
-                    Math.floor((currentMonday - new Date(lastReset)) / (1000 * 60 * 60 * 24 * 7)) : 2;
-                
-                if (weeksSinceLastReset >= 2) {
-                    attendanceData = {};
-                    localStorage.setItem('vcrAttendance', JSON.stringify(attendanceData));
-                    localStorage.setItem('vcrLastReset', currentMonday.toISOString());
-                }
-            }
-        }
-
-        function getMonday(date) {
-            const d = new Date(date);
-            const day = d.getDay();
-            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-            return new Date(d.setDate(diff));
-        }
-
-        function startProcessingTimer(memberId, processingTime) {
-            setTimeout(() => {
-                completeVipUpgrade(memberId);
-            }, processingTime);
-        }
-
-        function completeVipUpgrade(memberId) {
-            // Find member in array
-            const memberIndex = members.findIndex(m => m.id === memberId);
-            if (memberIndex === -1) return;
-            
-            const member = members[memberIndex];
-            
-            // Check if still pending
-            if (member.processingStatus !== 'pending') return;
-            
-            // Complete the upgrade
-            member.vipLevel = member.pendingVipLevel;
-            member.verified = true;
-            member.processingStatus = 'completed';
-            member.upgradeCompletedAt = new Date().toISOString();
-            
-            // Clean up processing data
-            delete member.pendingVipLevel;
-            delete member.processingCompletionTime;
-            
-            // Update members array
-            members[memberIndex] = member;
-            localStorage.setItem('vcrMembers', JSON.stringify(members));
-            
-            // Update current user if it's the same user
-            if (currentUser && currentUser.id === memberId) {
-                currentUser = member;
-                localStorage.setItem('vcrCurrentUser', JSON.stringify(currentUser));
-                
-                // Show completion notification
-                alert(`🎉 Selamat! Upgrade VIP Anda telah selesai diproses!
-                
-✅ Akun Anda sekarang: ${member.vipLevel}
-✅ Status: Terverifikasi
-📅 Selesai pada: ${new Date().toLocaleString('id-ID')}
-                
-Terima kasih telah menggunakan layanan Chamelion Agency!`);
-                
-                // Refresh display
-                displayMembers();
-                if (document.getElementById('profileModal').classList.contains('flex')) {
-                    showProfile();
-                }
-            }
-        }
-
-        function checkPendingProcessing() {
-            const now = new Date();
-            
-            members.forEach(member => {
-                if (member.processingStatus === 'pending' && member.processingCompletionTime) {
-                    const completionTime = new Date(member.processingCompletionTime);
-                    
-                    if (now >= completionTime) {
-                        // Processing time has passed, complete the upgrade
-                        completeVipUpgrade(member.id);
-                    } else {
-                        // Still processing, set timer for remaining time
-                        const remainingTime = completionTime - now;
-                        startProcessingTimer(member.id, remainingTime);
-                    }
-                }
-            });
-        }
-
-        function getProcessingTimeRemaining(member) {
-            if (member.processingStatus !== 'pending' || !member.processingCompletionTime) {
-                return null;
-            }
-            
-            const now = new Date();
-            const completionTime = new Date(member.processingCompletionTime);
-            const remaining = completionTime - now;
-            
-            if (remaining <= 0) {
-                return 'Selesai';
-            }
-            
-            const hours = Math.floor(remaining / (1000 * 60 * 60));
-            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (hours > 0) {
-                return `${hours} jam ${minutes} menit`;
-            } else {
-                return `${minutes} menit`;
-            }
-        }
-
-        function toggleAccountOptions() {
-            const accountType = document.getElementById('adminRegAccountType').value;
-            const bankSection = document.getElementById('bankSection');
-            const ewalletSection = document.getElementById('ewalletSection');
-            const numberLabel = document.getElementById('numberLabel');
-            const accountNumber = document.getElementById('adminRegAccountNumber');
-            
-            // Hide both sections first
-            bankSection.classList.add('hidden');
-            ewalletSection.classList.add('hidden');
-            
-            // Reset required attributes
-            document.getElementById('adminRegBankName').removeAttribute('required');
-            document.getElementById('adminRegEwalletName').removeAttribute('required');
-            
-            if (accountType === 'bank') {
-                bankSection.classList.remove('hidden');
-                document.getElementById('adminRegBankName').setAttribute('required', 'required');
-                numberLabel.textContent = 'Nomor Rekening:';
-                accountNumber.placeholder = 'Masukkan nomor rekening';
-            } else if (accountType === 'ewallet') {
-                ewalletSection.classList.remove('hidden');
-                document.getElementById('adminRegEwalletName').setAttribute('required', 'required');
-                numberLabel.textContent = 'Nomor HP/ID:';
-                accountNumber.placeholder = 'Masukkan nomor HP atau ID E-Wallet';
-            } else {
-                numberLabel.textContent = 'Nomor Rekening/HP:';
-                accountNumber.placeholder = 'Masukkan nomor rekening atau nomor HP';
-            }
-        }
-
-        function handleAdminCreateMember(e) {
-            e.preventDefault();
-            
-            // Check if user is admin
-            if (!currentUser || (currentUser.vipLevel !== 'ADMIN' && !currentUser.isSpecialAdmin)) {
-                alert('Akses ditolak! Hanya admin yang dapat membuat akun member.');
-                return;
-            }
-            
-            const name = document.getElementById('adminRegName').value;
-            const age = parseInt(document.getElementById('adminRegAge').value);
-            const customId = document.getElementById('adminRegId').value.trim();
-            const gender = document.getElementById('adminRegGender').value;
-            const phone = document.getElementById('adminRegPhone').value;
-            const accountType = document.getElementById('adminRegAccountType').value;
-            const accountNumber = document.getElementById('adminRegAccountNumber').value;
-            const email = document.getElementById('adminRegEmail').value;
-            const vipLevel = document.getElementById('adminRegVipLevel').value;
-            const verified = document.getElementById('adminRegVerified').value === 'true';
-            
-            let bank = '';
-            
-            if (accountType === 'bank') {
-                const bankName = document.getElementById('adminRegBankName').value;
-                if (!bankName) {
-                    alert('Pilih bank terlebih dahulu!');
-                    return;
-                }
-                bank = `${bankName} - ${accountNumber}`;
-            } else if (accountType === 'ewallet') {
-                const ewalletName = document.getElementById('adminRegEwalletName').value;
-                if (!ewalletName) {
-                    alert('Pilih E-Wallet terlebih dahulu!');
-                    return;
-                }
-                bank = `${ewalletName} - ${accountNumber}`;
-            } else {
-                alert('Pilih tipe akun terlebih dahulu!');
-                return;
-            }
-            
-            // Validations
-            if (age < 20 || age > 50) {
-                alert('Maaf, umur harus antara 20-50 tahun!');
-                return;
-            }
-            
-            // Validate custom ID format (only numbers)
-            if (!customId || customId.length < 1) {
-                alert('ID Member harus diisi dengan angka!');
-                return;
-            }
-            
-            // Check if ID already exists
-            if (members.find(m => m.id === customId)) {
-                alert('ID Member sudah digunakan! Silakan gunakan ID yang berbeda.');
-                return;
-            }
-            
-            if (members.find(m => m.phone === phone)) {
-                alert('Nomor HP sudah terdaftar!');
-                return;
-            }
-            
-            if (members.find(m => m.email === email)) {
-                alert('Email sudah terdaftar!');
-                return;
-            }
-            
-            // Create new member
-            const newMember = {
-                id: customId,
-                name,
-                age,
-                gender,
-                phone,
-                bank,
-                email,
-                vipLevel,
-                verified,
-                registrationDate: new Date().toLocaleDateString('id-ID'),
-                profileImage: null,
-                createdByAdmin: true,
-                createdBy: currentUser.name,
-                isDataOnly: true
-            };
-            
-            // Handle profile image
-            const imageFile = document.getElementById('adminProfileImage').files[0];
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    newMember.profileImage = e.target.result;
-                    saveAdminCreatedMember(newMember);
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                saveAdminCreatedMember(newMember);
-            }
-        }
-
-        function saveAdminCreatedMember(member) {
-            members.push(member);
-            localStorage.setItem('vcrMembers', JSON.stringify(members));
-            
-            // Show success message
-            const successDiv = document.getElementById('adminCreateSuccess');
-            const successMessage = document.getElementById('adminSuccessMessage');
-            
-            successMessage.innerHTML = `
-                <strong>ID Member:</strong> ${member.id}<br>
-                <strong>Nama:</strong> ${member.name}<br>
-                <strong>HP:</strong> ${member.phone}<br>
-                <strong>VIP Level:</strong> ${member.vipLevel}<br>
-                <strong>Status:</strong> ${member.verified ? 'Terverifikasi' : 'Belum Terverifikasi'}<br>
-                <strong>Tipe:</strong> Data Member (Bukan Akun Login)
-            `;
-            
-            successDiv.classList.remove('hidden');
-            
-            // Reset form
-            document.getElementById('adminCreateMemberForm').reset();
-            document.getElementById('adminImagePreview').classList.add('hidden');
-            
-            // Refresh member display
-            displayMembers();
-            
-            alert(`✅ Data member berhasil disimpan!
-
-📋 Detail Member:
-• ID: ${member.id}
-• Nama: ${member.name}
-• HP: ${member.phone}
-• VIP: ${member.vipLevel}
-• Status: ${member.verified ? 'Terverifikasi' : 'Belum Terverifikasi'}
-
-⚠️ Catatan: Data ini hanya untuk pencatatan, bukan akun login.`);
-            
-            // Hide success message after 10 seconds
-            setTimeout(() => {
-                successDiv.classList.add('hidden');
-            }, 10000);
-        }
-
-        function resetAdminForm() {
-            document.getElementById('adminCreateMemberForm').reset();
-            document.getElementById('adminImagePreview').classList.add('hidden');
-            document.getElementById('adminCreateSuccess').classList.add('hidden');
-            
-            // Reset account type sections
-            document.getElementById('bankSection').classList.add('hidden');
-            document.getElementById('ewalletSection').classList.add('hidden');
-            document.getElementById('numberLabel').textContent = 'Nomor Rekening/HP:';
-            document.getElementById('adminRegAccountNumber').placeholder = 'Masukkan nomor rekening atau nomor HP';
-            
-            // Reset required attributes
-            document.getElementById('adminRegBankName').removeAttribute('required');
-            document.getElementById('adminRegEwalletName').removeAttribute('required');
-        }
-
-        function previewAdminImage() {
-            const file = document.getElementById('adminProfileImage').files[0];
-            const preview = document.getElementById('adminImagePreview');
-            const previewImg = document.getElementById('adminPreviewImg');
-            
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImg.src = e.target.result;
-                    preview.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.classList.add('hidden');
-            }
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('vcrCurrentUser');
-            document.getElementById('logoutBtn').classList.add('hidden');
-            showSection('welcomeSection');
-            alert('Anda telah logout');
-        }
-
-        // Google Sheets Integration
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZ_nmh6_kRNgHsL3v5R71GokZGendmHswQJP5Gwgr0T298dkOAQMOHpHreF4rAvXOrdw/exec';
-
-        function sendDataToGoogleSheets() {
-            // Show loading status
-            showSendStatus('loading', 'Mengirim Data...', 'Sedang mengirim data ke Google Sheets, mohon tunggu...');
-            
-            // Prepare data to send
-            const dataToSend = {
-                timestamp: new Date().toISOString(),
-                members: members.map(member => {
-                    const memberSalary = member.salaryData || {};
-                    const bonusDolar = memberSalary.bonusDolar || 0;
-                    const totalGaji = calculateTotalSalary(memberSalary);
-                    const status = attendanceData[member.id] || 'BELUM DI GAJI';
-                    
-                    return {
-                        nama: member.name,
-                        id: member.id,
-                        umur: member.age,
-                        gender: member.gender,
-                        phone: member.phone,
-                        email: member.email,
-                        bank: member.bank,
-                        vipLevel: member.vipLevel,
-                        verified: member.verified ? 'Ya' : 'Tidak',
-                        bonusDolar: bonusDolar,
-                        bonusRupiah: bonusDolar * 17000,
-                        totalGaji: totalGaji,
-                        statusPembayaran: status,
-                        registrationDate: member.registrationDate,
-                        // Salary details
-                        coinLevel: memberSalary.coinLevel || '',
-                        diamondLevel: memberSalary.diamondLevel || '',
-                        rewedLevel: memberSalary.rewedLevel || '',
-                        coinSalary: memberSalary.coinLevel ? salaryData.coin[memberSalary.coinLevel]?.salary || 0 : 0,
-                        diamondSalary: memberSalary.diamondLevel ? salaryData.diamond[memberSalary.diamondLevel]?.salary || 0 : 0,
-                        rewedSalary: memberSalary.rewedLevel ? salaryData.rewed[memberSalary.rewedLevel] || 0 : 0
-                    };
-                }),
-                summary: {
-                    totalMembers: members.length,
-                    sudahDigaji: Object.values(attendanceData).filter(status => status === 'SUDAH DI GAJI').length,
-                    belumDigaji: Object.values(attendanceData).filter(status => status === 'BELUM DI GAJI').length,
-                    totalBonusDolar: members.reduce((sum, member) => sum + (member.salaryData?.bonusDolar || 0), 0),
-                    totalGajiKeseluruhan: members.reduce((sum, member) => sum + calculateTotalSalary(member.salaryData || {}), 0),
-                    exportDate: new Date().toLocaleString('id-ID'),
-                    exportedBy: currentUser?.name || 'Unknown'
-                }
-            };
-            
-            // Send data to Google Apps Script
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Required for Google Apps Script
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend)
-            })
-            .then(() => {
-                // Since we're using no-cors mode, we can't read the response
-                // We'll assume success after a reasonable delay
-                setTimeout(() => {
-                    showSendStatus('success', 'Data Berhasil Dikirim!', 
-                        `Data ${members.length} member telah berhasil dikirim ke Google Sheets pada ${new Date().toLocaleString('id-ID')}`);
-                }, 2000);
-            })
-            .catch(error => {
-                console.error('Error sending data:', error);
-                showSendStatus('error', 'Gagal Mengirim Data', 
-                    'Terjadi kesalahan saat mengirim data. Pastikan URL Google Script sudah benar dan aktif.');
-            });
-        }
-
-        function showSendStatus(type, title, message) {
-            const statusDiv = document.getElementById('sendStatus');
-            const statusIcon = document.getElementById('statusIcon');
-            const statusTitle = document.getElementById('statusTitle');
-            const statusMessage = document.getElementById('statusMessage');
-            
-            // Reset classes
-            statusDiv.className = 'mt-4 p-4 rounded-lg';
-            
-            switch(type) {
-                case 'loading':
-                    statusDiv.classList.add('bg-blue-50');
-                    statusIcon.className = 'fas fa-spinner fa-spin text-blue-600 text-xl mr-3';
-                    statusTitle.className = 'font-bold text-blue-800';
-                    statusMessage.className = 'text-sm mt-1 text-blue-700';
-                    break;
-                case 'success':
-                    statusDiv.classList.add('bg-green-50');
-                    statusIcon.className = 'fas fa-check-circle text-green-600 text-xl mr-3';
-                    statusTitle.className = 'font-bold text-green-800';
-                    statusMessage.className = 'text-sm mt-1 text-green-700';
-                    break;
-                case 'error':
-                    statusDiv.classList.add('bg-red-50');
-                    statusIcon.className = 'fas fa-exclamation-circle text-red-600 text-xl mr-3';
-                    statusTitle.className = 'font-bold text-red-800';
-                    statusMessage.className = 'text-sm mt-1 text-red-700';
-                    break;
-            }
-            
-            statusTitle.textContent = title;
-            statusMessage.textContent = message;
-            statusDiv.classList.remove('hidden');
-            
-            // Auto hide after 10 seconds for success/error
-            if (type !== 'loading') {
-                setTimeout(() => {
-                    statusDiv.classList.add('hidden');
-                }, 10000);
-            }
-        }
-
-        // Function to get Google Apps Script setup instructions
-        function showGoogleScriptSetup() {
-            const instructions = `
-📋 CARA SETUP GOOGLE APPS SCRIPT:
-
-1️⃣ Buka https://script.google.com
-2️⃣ Klik "New Project"
-3️⃣ Ganti nama project menjadi "Chameleon Agency Data"
-4️⃣ Hapus kode default dan paste kode berikut:
-
-function doPost(e) {
-  try {
-    const data = JSON.parse(e.postData.contents);
-    const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Ganti dengan ID spreadsheet Anda
-    const ss = SpreadsheetApp.openById(spreadsheetId);
-    
-    // Create or get sheet
-    let sheet = ss.getSheetByName('Gaji Member Chameleon');
-    if (!sheet) {
-      sheet = ss.insertSheet('Gaji Member Chameleon');
-      
-      // Add headers
-      const headers = [
-        'Timestamp', 'Nama', 'ID Member', 'Umur', 'Gender', 'Phone', 'Email', 
-        'Bank/E-Wallet', 'VIP Level', 'Verified', 'Bonus Dolar', 'Bonus Rupiah',
-        'Coin Level', 'Coin Salary', 'Diamond Level', 'Diamond Salary', 
-        'Rewed Level', 'Rewed Salary', 'Total Gaji', 'Status Pembayaran', 
-        'Tanggal Daftar'
-      ];
-      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-    }
-    
-    // Add data
-    const timestamp = new Date().toLocaleString('id-ID');
-    data.members.forEach(member => {
-      const row = [
-        timestamp, member.nama, member.id, member.umur, member.gender,
-        member.phone, member.email, member.bank, member.vipLevel, member.verified,
-        member.bonusDolar, member.bonusRupiah, member.coinLevel, member.coinSalary,
-        member.diamondLevel, member.diamondSalary, member.rewedLevel, member.rewedSalary,
-        member.totalGaji, member.statusPembayaran, member.registrationDate
-      ];
-      sheet.appendRow(row);
-    });
-    
-    return ContentService.createTextOutput('Success');
-  } catch (error) {
-    return ContentService.createTextOutput('Error: ' + error.toString());
-  }
-}
-
-5️⃣ Klik "Deploy" > "New Deployment"
-6️⃣ Pilih type "Web app"
-7️⃣ Execute as: "Me"
-8️⃣ Who has access: "Anyone"
-9️⃣ Klik "Deploy" dan copy URL yang diberikan
-🔟 Ganti GOOGLE_SCRIPT_URL di kode dengan URL tersebut
-
-📊 CARA BUAT GOOGLE SPREADSHEET:
-1. Buka https://sheets.google.com
-2. Buat spreadsheet baru
-3. Copy ID dari URL (bagian setelah /d/ dan sebelum /edit)
-4. Ganti YOUR_SPREADSHEET_ID di script dengan ID tersebut
-            `;
-            
-            alert(instructions);
-        }
-        
-        // Add setup button (you can call this function to show instructions)
-        // showGoogleScriptSetup();
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5dc71a01f7975',t:'MTc1NzkxNTU3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5f9b10149daa5',t:'MTc1NzkxNjc3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
