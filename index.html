@@ -4,23 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Channel Agency - Data Member</title>
-    
-    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Custom Styles -->
     <style>
-        /* ===== FONTS ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * {
             font-family: 'Inter', sans-serif;
         }
 
-        /* ===== ANIMATIONS ===== */
         .scrolling-text {
             animation: scroll 20s linear infinite;
         }
@@ -34,19 +29,26 @@
         }
         @keyframes floating {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-1px); }
+            50% { transform: translateY(-10px); }
         }
         
         .bouncing-logo {
             animation: bounce-logo 2s ease-in-out infinite;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
         @keyframes bounce-logo {
             0%, 100% { transform: translateY(0px) scale(1); }
             25% { transform: translateY(-8px) scale(1.02); }
             50% { transform: translateY(-12px) scale(1.05); }
             75% { transform: translateY(-8px) scale(1.02); }
+        }
+        
+        .volume-animation {
+            animation: volume-bounce 1.5s ease-in-out infinite;
+        }
+        @keyframes volume-bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.1); }
         }
         
         .spinning-logo {
@@ -66,63 +68,6 @@
             to { box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); }
         }
 
-        /* ===== THEME VARIABLES ===== */
-        .theme-light {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-        }
-        .theme-dark {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --border: #475569;
-            --accent: #60a5fa;
-            --success: #34d399;
-            --warning: #fbbf24;
-            --danger: #f87171;
-        }
-        .theme-medium {
-            --bg-primary: #1e293b;
-            --bg-secondary: #334155;
-            --bg-tertiary: #475569;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --border: #64748b;
-            --accent: #60a5fa;
-            --success: #34d399;
-            --warning: #fbbf24;
-            --danger: #f87171;
-        }
-
-        /* ===== BASE STYLES ===== */
-        body {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            min-height: 100vh;
-        }
-
-        /* ===== UTILITY CLASSES ===== */
-        .bg-theme-primary { background-color: var(--bg-primary); }
-        .bg-theme-secondary { background-color: var(--bg-secondary); }
-        .bg-theme-tertiary { background-color: var(--bg-tertiary); }
-        .text-theme-primary { color: var(--text-primary); }
-        .text-theme-secondary { color: var(--text-secondary); }
-        .border-theme { border-color: var(--border); }
-        .text-accent { color: var(--accent); }
-        .bg-accent { background-color: var(--accent); }
-
-        /* ===== COMPONENT STYLES ===== */
         .gradient-text {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -153,8 +98,8 @@
         }
         
         .member-card {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
+            background: white;
+            border: 2px solid #e2e8f0;
             border-radius: 24px;
             overflow: hidden;
             position: relative;
@@ -172,7 +117,7 @@
         }
         
         .enhanced-icon {
-            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
             transition: all 0.3s ease;
         }
@@ -183,8 +128,8 @@
         }
         
         .info-card {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            border: 2px solid var(--border);
+            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
             border-radius: 16px;
             padding: 20px;
             position: relative;
@@ -208,8 +153,8 @@
         }
         
         .section-header {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            border: 2px solid var(--border);
+            background: linear-gradient(135deg, white 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
             border-radius: 20px;
             padding: 24px;
             margin-bottom: 32px;
@@ -227,13 +172,12 @@
             background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
         }
 
-        /* ===== FORM STYLES ===== */
         .form-input {
             transition: all 0.3s ease;
-            border: 2px solid var(--border);
+            border: 2px solid #e2e8f0;
         }
         .form-input:focus {
-            border-color: var(--accent);
+            border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             outline: none;
         }
@@ -247,81 +191,315 @@
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        /* ===== STATS CARD ===== */
         .stats-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
         }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        /* Time-based Theme Styles */
+        .theme-morning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #f59e0b 100%);
+        }
+
+        .theme-afternoon {
+            background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 50%, #3b82f6 100%);
+        }
+
+        .theme-evening {
+            background: linear-gradient(135deg, #fed7aa 0%, #fb923c 50%, #ea580c 100%);
+        }
+
+        .theme-night {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+        }
+
+        /* Morning Animations */
+        .sun-rays {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 70%);
+            animation: sun-rotation 20s linear infinite;
+        }
+
+        @keyframes sun-rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .floating-clouds {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 40px;
+            animation: cloud-float 15s ease-in-out infinite;
+        }
+
+        .floating-clouds::before,
+        .floating-clouds::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .floating-clouds::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .floating-clouds::after {
+            width: 60px;
+            height: 60px;
+            top: -35px;
+            right: 10px;
+        }
+
+        @keyframes cloud-float {
+            0%, 100% { transform: translateX(-100px) translateY(0px); }
+            50% { transform: translateX(calc(100vw + 100px)) translateY(-20px); }
+        }
+
+        /* Afternoon Animations */
+        .water-ripples {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            animation: ripple-effect 3s ease-out infinite;
+        }
+
+        @keyframes ripple-effect {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Evening Animations */
+        .sunset-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.4) 0%, rgba(234, 88, 12, 0.2) 50%, transparent 70%);
+            animation: sunset-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes sunset-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        /* Night Animations */
+        .falling-stars {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: star-fall 3s linear infinite;
+        }
+
+        @keyframes star-fall {
+            0% {
+                transform: translateY(-100vh) translateX(0px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .twinkling-stars {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .moon-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0);
+            box-shadow: 0 0 80px rgba(248, 250, 252, 0.6);
+            animation: moon-float 10s ease-in-out infinite;
+        }
+
+        @keyframes moon-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Time Display */
+        .time-display {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* Weather Effects */
+        .weather-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
     </style>
 </head>
 
-<body class="theme-light">
-    <!-- ===== HEADER SECTION ===== -->
-    <header class="bg-theme-secondary shadow-sm border-b border-theme relative overflow-hidden">
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen" id="mainBody">
+    <!-- Time Display -->
+    <div class="time-display">
+        <div class="flex items-center space-x-2">
+            <span class="time-icon" id="timeIcon">🌅</span>
+            <div>
+                <div class="font-bold text-gray-800" id="currentTime">00:00:00</div>
+                <div class="text-sm text-gray-600" id="timeOfDay">Pagi</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weather Overlay -->
+    <div class="weather-overlay" id="weatherOverlay"></div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-blue-600/5"></div>
-        <div class="container mx-auto px-6 py-4 relative z-10">
+        <div class="container mx-auto px-6 py-3 relative z-10">
             <div class="flex items-center justify-between">
-                <!-- Logo Section -->
-                <div class="flex items-center space-x-8">
+                <div class="flex items-center space-x-6">
                     <div class="relative group">
-                        <div id="channelLogo" class="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-1 bouncing-logo shadow-2xl" onclick="spinLogo()">
+                        <div id="channelLogo" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-1 bouncing-logo shadow-2xl" onclick="spinLogo()">
                             <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Channel Agency" class="w-full h-full rounded-xl object-cover" onerror="this.src=''; this.alt='Logo gagal dimuat'; this.style.display='none';">
                         </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center pulse-glow shadow-lg">
-                            <i class="fas fa-crown text-white text-sm"></i>
+                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center pulse-glow shadow-lg">
+                            <i class="fas fa-crown text-white text-xs"></i>
                         </div>
-                        <div class="absolute -bottom-1 -left-1 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                        <div class="absolute -bottom-1 -left-1 w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
                             <i class="fas fa-star text-white text-xs"></i>
                         </div>
                     </div>
                     
-                    <!-- Title Section -->
-                    <div class="space-y-2">
-                        <h1 class="text-4xl font-black gradient-text tracking-wide">CHANNEL AGENCY</h1>
+                    <div class="space-y-1">
                         <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-sparkles text-white text-sm"></i>
+                            <h1 class="text-3xl font-black gradient-text tracking-wide">CHANNEL AGENCY</h1>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-4 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center volume-animation">
+                                    <i class="fas fa-volume-up text-white text-xs"></i>
+                                </div>
+                                <div class="w-3 h-6 bg-gradient-to-t from-green-400 to-green-600 rounded-sm volume-animation" style="animation-delay: 0.2s;"></div>
+                                <div class="w-3 h-8 bg-gradient-to-t from-yellow-400 to-yellow-600 rounded-sm volume-animation" style="animation-delay: 0.4s;"></div>
+                                <div class="w-3 h-5 bg-gradient-to-t from-orange-400 to-orange-600 rounded-sm volume-animation" style="animation-delay: 0.6s;"></div>
+                                <div class="w-3 h-7 bg-gradient-to-t from-red-400 to-red-600 rounded-sm volume-animation" style="animation-delay: 0.8s;"></div>
                             </div>
-                            <p class="text-theme-secondary text-lg font-semibold">Faya Star Management System</p>
                         </div>
-                        <div class="flex items-center space-x-4 text-sm">
-                            <div class="flex items-center space-x-1 bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded-full">
-                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-green-700 dark:text-green-400 font-medium">Active</span>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-sparkles text-white text-xs"></i>
                             </div>
-                            <div class="flex items-center space-x-1 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full">
-                                <i class="fas fa-shield-alt text-blue-600 dark:text-blue-400"></i>
-                                <span class="text-blue-700 dark:text-blue-400 font-medium">Secure</span>
+                            <p class="text-gray-600 text-base font-semibold">Faya Star Management System</p>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                            <div class="flex items-center space-x-1 bg-green-100 px-2 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-green-700 font-medium text-xs">Active</span>
+                            </div>
+                            <div class="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                                <i class="fas fa-shield-alt text-blue-600 text-xs"></i>
+                                <span class="text-blue-700 font-medium text-xs">Secure</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Header Actions -->
-                <div class="flex items-center space-x-6">
-                    <!-- System Status -->
-                    <div class="hidden md:flex items-center space-x-3 info-card px-6 py-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center enhanced-icon">
-                            <i class="fas fa-wifi text-white text-lg"></i>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 info-card px-4 py-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center enhanced-icon">
+                            <i class="fas fa-wifi text-white text-sm"></i>
                         </div>
                         <div>
-                            <div class="text-theme-primary font-bold text-sm">System Status</div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-green-600 dark:text-green-400 text-sm font-semibold">Online & Active</span>
+                            <div class="text-gray-800 font-bold text-xs">System Status</div>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-green-600 text-xs font-semibold">Online & Active</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Customer Service Button -->
-                    <div class="flex items-center space-x-4">
-                        <button onclick="showCustomerServiceModal()" class="group flex items-center space-x-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 backdrop-blur-sm px-4 py-2 rounded-2xl border border-green-500/20 hover:from-green-500/20 hover:to-emerald-500/20 transition-all duration-300 cursor-pointer">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <i class="fas fa-headset text-white text-sm"></i>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="showCustomerServiceModal()" class="group flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-green-500/20 hover:from-green-500/20 hover:to-emerald-500/20 transition-all duration-300 cursor-pointer">
+                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-headset text-white text-xs"></i>
                             </div>
-                            <span class="text-theme-primary font-semibold text-sm">Customer Service</span>
-                            <i class="fas fa-chevron-down text-theme-secondary text-xs group-hover:rotate-180 transition-transform"></i>
+                            <span class="text-gray-800 font-semibold text-xs">Customer Service</span>
+                            <i class="fas fa-chevron-down text-gray-600 text-xs group-hover:rotate-180 transition-transform"></i>
                         </button>
                     </div>
                 </div>
@@ -329,219 +507,133 @@
         </div>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
+    <!-- Main Content -->
     <main class="container mx-auto px-6 py-12 pb-24">
-        <!-- HOME SECTION -->
+        <!-- Home Section -->
         <div id="homeSection" class="section">
-            <!-- Editable Hero Banner -->
-            <div class="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 rounded-3xl p-12 mb-12 text-white overflow-hidden shadow-lg">
-                <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-                
-                <div class="relative z-10">
-                    <!-- Admin Controls -->
-                    <div class="flex justify-end mb-6">
-                        <button onclick="toggleBannerEditor()" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm px-4 py-2 rounded-xl transition-all duration-300 flex items-center space-x-2 border border-white/30">
-                            <i class="fas fa-edit"></i>
-                            <span class="font-semibold">Edit Banner</span>
+            <!-- Hero Banner / Advertisement -->
+            <div id="heroBanner" class="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-12 mb-12 overflow-hidden shadow-lg border-2 border-dashed border-gray-300 min-h-[300px] flex items-center justify-center group cursor-pointer" onclick="showBannerEditor()">
+                <div id="bannerContent" class="text-center">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-plus text-gray-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-600 mb-2">Tambah Banner Iklan</h3>
+                    <p class="text-gray-500">Klik untuk menambah atau edit banner iklan</p>
+                </div>
+                <div class="absolute top-4 right-4 w-10 h-10 bg-blue-500 hover:bg-blue-600 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-pencil-alt text-white"></i>
+                </div>
+            </div>
+
+            <!-- Banner Editor Modal -->
+            <div id="bannerEditorModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-gray-200 transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto" id="bannerEditorContent">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-ad text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Editor Banner Iklan</h3>
+                                <p class="text-gray-600">Buat dan edit banner iklan Anda</p>
+                            </div>
+                        </div>
+                        <button onclick="hideBannerEditor()" class="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors">
+                            <i class="fas fa-times text-gray-600"></i>
                         </button>
                     </div>
-
-                    <!-- Banner Editor -->
-                    <div id="bannerEditor" class="hidden bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
-                        <h3 class="text-xl font-bold mb-6 flex items-center space-x-2">
-                            <i class="fas fa-tools"></i>
-                            <span>Banner Editor</span>
-                        </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Image Upload -->
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-800 font-semibold mb-3">
+                                <i class="fas fa-image text-blue-500 mr-2"></i>Gambar Banner
+                            </label>
+                            <input type="file" id="bannerImageInput" accept="image/*" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl bg-white text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
+                            <div id="bannerImagePreview" class="mt-4 hidden">
+                                <img id="bannerPreviewImg" class="w-full h-32 rounded-xl object-cover border-2 border-purple-300" alt="Preview">
+                            </div>
+                        </div>
                         
-                        <!-- Add Content Buttons -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            <button onclick="addTextElement()" class="bg-blue-500/80 hover:bg-blue-600/80 px-4 py-3 rounded-xl transition-all duration-300 flex flex-col items-center space-y-2">
-                                <i class="fas fa-font text-xl"></i>
-                                <span class="text-sm font-semibold">Add Text</span>
-                            </button>
-                            <button onclick="addIconElement()" class="bg-green-500/80 hover:bg-green-600/80 px-4 py-3 rounded-xl transition-all duration-300 flex flex-col items-center space-y-2">
-                                <i class="fas fa-icons text-xl"></i>
-                                <span class="text-sm font-semibold">Add Icon</span>
-                            </button>
-                            <button onclick="addImageElement()" class="bg-purple-500/80 hover:bg-purple-600/80 px-4 py-3 rounded-xl transition-all duration-300 flex flex-col items-center space-y-2">
-                                <i class="fas fa-image text-xl"></i>
-                                <span class="text-sm font-semibold">Add Image</span>
-                            </button>
-                            <button onclick="clearAllElements()" class="bg-red-500/80 hover:bg-red-600/80 px-4 py-3 rounded-xl transition-all duration-300 flex flex-col items-center space-y-2">
-                                <i class="fas fa-trash text-xl"></i>
-                                <span class="text-sm font-semibold">Clear All</span>
-                            </button>
+                        <!-- Main Title -->
+                        <div>
+                            <label class="block text-gray-800 font-semibold mb-3">
+                                <i class="fas fa-heading text-green-500 mr-2"></i>Judul Besar
+                            </label>
+                            <input type="text" id="bannerMainTitle" class="w-full p-4 border border-gray-300 rounded-xl bg-white text-gray-800" placeholder="Masukkan judul utama">
                         </div>
-
-                        <!-- Text Element Form -->
-                        <div id="textElementForm" class="hidden bg-white/10 rounded-xl p-4 mb-4">
-                            <h4 class="font-bold mb-3">Add Text Element</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Text Content</label>
-                                    <input type="text" id="textContent" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70" placeholder="Enter your text">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Text Size</label>
-                                    <select id="textSize" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="text-sm">Small</option>
-                                        <option value="text-base">Normal</option>
-                                        <option value="text-lg">Large</option>
-                                        <option value="text-xl">Extra Large</option>
-                                        <option value="text-2xl">2X Large</option>
-                                        <option value="text-3xl">3X Large</option>
-                                        <option value="text-4xl">4X Large</option>
-                                        <option value="text-5xl">5X Large</option>
-                                        <option value="text-6xl">6X Large</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Text Color</label>
-                                    <select id="textColor" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="text-white">White</option>
-                                        <option value="text-yellow-300">Yellow</option>
-                                        <option value="text-blue-300">Blue</option>
-                                        <option value="text-green-300">Green</option>
-                                        <option value="text-red-300">Red</option>
-                                        <option value="text-purple-300">Purple</option>
-                                        <option value="text-pink-300">Pink</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Text Weight</label>
-                                    <select id="textWeight" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="font-normal">Normal</option>
-                                        <option value="font-medium">Medium</option>
-                                        <option value="font-semibold">Semi Bold</option>
-                                        <option value="font-bold">Bold</option>
-                                        <option value="font-black">Black</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="flex space-x-3 mt-4">
-                                <button onclick="saveTextElement()" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-save mr-2"></i>Save Text
-                                </button>
-                                <button onclick="cancelTextElement()" class="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-times mr-2"></i>Cancel
-                                </button>
-                            </div>
+                        
+                        <!-- Subtitle -->
+                        <div>
+                            <label class="block text-gray-800 font-semibold mb-3">
+                                <i class="fas fa-text-height text-orange-500 mr-2"></i>Judul Kecil
+                            </label>
+                            <input type="text" id="bannerSubtitle" class="w-full p-4 border border-gray-300 rounded-xl bg-white text-gray-800" placeholder="Masukkan subtitle">
                         </div>
-
-                        <!-- Icon Element Form -->
-                        <div id="iconElementForm" class="hidden bg-white/10 rounded-xl p-4 mb-4">
-                            <h4 class="font-bold mb-3">Add Icon Element</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Icon (FontAwesome)</label>
-                                    <input type="text" id="iconClass" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70" placeholder="e.g., fas fa-star">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Icon Size</label>
-                                    <select id="iconSize" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="text-sm">Small</option>
-                                        <option value="text-lg">Large</option>
-                                        <option value="text-xl">Extra Large</option>
-                                        <option value="text-2xl">2X Large</option>
-                                        <option value="text-3xl">3X Large</option>
-                                        <option value="text-4xl">4X Large</option>
-                                        <option value="text-5xl">5X Large</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Icon Color</label>
-                                    <select id="iconColor" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="text-white">White</option>
-                                        <option value="text-yellow-300">Yellow</option>
-                                        <option value="text-blue-300">Blue</option>
-                                        <option value="text-green-300">Green</option>
-                                        <option value="text-red-300">Red</option>
-                                        <option value="text-purple-300">Purple</option>
-                                        <option value="text-pink-300">Pink</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium mb-2">Popular Icons (Click to use)</label>
-                                <div class="grid grid-cols-8 gap-2">
-                                    <button onclick="selectIcon('fas fa-star')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-star text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-crown')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-crown text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-gem')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-gem text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-heart')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-heart text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-shield-alt')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-shield-alt text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-rocket')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-rocket text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-fire')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-fire text-xl"></i>
-                                    </button>
-                                    <button onclick="selectIcon('fas fa-bolt')" class="p-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                        <i class="fas fa-bolt text-xl"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex space-x-3 mt-4">
-                                <button onclick="saveIconElement()" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-save mr-2"></i>Save Icon
+                        
+                        <!-- Icon Selection -->
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-800 font-semibold mb-3">
+                                <i class="fas fa-icons text-purple-500 mr-2"></i>Pilih Icon (Maksimal 3)
+                            </label>
+                            <div class="grid grid-cols-6 gap-3 max-h-40 overflow-y-auto border border-gray-200 rounded-xl p-4">
+                                <button type="button" onclick="toggleIcon('fa-star')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-star">
+                                    <i class="fas fa-star text-yellow-500"></i>
                                 </button>
-                                <button onclick="cancelIconElement()" class="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-times mr-2"></i>Cancel
+                                <button type="button" onclick="toggleIcon('fa-crown')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-crown">
+                                    <i class="fas fa-crown text-yellow-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-gem')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-gem">
+                                    <i class="fas fa-gem text-blue-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-fire')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-fire">
+                                    <i class="fas fa-fire text-red-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-heart')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-heart">
+                                    <i class="fas fa-heart text-pink-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-trophy')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-trophy">
+                                    <i class="fas fa-trophy text-yellow-600"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-rocket')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-rocket">
+                                    <i class="fas fa-rocket text-purple-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-lightning-bolt')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-lightning-bolt">
+                                    <i class="fas fa-bolt text-yellow-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-magic')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-magic">
+                                    <i class="fas fa-magic text-purple-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-sparkles')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-sparkles">
+                                    <i class="fas fa-sparkles text-blue-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-gift')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-gift">
+                                    <i class="fas fa-gift text-green-500"></i>
+                                </button>
+                                <button type="button" onclick="toggleIcon('fa-medal')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-medal">
+                                    <i class="fas fa-medal text-orange-500"></i>
                                 </button>
                             </div>
-                        </div>
-
-                        <!-- Image Element Form -->
-                        <div id="imageElementForm" class="hidden bg-white/10 rounded-xl p-4 mb-4">
-                            <h4 class="font-bold mb-3">Add Image Element</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Upload Image</label>
-                                    <input type="file" id="bannerImageFile" accept="image/*" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Image Size</label>
-                                    <select id="imageSize" class="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white">
-                                        <option value="w-16 h-16">Small (64px)</option>
-                                        <option value="w-24 h-24">Medium (96px)</option>
-                                        <option value="w-32 h-32">Large (128px)</option>
-                                        <option value="w-40 h-40">Extra Large (160px)</option>
-                                        <option value="w-48 h-48">2X Large (192px)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="bannerImagePreview" class="hidden mt-4">
-                                <img id="bannerPreviewImg" class="w-24 h-24 rounded-xl object-cover border-2 border-white/30" alt="Preview">
-                            </div>
-                            <div class="flex space-x-3 mt-4">
-                                <button onclick="saveImageElement()" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-save mr-2"></i>Save Image
-                                </button>
-                                <button onclick="cancelImageElement()" class="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors">
-                                    <i class="fas fa-times mr-2"></i>Cancel
-                                </button>
+                            <div id="selectedIcons" class="mt-3 flex items-center space-x-2">
+                                <span class="text-sm text-gray-600">Icon terpilih:</span>
+                                <div id="selectedIconsList" class="flex space-x-2"></div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Dynamic Content Area -->
-                    <div id="bannerContent" class="min-h-[200px] flex flex-wrap items-center justify-center gap-6 text-center">
-                        <!-- Dynamic elements will be added here -->
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="saveBanner()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold">
+                            <i class="fas fa-save mr-2"></i>Simpan Banner
+                        </button>
+                        <button onclick="deleteBanner()" class="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold">
+                            <i class="fas fa-trash mr-2"></i>Hapus
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Scrolling Announcement -->
-            <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-2xl p-4 mb-12 overflow-hidden border border-theme custom-shadow relative">
+            <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-2xl p-4 mb-12 overflow-hidden border border-gray-200 custom-shadow relative">
                 <div class="absolute inset-0 bg-black/10"></div>
                 <div class="relative z-10">
                     <div class="scrolling-text text-white font-semibold text-lg whitespace-nowrap">
@@ -552,7 +644,6 @@
 
             <!-- Action Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <!-- Add Member Card -->
                 <div class="card-hover">
                     <button onclick="showAddForm()" class="w-full bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 hover:from-emerald-600 hover:via-green-700 hover:to-teal-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -573,7 +664,6 @@
                     </button>
                 </div>
                 
-                <!-- Edit Member Card -->
                 <div class="card-hover">
                     <button onclick="showEditForm()" class="w-full bg-gradient-to-br from-amber-500 via-orange-600 to-red-700 hover:from-amber-600 hover:via-orange-700 hover:to-red-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -594,7 +684,6 @@
                     </button>
                 </div>
                 
-                <!-- Delete Member Card -->
                 <div class="card-hover">
                     <button onclick="showDeleteForm()" class="w-full bg-gradient-to-br from-red-500 via-rose-600 to-pink-700 hover:from-red-600 hover:via-rose-700 hover:to-pink-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -628,52 +717,51 @@
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <h3 class="text-3xl font-black text-theme-primary tracking-wide">Tambah Member Baru</h3>
+                        <h3 class="text-3xl font-black text-gray-800 tracking-wide">Tambah Member Baru</h3>
                         <div class="flex items-center space-x-3">
                             <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-info text-white text-xs"></i>
                             </div>
-                            <p class="text-theme-secondary text-lg">Lengkapi formulir untuk mendaftarkan member baru</p>
+                            <p class="text-gray-600 text-lg">Lengkapi formulir untuk mendaftarkan member baru</p>
                         </div>
                         <div class="flex items-center space-x-4 text-sm">
-                            <div class="flex items-center space-x-1 bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded-full">
-                                <i class="fas fa-shield-check text-green-600 dark:text-green-400"></i>
-                                <span class="text-green-700 dark:text-green-400 font-medium">Secure Form</span>
+                            <div class="flex items-center space-x-1 bg-green-100 px-3 py-1 rounded-full">
+                                <i class="fas fa-shield-check text-green-600"></i>
+                                <span class="text-green-700 font-medium">Secure Form</span>
                             </div>
-                            <div class="flex items-center space-x-1 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full">
-                                <i class="fas fa-clock text-blue-600 dark:text-blue-400"></i>
-                                <span class="text-blue-700 dark:text-blue-400 font-medium">Auto Save</span>
+                            <div class="flex items-center space-x-1 bg-blue-100 px-3 py-1 rounded-full">
+                                <i class="fas fa-clock text-blue-600"></i>
+                                <span class="text-blue-700 font-medium">Auto Save</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Member Form -->
                 <form onsubmit="addMember(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Photo Upload -->
                     <div class="md:col-span-2">
-                        <label class="flex items-center space-x-2 text-theme-primary font-semibold mb-3">
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
                             <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-camera text-white text-xs"></i>
                             </div>
                             <span>Upload Foto Member</span>
                         </label>
                         <div class="relative">
-                            <input type="file" id="memberImg" accept="image/*" class="w-full p-4 border-2 border-dashed border-theme rounded-xl bg-theme-primary text-theme-primary form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
+                            <input type="file" id="memberImg" accept="image/*" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl bg-white text-gray-800 form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                <i class="fas fa-upload text-theme-secondary"></i>
+                                <i class="fas fa-upload text-gray-400"></i>
                             </div>
                         </div>
-                        <small class="text-theme-secondary mt-2 block flex items-center space-x-1">
+                        <small class="text-gray-500 mt-2 block flex items-center space-x-1">
                             <i class="fas fa-info-circle"></i>
                             <span>Format: JPG, PNG, GIF (Maksimal: 5MB)</span>
                         </small>
                         <div id="imagePreview" class="mt-4 hidden">
-                            <div class="flex items-center space-x-3 p-3 bg-theme-tertiary rounded-xl">
+                            <div class="flex items-center space-x-3 p-3 bg-gray-100 rounded-xl">
                                 <img id="previewImg" class="w-16 h-16 rounded-xl object-cover border-2 border-purple-300" alt="Preview">
-                                <div class="text-theme-primary">
+                                <div class="text-gray-800">
                                     <div class="font-medium">Foto berhasil dipilih</div>
-                                    <div class="text-sm text-theme-secondary">Siap untuk diupload</div>
+                                    <div class="text-sm text-gray-600">Siap untuk diupload</div>
                                 </div>
                             </div>
                         </div>
@@ -681,14 +769,14 @@
                     
                     <!-- Name Field -->
                     <div class="space-y-3">
-                        <label class="flex items-center space-x-3 text-theme-primary font-bold mb-4">
+                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
                             <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center enhanced-icon">
                                 <i class="fas fa-user text-white text-sm"></i>
                             </div>
                             <span class="text-lg">Nama Lengkap</span>
                         </label>
                         <div class="relative group">
-                            <input type="text" id="memberName" required class="w-full p-5 pl-14 border-2 border-theme rounded-2xl bg-theme-primary text-theme-primary form-input text-lg font-medium group-hover:border-emerald-400 transition-all duration-300" placeholder="Masukkan nama lengkap">
+                            <input type="text" id="memberName" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-emerald-400 transition-all duration-300" placeholder="Masukkan nama lengkap">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-5">
                                 <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-user text-white text-xs"></i>
@@ -699,14 +787,14 @@
                     
                     <!-- Phone Field -->
                     <div class="space-y-3">
-                        <label class="flex items-center space-x-3 text-theme-primary font-bold mb-4">
+                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
                             <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
                                 <i class="fas fa-phone text-white text-sm"></i>
                             </div>
                             <span class="text-lg">Nomor HP</span>
                         </label>
                         <div class="relative group">
-                            <input type="tel" id="memberPhone" required class="w-full p-5 pl-14 border-2 border-theme rounded-2xl bg-theme-primary text-theme-primary form-input text-lg font-medium group-hover:border-blue-400 transition-all duration-300" placeholder="08xxxxxxxxxx">
+                            <input type="tel" id="memberPhone" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-blue-400 transition-all duration-300" placeholder="08xxxxxxxxxx">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-5">
                                 <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-phone text-white text-xs"></i>
@@ -717,43 +805,43 @@
                     
                     <!-- Faya ID Field -->
                     <div>
-                        <label class="flex items-center space-x-2 text-theme-primary font-semibold mb-3">
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
                             <div class="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-id-card text-white text-xs"></i>
                             </div>
                             <span>ID Akun Faya</span>
                         </label>
                         <div class="relative">
-                            <input type="text" id="memberFayaId" required class="w-full p-4 pl-12 border border-theme rounded-xl bg-theme-primary text-theme-primary form-input" placeholder="ID Faya Star">
+                            <input type="text" id="memberFayaId" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="ID Faya Star">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-4">
-                                <i class="fas fa-star text-theme-secondary"></i>
+                                <i class="fas fa-star text-gray-400"></i>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Faya Username Field -->
                     <div>
-                        <label class="flex items-center space-x-2 text-theme-primary font-semibold mb-3">
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
                             <div class="w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-at text-white text-xs"></i>
                             </div>
                             <span>Username Faya</span>
                         </label>
                         <div class="relative">
-                            <input type="text" id="memberFayaName" required class="w-full p-4 pl-12 border border-theme rounded-xl bg-theme-primary text-theme-primary form-input" placeholder="Username Faya Star">
+                            <input type="text" id="memberFayaName" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="Username Faya Star">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-4">
-                                <i class="fas fa-at text-theme-secondary"></i>
+                                <i class="fas fa-at text-gray-400"></i>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Payment Method Selection -->
                     <div class="md:col-span-2">
-                        <label class="block text-theme-primary font-medium mb-2">Pilih Metode Pembayaran</label>
+                        <label class="block text-gray-800 font-medium mb-2">Pilih Metode Pembayaran</label>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-theme-primary font-medium mb-2">🏦 Bank</label>
-                                <select id="memberBank" class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary">
+                                <label class="block text-gray-800 font-medium mb-2">🏦 Bank</label>
+                                <select id="memberBank" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
                                     <option value="">Pilih Bank</option>
                                     <option value="BCA">Bank Central Asia (BCA)</option>
                                     <option value="BRI">Bank Rakyat Indonesia (BRI)</option>
@@ -770,8 +858,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-theme-primary font-medium mb-2">📱 E-Wallet</label>
-                                <select id="memberEwallet" class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary">
+                                <label class="block text-gray-800 font-medium mb-2">📱 E-Wallet</label>
+                                <select id="memberEwallet" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
                                     <option value="">Pilih E-Wallet</option>
                                     <option value="GoPay">GoPay</option>
                                     <option value="OVO">OVO</option>
@@ -788,50 +876,50 @@
                     
                     <!-- Bank Number Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Nomor Bank/E-Wallet</label>
-                        <input type="text" id="memberBankNumber" required class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary" placeholder="Nomor rekening atau e-wallet">
+                        <label class="block text-gray-800 font-medium mb-2">Nomor Bank/E-Wallet</label>
+                        <input type="text" id="memberBankNumber" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nomor rekening atau e-wallet">
                     </div>
                     
                     <!-- Bank Owner Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Nama Pemilik</label>
-                        <input type="text" id="memberBankOwner" required class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary" placeholder="Nama pemilik rekening/e-wallet">
+                        <label class="block text-gray-800 font-medium mb-2">Nama Pemilik</label>
+                        <input type="text" id="memberBankOwner" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nama pemilik rekening/e-wallet">
                     </div>
                     
                     <!-- Level Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Level (1-20)</label>
-                        <input type="number" id="memberLevel" min="1" max="20" value="1" required class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary" onchange="updateSalaryFields()">
+                        <label class="block text-gray-800 font-medium mb-2">Level (1-20)</label>
+                        <input type="number" id="memberLevel" min="1" max="20" value="1" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" onchange="updateSalaryFields()">
                     </div>
                     
                     <!-- Coin Salary Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Gaji Koin Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberCoinSalary" readonly class="w-full p-3 border border-theme rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Koin Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberCoinSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
                     </div>
                     
                     <!-- Diamond Salary Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Gaji Diamond Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberDiamondSalary" readonly class="w-full p-3 border border-theme rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Diamond Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberDiamondSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
                     </div>
                     
                     <!-- Rewed Salary Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Gaji Rewed Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberRewedSalary" readonly class="w-full p-3 border border-theme rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Rewed Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberRewedSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
                     </div>
                     
                     <!-- Dollar Bonus Field -->
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Bonus Lotre Dolar (1-100)</label>
-                        <input type="number" id="memberDollar" min="0" max="100" value="0" class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary" placeholder="Masukkan jumlah dolar (1-100)">
-                        <small class="text-theme-secondary">1 Dolar = Rp 17.000 | Max: 100 Dolar = Rp 1.700.000</small>
+                        <label class="block text-gray-800 font-medium mb-2">Bonus Lotre Dolar (1-100)</label>
+                        <input type="number" id="memberDollar" min="0" max="100" value="0" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Masukkan jumlah dolar (1-100)">
+                        <small class="text-gray-500">1 Dolar = Rp 17.000 | Max: 100 Dolar = Rp 1.700.000</small>
                     </div>
                     
                     <!-- Payment Status -->
                     <div class="md:col-span-2">
-                        <label class="block text-theme-primary font-medium mb-2">Status Pembayaran</label>
+                        <label class="block text-gray-800 font-medium mb-2">Status Pembayaran</label>
                         <div class="flex space-x-4">
                             <label class="flex items-center">
                                 <input type="radio" name="salaryStatus" value="sudah" class="mr-2">
@@ -859,7 +947,7 @@
             </div>
         </div>
 
-        <!-- DATA SECTION -->
+        <!-- Data Section -->
         <div id="dataSection" class="section hidden">
             <div class="section-header">
                 <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-6 lg:space-y-0">
@@ -873,12 +961,12 @@
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <h2 class="text-3xl font-black text-theme-primary tracking-wide">Data Member</h2>
+                            <h2 class="text-3xl font-black text-gray-800 tracking-wide">Data Member</h2>
                             <div class="flex items-center space-x-3">
                                 <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-users text-white text-xs"></i>
                                 </div>
-                                <p class="text-theme-secondary text-lg">Kelola semua data member Faya Star</p>
+                                <p class="text-gray-600 text-lg">Kelola semua data member Faya Star</p>
                             </div>
                         </div>
                     </div>
@@ -900,17 +988,17 @@
             </div>
 
             <!-- Salary Settings -->
-            <div id="salarySettings" class="hidden bg-theme-secondary rounded-lg p-6 mb-6 border border-theme">
-                <h3 class="text-lg font-bold text-theme-primary mb-4">Pengaturan Gaji per Level</h3>
+            <div id="salarySettings" class="hidden bg-white rounded-lg p-6 mb-6 border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Pengaturan Gaji per Level</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Gaji per Level (Rp)</label>
-                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary">
-                        <small class="text-theme-secondary">Level 1 = 1x, Level 2 = 2x, dst.</small>
+                        <label class="block text-gray-800 font-medium mb-2">Gaji per Level (Rp)</label>
+                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                        <small class="text-gray-500">Level 1 = 1x, Level 2 = 2x, dst.</small>
                     </div>
                     <div>
-                        <label class="block text-theme-primary font-medium mb-2">Nilai Dolar (Rp)</label>
-                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-theme rounded-lg bg-theme-primary text-theme-primary">
+                        <label class="block text-gray-800 font-medium mb-2">Nilai Dolar (Rp)</label>
+                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
                     </div>
                 </div>
                 <button onclick="updateSalarySettings()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
@@ -924,160 +1012,275 @@
             </div>
         </div>
 
-        <!-- PROFILE SECTION -->
+        <!-- Profile Section -->
         <div id="profileSection" class="section hidden">
-            <div class="max-w-4xl mx-auto space-y-8">
-                <!-- Profile Info -->
-                <div class="bg-theme-secondary rounded-lg p-8 border border-theme">
-                    <h2 class="text-2xl font-bold text-theme-primary mb-6 text-center">
-                        <i class="fas fa-user-shield mr-2"></i>Profile Admin
-                    </h2>
-                    <div class="text-center mb-6">
-                        <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                            R
+            <!-- Hero Profile Banner -->
+            <div class="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 rounded-3xl p-12 mb-12 text-white overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+                <div class="absolute top-0 left-0 w-full h-full">
+                    <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+                    <div class="absolute bottom-10 right-10 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"></div>
+                    <div class="absolute top-1/2 right-20 w-12 h-12 bg-white/10 rounded-full animate-pulse delay-500"></div>
+                </div>
+                <div class="relative z-10 text-center">
+                    <div class="mb-8">
+                        <div id="profileLogo" class="w-32 h-32 mx-auto rounded-3xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-2 bouncing-logo shadow-2xl cursor-pointer" onclick="spinProfileLogo()">
+                            <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Profile Admin" class="w-full h-full rounded-2xl object-cover" onerror="this.src=''; this.alt='Profile gagal dimuat'; this.style.display='none';">
+                        </div>
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center pulse-glow shadow-xl">
+                                <i class="fas fa-crown text-white text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-shield-check text-white text-lg"></i>
+                            </div>
                         </div>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">👤 Nama Admin:</span>
-                            <span class="font-bold text-blue-600">RENCY</span>
+                    <h2 class="text-5xl font-black mb-4 tracking-wide">RENCY</h2>
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
+                            <span class="text-lg font-bold">ADMIN / OWNER</span>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">⭐ Di Faya Star:</span>
-                            <div class="flex items-center space-x-2">
-                                <span class="font-bold text-green-600">5500000</span>
-                                <button onclick="copyToClipboard('5500000')" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-copy"></i>
-                                </button>
+                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
+                            <span class="text-lg font-bold">FAYA STAR OFC</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-6">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-star text-3xl text-yellow-300"></i>
+                            <span class="text-xl font-bold">Premium Account</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-gem text-3xl text-blue-300"></i>
+                            <span class="text-xl font-bold">VIP Access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Details -->
+            <div class="max-w-6xl mx-auto space-y-8">
+                <!-- Personal Information Card -->
+                <div class="bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 border-2 border-gray-200 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+                    <div class="flex items-center space-x-6 mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
+                            <i class="fas fa-user-shield text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-gray-800 tracking-wide">Informasi Personal</h3>
+                            <p class="text-gray-600 text-lg">Data lengkap admin sistem</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-user text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Nama Admin</div>
+                                        <div class="text-2xl font-black text-gray-800">RENCY</div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">🏢 ID RUM/Agency:</span>
-                            <div class="flex items-center space-x-2">
-                                <span class="font-bold text-purple-600">10013034</span>
-                                <button onclick="copyToClipboard('10013034')" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-copy"></i>
-                                </button>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-venus text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Jenis Kelamin</div>
+                                        <div class="text-2xl font-black text-pink-600">PEREMPUAN</div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-heart text-white text-sm"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">👑 Status:</span>
-                            <span class="font-bold text-red-600">ADMIN / OWNER FAYA STAR OFC</span>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-star text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">ID Faya Star</div>
+                                        <div class="text-2xl font-black text-yellow-600 flex items-center space-x-3">
+                                            <span>5500000</span>
+                                            <button onclick="copyToClipboard('5500000')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                                <i class="fas fa-copy text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-sparkles text-white text-sm"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">👩 Kelamin:</span>
-                            <span class="font-bold text-pink-600">PEREMPUAN</span>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-theme-primary rounded-lg border border-theme">
-                            <span class="font-medium text-theme-primary">💎 Akun VIP:</span>
-                            <select id="vipStatus" onchange="updateVipStatus()" class="bg-theme-secondary text-theme-primary border border-theme rounded px-3 py-1 font-bold">
-                                <option value="VIP 1">VIP 1</option>
-                                <option value="VIP 2">VIP 2</option>
-                                <option value="VIP 3">VIP 3</option>
-                                <option value="VIP 4">VIP 4</option>
-                                <option value="VIP 5">VIP 5</option>
-                                <option value="VIP 6">VIP 6</option>
-                                <option value="VIP 7">VIP 7</option>
-                                <option value="ADMIN" selected>ADMIN</option>
-                                <option value="WAKIL ADMIN">WAKIL ADMIN</option>
-                                <option value="ADMIN RUM">ADMIN RUM</option>
-                            </select>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-building text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">ID RUM/Agency</div>
+                                        <div class="text-2xl font-black text-purple-600 flex items-center space-x-3">
+                                            <span>10013034</span>
+                                            <button onclick="copyToClipboard('10013034')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                                <i class="fas fa-copy text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-home text-white text-sm"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Theme Settings -->
-                <div class="bg-theme-secondary rounded-lg p-8 border border-theme">
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                            <i class="fas fa-palette text-white text-lg"></i>
+                <!-- Status & Privileges Card -->
+                <div class="bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-3xl p-8 border-2 border-gray-200 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500"></div>
+                    <div class="flex items-center space-x-6 mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
+                            <i class="fas fa-crown text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-theme-primary">Pengaturan Tema</h3>
-                            <p class="text-sm text-theme-secondary">Pilih tampilan yang nyaman</p>
+                            <h3 class="text-3xl font-black text-gray-800 tracking-wide">Status & Hak Akses</h3>
+                            <p class="text-gray-600 text-lg">Tingkat akses dan privilese sistem</p>
                         </div>
                     </div>
                     
-                    <!-- Auto Mode Toggle -->
-                    <div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                                    <i class="fas fa-magic text-white text-sm"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-user-crown text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Status Admin</div>
+                                        <div class="text-xl font-black text-red-600">ADMIN / OWNER</div>
+                                        <div class="text-lg font-bold text-red-500">FAYA STAR OFC</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-semibold text-theme-primary">Mode Otomatis</span>
-                                    <p class="text-xs text-theme-secondary">Sesuai waktu hari</p>
+                                <div class="w-8 h-8 bg-gradient-to-br from-red-400 to-rose-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-shield-alt text-white text-sm"></i>
                                 </div>
                             </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="autoThemeToggle" class="sr-only peer" onchange="toggleAutoTheme()">
-                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                            </label>
                         </div>
-                        <div id="autoThemeStatus" class="text-xs text-theme-secondary flex items-center space-x-2">
-                            <i class="fas fa-clock"></i>
-                            <span>Saat ini: <span id="currentTime"></span></span>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-gem text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Level VIP</div>
+                                        <select id="vipStatus" onchange="updateVipStatus()" class="text-xl font-black text-indigo-600 bg-transparent border-2 border-indigo-300 rounded-xl px-4 py-2 focus:border-indigo-500 focus:outline-none transition-all duration-300">
+                                            <option value="VIP 1">VIP 1</option>
+                                            <option value="VIP 2">VIP 2</option>
+                                            <option value="VIP 3">VIP 3</option>
+                                            <option value="VIP 4">VIP 4</option>
+                                            <option value="VIP 5">VIP 5</option>
+                                            <option value="VIP 6">VIP 6</option>
+                                            <option value="VIP 7">VIP 7</option>
+                                            <option value="ADMIN" selected>ADMIN</option>
+                                            <option value="WAKIL ADMIN">WAKIL ADMIN</option>
+                                            <option value="ADMIN RUM">ADMIN RUM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-diamond text-white text-sm"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Manual Theme Selection -->
-                    <div id="manualThemeSection" class="space-y-3">
-                        <h4 class="text-sm font-semibold text-theme-primary mb-3 flex items-center space-x-2">
-                            <i class="fas fa-hand-pointer text-purple-500"></i>
-                            <span>Pilih Manual</span>
-                        </h4>
-                        <button onclick="setTheme('light')" id="lightThemeBtn" class="theme-btn w-full text-left px-4 py-3 rounded-xl hover:bg-theme-tertiary text-theme-primary transition-all duration-200 flex items-center justify-between group border-2 border-transparent">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-sun text-white text-lg"></i>
+                <!-- System Statistics Card -->
+                <div class="bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-3xl border-2 border-gray-200 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></div>
+                    <div class="p-8 cursor-pointer" onclick="toggleStatistics()">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
+                                    <i class="fas fa-chart-line text-white text-2xl"></i>
                                 </div>
                                 <div>
-                                    <span class="font-semibold">Mode Terang</span>
-                                    <p class="text-xs text-theme-secondary">Cocok untuk siang hari</p>
+                                    <h3 class="text-3xl font-black text-gray-800 tracking-wide">Statistik Sistem</h3>
+                                    <p class="text-gray-600 text-lg">Ringkasan aktivitas dan performa</p>
                                 </div>
                             </div>
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 group-hover:border-yellow-500 transition-colors"></div>
-                        </button>
-                        <button onclick="setTheme('medium')" id="mediumThemeBtn" class="theme-btn w-full text-left px-4 py-3 rounded-xl hover:bg-theme-tertiary text-theme-primary transition-all duration-200 flex items-center justify-between group border-2 border-transparent">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-adjust text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <span class="font-semibold">Mode Sedang</span>
-                                    <p class="text-xs text-theme-secondary">Nyaman untuk sore hari</p>
-                                </div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center hover:from-gray-200 hover:to-gray-300 transition-all duration-300">
+                                <i id="statisticsToggleIcon" class="fas fa-chevron-down text-gray-600 text-xl transition-transform duration-300"></i>
                             </div>
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 group-hover:border-gray-500 transition-colors"></div>
-                        </button>
-                        <button onclick="setTheme('dark')" id="darkThemeBtn" class="theme-btn w-full text-left px-4 py-3 rounded-xl hover:bg-theme-tertiary text-theme-primary transition-all duration-200 flex items-center justify-between group border-2 border-transparent">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-moon text-white text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="statisticsContent" class="px-8 pb-8 transition-all duration-500 ease-in-out">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="info-card group text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                    <i class="fas fa-users text-white text-2xl"></i>
                                 </div>
-                                <div>
-                                    <span class="font-semibold">Mode Gelap</span>
-                                    <p class="text-xs text-theme-secondary">Ideal untuk malam hari</p>
-                                </div>
+                                <div class="text-gray-600 font-medium mb-2">Total Member</div>
+                                <div class="text-3xl font-black text-blue-600" id="totalMembersCount">0</div>
                             </div>
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-300 group-hover:border-indigo-500 transition-colors"></div>
-                        </button>
+
+                            <div class="info-card group text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                    <i class="fas fa-check-circle text-white text-2xl"></i>
+                                </div>
+                                <div class="text-gray-600 font-medium mb-2">Sudah Dibayar</div>
+                                <div class="text-3xl font-black text-green-600" id="paidMembersCount">0</div>
+                            </div>
+
+                            <div class="info-card group text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                    <i class="fas fa-clock text-white text-2xl"></i>
+                                </div>
+                                <div class="text-gray-600 font-medium mb-2">Belum Dibayar</div>
+                                <div class="text-3xl font-black text-red-600" id="unpaidMembersCount">0</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Spacer untuk semua section agar tidak tertutup navigation -->
+        <div class="h-32 w-full"></div>
     </main>
 
-    <!-- ===== CUSTOMER SERVICE MODAL ===== -->
+    <!-- Customer Service Modal -->
     <div id="customerServiceModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-theme-secondary rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-theme transform scale-95 opacity-0 transition-all duration-300" id="customerServiceContent">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 transform scale-95 opacity-0 transition-all duration-300" id="customerServiceContent">
             <div class="text-center mb-8">
                 <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
                     <i class="fas fa-headset text-white text-3xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-theme-primary mb-2">Customer Service</h3>
-                <p class="text-theme-secondary">Pilih platform untuk menghubungi kami</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Customer Service</h3>
+                <p class="text-gray-600">Pilih platform untuk menghubungi kami</p>
             </div>
             
             <div class="space-y-4 mb-6">
@@ -1104,13 +1307,13 @@
                 </button>
             </div>
             
-            <button onclick="hideCustomerServiceModal()" class="w-full bg-theme-tertiary hover:bg-theme-primary text-theme-primary border border-theme rounded-2xl py-3 px-4 transition-all duration-300 font-semibold">
+            <button onclick="hideCustomerServiceModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 rounded-2xl py-3 px-4 transition-all duration-300 font-semibold">
                 <i class="fas fa-times mr-2"></i>Tutup
             </button>
         </div>
     </div>
 
-    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 shadow-2xl z-50 border-t-4 border-white/20 backdrop-blur-lg">
         <div class="container mx-auto px-6">
             <div class="flex justify-center space-x-4 py-4">
@@ -1148,18 +1351,15 @@
         </div>
     </nav>
 
-    <!-- ===== JAVASCRIPT SECTION ===== -->
     <script>
-        // ===== GLOBAL VARIABLES =====
+        // Global Variables
         let members = [];
         let salaryPerLevel = 1000;
         let dollarRate = 17000;
-        let autoThemeEnabled = false;
-        let autoThemeInterval;
-        let bannerElements = [];
-        let elementIdCounter = 0;
+        let bannerData = null;
+        let selectedIcons = [];
 
-        // ===== SALARY DATA CONFIGURATION =====
+        // Salary Data Configuration
         const coinSalaryData = {
             1: { coin: 50000, rupiah: 12750 },
             2: { coin: 100000, rupiah: 22100 },
@@ -1213,147 +1413,498 @@
             16: 430000, 17: 490000, 18: 600000, 19: 710000, 20: 830000
         };
 
-        // ===== THEME MANAGEMENT FUNCTIONS =====
-        function setTheme(theme, isAuto = false) {
-            document.body.className = `theme-${theme}`;
-            if (!isAuto) {
-                localStorage.setItem('theme', theme);
-                localStorage.setItem('autoTheme', 'false');
-                autoThemeEnabled = false;
-                document.getElementById('autoThemeToggle').checked = false;
-                updateManualThemeSection();
-            }
-            updateThemeButtons(theme);
-            updateCurrentTime();
+        // Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            loadSavedData();
+            handleImageUpload();
+            handleBannerImageUpload();
+            updateSalaryFields();
+            displayMembers();
+            initializeTimeSystem();
+            showNotification('Sistem berhasil dimuat!', 'success');
         }
 
-        function toggleAutoTheme() {
-            autoThemeEnabled = document.getElementById('autoThemeToggle').checked;
-            localStorage.setItem('autoTheme', autoThemeEnabled.toString());
+        // Time System Functions
+        function initializeTimeSystem() {
+            updateTimeAndTheme();
+            // Update every second
+            setInterval(updateTimeAndTheme, 1000);
+        }
+
+        function updateTimeAndTheme() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
             
-            if (autoThemeEnabled) {
-                startAutoTheme();
-                updateManualThemeSection();
+            // Update time display
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('currentTime').textContent = timeString;
+            
+            // Determine time of day and apply theme
+            let timeOfDay, icon, theme;
+            
+            if (hours >= 5 && hours < 12) {
+                timeOfDay = 'Pagi';
+                icon = '🌅';
+                theme = 'morning';
+            } else if (hours >= 12 && hours < 17) {
+                timeOfDay = 'Siang';
+                icon = '☀️';
+                theme = 'afternoon';
+            } else if (hours >= 17 && hours < 20) {
+                timeOfDay = 'Sore';
+                icon = '🌇';
+                theme = 'evening';
             } else {
-                stopAutoTheme();
-                updateManualThemeSection();
+                timeOfDay = 'Malam';
+                icon = '🌙';
+                theme = 'night';
+            }
+            
+            document.getElementById('timeOfDay').textContent = timeOfDay;
+            document.getElementById('timeIcon').textContent = icon;
+            
+            // Apply theme to body
+            const body = document.getElementById('mainBody');
+            body.className = `theme-${theme} min-h-screen transition-all duration-1000`;
+            
+            // Update weather effects
+            updateWeatherEffects(theme);
+        }
+
+        function updateWeatherEffects(theme) {
+            const weatherOverlay = document.getElementById('weatherOverlay');
+            weatherOverlay.innerHTML = '';
+            
+            switch(theme) {
+                case 'morning':
+                    createMorningEffects(weatherOverlay);
+                    break;
+                case 'afternoon':
+                    createAfternoonEffects(weatherOverlay);
+                    break;
+                case 'evening':
+                    createEveningEffects(weatherOverlay);
+                    break;
+                case 'night':
+                    createNightEffects(weatherOverlay);
+                    break;
             }
         }
 
-        function startAutoTheme() {
-            applyAutoTheme();
-            autoThemeInterval = setInterval(applyAutoTheme, 60000); // Check every minute
-        }
-
-        function stopAutoTheme() {
-            if (autoThemeInterval) {
-                clearInterval(autoThemeInterval);
+        function createMorningEffects(container) {
+            // Floating clouds
+            for (let i = 0; i < 3; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'floating-clouds';
+                cloud.style.top = `${20 + i * 15}%`;
+                cloud.style.animationDelay = `${i * 5}s`;
+                container.appendChild(cloud);
             }
         }
 
-        function applyAutoTheme() {
-            const now = new Date();
-            const hour = now.getHours();
-            let theme;
-
-            if (hour >= 6 && hour < 17) {
-                theme = 'light'; // 06:00 - 16:59 (Pagi - Siang)
-            } else if (hour >= 17 && hour < 20) {
-                theme = 'medium'; // 17:00 - 19:59 (Sore)
-            } else {
-                theme = 'dark'; // 20:00 - 05:59 (Malam - Dini Hari)
+        function createAfternoonEffects(container) {
+            // Water ripples
+            for (let i = 0; i < 5; i++) {
+                const ripple = document.createElement('div');
+                ripple.className = 'water-ripples';
+                ripple.style.top = `${Math.random() * 80}%`;
+                ripple.style.left = `${Math.random() * 80}%`;
+                ripple.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(ripple);
             }
-
-            document.body.className = `theme-${theme}`;
-            updateThemeButtons(theme);
-            updateCurrentTime();
         }
 
-        function updateThemeButtons(activeTheme) {
-            // Reset all buttons
-            document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
-                btn.classList.add('border-transparent');
-                const indicator = btn.querySelector('.w-4.h-4');
-                indicator.classList.remove('bg-blue-500', 'border-blue-500');
-                indicator.classList.add('border-gray-300');
+        function createEveningEffects(container) {
+            // No effects for evening, keeping it clean
+        }
+
+        function createNightEffects(container) {
+            // Twinkling stars
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'twinkling-stars';
+                star.style.top = `${Math.random() * 60}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(star);
+            }
+            
+            // Falling stars
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const fallingStar = document.createElement('div');
+                    fallingStar.className = 'falling-stars';
+                    fallingStar.style.top = '-10px';
+                    fallingStar.style.left = `${Math.random() * 80}%`;
+                    fallingStar.style.animationDelay = `${Math.random() * 2}s`;
+                    container.appendChild(fallingStar);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        if (fallingStar.parentNode) {
+                            fallingStar.parentNode.removeChild(fallingStar);
+                        }
+                    }, 3000);
+                }, i * 2000);
+            }
+            
+            // Create new falling stars periodically
+            setInterval(() => {
+                if (document.getElementById('timeOfDay').textContent === 'Malam') {
+                    const fallingStar = document.createElement('div');
+                    fallingStar.className = 'falling-stars';
+                    fallingStar.style.top = '-10px';
+                    fallingStar.style.left = `${Math.random() * 80}%`;
+                    container.appendChild(fallingStar);
+                    
+                    setTimeout(() => {
+                        if (fallingStar.parentNode) {
+                            fallingStar.parentNode.removeChild(fallingStar);
+                        }
+                    }, 3000);
+                }
+            }, 4000);
+        }
+
+        // Banner Functions
+        function showBannerEditor() {
+            const modal = document.getElementById('bannerEditorModal');
+            const content = document.getElementById('bannerEditorContent');
+            
+            // Load existing banner data if available
+            if (bannerData) {
+                document.getElementById('bannerMainTitle').value = bannerData.mainTitle || '';
+                document.getElementById('bannerSubtitle').value = bannerData.subtitle || '';
+                selectedIcons = bannerData.icons || [];
+                
+                if (bannerData.image) {
+                    document.getElementById('bannerPreviewImg').src = bannerData.image;
+                    document.getElementById('bannerImagePreview').classList.remove('hidden');
+                }
+                
+                updateSelectedIconsDisplay();
+                updateIconSelectors();
+            }
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function hideBannerEditor() {
+            const modal = document.getElementById('bannerEditorModal');
+            const content = document.getElementById('bannerEditorContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Reset form
+                document.getElementById('bannerMainTitle').value = '';
+                document.getElementById('bannerSubtitle').value = '';
+                document.getElementById('bannerImageInput').value = '';
+                document.getElementById('bannerImagePreview').classList.add('hidden');
+                selectedIcons = [];
+                updateSelectedIconsDisplay();
+                updateIconSelectors();
+            }, 300);
+        }
+
+        function handleBannerImageUpload() {
+            const fileInput = document.getElementById('bannerImageInput');
+            const preview = document.getElementById('bannerImagePreview');
+            const previewImg = document.getElementById('bannerPreviewImg');
+
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        showNotification('Ukuran file terlalu besar! Maksimal 5MB.', 'error');
+                        fileInput.value = '';
+                        preview.classList.add('hidden');
+                        return;
+                    }
+
+                    if (!file.type.startsWith('image/')) {
+                        showNotification('File harus berupa gambar!', 'error');
+                        fileInput.value = '';
+                        preview.classList.add('hidden');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        showNotification('Gambar banner berhasil dipilih', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
-
-            // Highlight active button
-            const activeBtn = document.getElementById(`${activeTheme}ThemeBtn`);
-            if (activeBtn) {
-                activeBtn.classList.remove('border-transparent');
-                activeBtn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
-                const indicator = activeBtn.querySelector('.w-4.h-4');
-                indicator.classList.remove('border-gray-300');
-                indicator.classList.add('bg-blue-500', 'border-blue-500');
-            }
         }
 
-        function updateManualThemeSection() {
-            const manualSection = document.getElementById('manualThemeSection');
-            if (autoThemeEnabled) {
-                manualSection.style.opacity = '0.5';
-                manualSection.style.pointerEvents = 'none';
+        function toggleIcon(iconClass) {
+            const index = selectedIcons.indexOf(iconClass);
+            
+            if (index > -1) {
+                // Remove icon
+                selectedIcons.splice(index, 1);
             } else {
-                manualSection.style.opacity = '1';
-                manualSection.style.pointerEvents = 'auto';
+                // Add icon (max 3)
+                if (selectedIcons.length < 3) {
+                    selectedIcons.push(iconClass);
+                } else {
+                    showNotification('Maksimal 3 icon yang bisa dipilih!', 'error');
+                    return;
+                }
             }
+            
+            updateSelectedIconsDisplay();
+            updateIconSelectors();
         }
 
-        function updateCurrentTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
+        function updateSelectedIconsDisplay() {
+            const container = document.getElementById('selectedIconsList');
+            container.innerHTML = '';
+            
+            selectedIcons.forEach(iconClass => {
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center';
+                iconDiv.innerHTML = `<i class="fas ${iconClass} text-blue-600"></i>`;
+                container.appendChild(iconDiv);
             });
-            const hour = now.getHours();
-            let period, nextChange;
+        }
 
-            if (hour >= 6 && hour < 17) {
-                period = 'Siang (Mode Terang)';
-                nextChange = '17:00 (Mode Sedang)';
-            } else if (hour >= 17 && hour < 20) {
-                period = 'Sore (Mode Sedang)';
-                nextChange = '20:00 (Mode Gelap)';
-            } else {
-                period = 'Malam (Mode Gelap)';
-                nextChange = '06:00 (Mode Terang)';
+        function updateIconSelectors() {
+            document.querySelectorAll('.icon-selector').forEach(btn => {
+                const iconClass = btn.dataset.icon;
+                if (selectedIcons.includes(iconClass)) {
+                    btn.classList.add('bg-blue-500', 'text-white');
+                    btn.classList.remove('bg-gray-100', 'hover:bg-blue-100');
+                } else {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-100', 'hover:bg-blue-100');
+                }
+            });
+        }
+
+        function saveBanner() {
+            const mainTitle = document.getElementById('bannerMainTitle').value;
+            const subtitle = document.getElementById('bannerSubtitle').value;
+            const fileInput = document.getElementById('bannerImageInput');
+            
+            if (!mainTitle && !subtitle && selectedIcons.length === 0 && !fileInput.files[0] && !bannerData?.image) {
+                showNotification('Harap isi minimal satu field!', 'error');
+                return;
             }
 
-            const currentTimeElement = document.getElementById('currentTime');
-            if (currentTimeElement) {
-                currentTimeElement.innerHTML = `${timeString} - ${period}<br><small>Berikutnya: ${nextChange}</small>`;
+            const saveBannerData = (imageData = null) => {
+                bannerData = {
+                    mainTitle: mainTitle,
+                    subtitle: subtitle,
+                    icons: [...selectedIcons],
+                    image: imageData || bannerData?.image || null
+                };
+                
+                saveData();
+                displayBanner();
+                hideBannerEditor();
+                showNotification('Banner berhasil disimpan!', 'success');
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveBannerData(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveBannerData();
             }
         }
 
-        // ===== NAVIGATION FUNCTIONS =====
+        function displayBanner() {
+            const bannerElement = document.getElementById('heroBanner');
+            const bannerContent = document.getElementById('bannerContent');
+            
+            if (!bannerData) return;
+
+            let backgroundStyle = 'bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700';
+            let textColor = 'text-white';
+            
+            if (bannerData.image) {
+                backgroundStyle = '';
+                bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${bannerData.image})`;
+                bannerElement.style.backgroundSize = 'cover';
+                bannerElement.style.backgroundPosition = 'center';
+            }
+
+            bannerElement.className = `relative ${backgroundStyle} rounded-3xl p-12 mb-12 overflow-hidden shadow-lg min-h-[300px] flex items-center justify-center group cursor-pointer`;
+            
+            bannerContent.innerHTML = `
+                <div class="text-center ${textColor}">
+                    ${bannerData.mainTitle ? `<h2 class="text-5xl font-black mb-4">${bannerData.mainTitle}</h2>` : ''}
+                    ${bannerData.subtitle ? `<p class="text-xl opacity-90 mb-6">${bannerData.subtitle}</p>` : ''}
+                    ${bannerData.icons && bannerData.icons.length > 0 ? `
+                        <div class="flex items-center justify-center space-x-4">
+                            ${bannerData.icons.map(icon => `<i class="fas ${icon} text-3xl text-yellow-300"></i>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function deleteBanner() {
+            if (confirm('Apakah Anda yakin ingin menghapus banner ini?')) {
+                bannerData = null;
+                localStorage.removeItem('bannerData');
+                
+                // Reset banner to default state
+                const bannerElement = document.getElementById('heroBanner');
+                const bannerContent = document.getElementById('bannerContent');
+                
+                bannerElement.className = 'relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-12 mb-12 overflow-hidden shadow-lg border-2 border-dashed border-gray-300 min-h-[300px] flex items-center justify-center group cursor-pointer';
+                bannerElement.style.backgroundImage = '';
+                
+                bannerContent.innerHTML = `
+                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-plus text-gray-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-600 mb-2">Tambah Banner Iklan</h3>
+                    <p class="text-gray-500">Klik untuk menambah atau edit banner iklan</p>
+                `;
+                
+                hideBannerEditor();
+                showNotification('Banner berhasil dihapus!', 'success');
+            }
+        }
+
+        function loadSavedData() {
+            const savedMembers = localStorage.getItem('members');
+            if (savedMembers) {
+                members = JSON.parse(savedMembers);
+            }
+            
+            const savedSalaryPerLevel = localStorage.getItem('salaryPerLevel');
+            if (savedSalaryPerLevel) {
+                salaryPerLevel = parseInt(savedSalaryPerLevel);
+                document.getElementById('salaryPerLevel').value = salaryPerLevel;
+            }
+            
+            const savedDollarRate = localStorage.getItem('dollarRate');
+            if (savedDollarRate) {
+                dollarRate = parseInt(savedDollarRate);
+                document.getElementById('dollarRate').value = dollarRate;
+            }
+
+            const savedBanner = localStorage.getItem('bannerData');
+            if (savedBanner) {
+                bannerData = JSON.parse(savedBanner);
+                displayBanner();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('members', JSON.stringify(members));
+            localStorage.setItem('salaryPerLevel', salaryPerLevel.toString());
+            localStorage.setItem('dollarRate', dollarRate.toString());
+            if (bannerData) {
+                localStorage.setItem('bannerData', JSON.stringify(bannerData));
+            }
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Logo Animation
+        function spinLogo() {
+            const logo = document.getElementById('channelLogo');
+            logo.classList.remove('bouncing-logo');
+            logo.classList.add('spinning-logo');
+            
+            setTimeout(() => {
+                logo.classList.remove('spinning-logo');
+                logo.classList.add('bouncing-logo');
+            }, 1000);
+        }
+
+        // Profile Logo Animation
+        function spinProfileLogo() {
+            const logo = document.getElementById('profileLogo');
+            logo.classList.remove('bouncing-logo');
+            logo.classList.add('spinning-logo');
+            
+            setTimeout(() => {
+                logo.classList.remove('spinning-logo');
+                logo.classList.add('bouncing-logo');
+            }, 1000);
+        }
+
+        // Navigation Functions
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
             document.getElementById(section + 'Section').classList.remove('hidden');
             
-            // Update nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-blue-700'));
-            event.target.classList.add('bg-blue-700');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white/30');
+            });
+            
+            const clickedBtn = event ? event.currentTarget : document.querySelector(`[onclick="showSection('${section}')"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.add('bg-white/30');
+            }
         }
 
-        // ===== FORM MANAGEMENT FUNCTIONS =====
+        // Form Management Functions
         function showAddForm() {
             const form = document.getElementById('addMemberForm');
             form.classList.toggle('hidden');
             if (!form.classList.contains('hidden')) {
-                updateSalaryFields(); // Update salary when form is shown
+                updateSalaryFields();
+                showNotification('Form tambah member dibuka', 'info');
             }
         }
 
         function showEditForm() {
-            alert('Pilih member dari daftar data untuk mengedit');
+            if (members.length === 0) {
+                showNotification('Belum ada data member untuk diedit', 'error');
+                return;
+            }
+            showNotification('Pilih member dari daftar data untuk mengedit', 'info');
             showSection('data');
         }
 
         function showDeleteForm() {
-            alert('Pilih member dari daftar data untuk menghapus');
+            if (members.length === 0) {
+                showNotification('Belum ada data member untuk dihapus', 'error');
+                return;
+            }
+            showNotification('Pilih member dari daftar data untuk menghapus', 'info');
             showSection('data');
         }
 
@@ -1361,7 +1912,7 @@
             document.getElementById('salarySettings').classList.toggle('hidden');
         }
 
-        // ===== SALARY CALCULATION FUNCTIONS =====
+        // Salary Calculation Functions
         function updateSalaryFields() {
             const level = parseInt(document.getElementById('memberLevel').value);
             const coinData = coinSalaryData[level];
@@ -1378,11 +1929,12 @@
         function updateSalarySettings() {
             salaryPerLevel = parseInt(document.getElementById('salaryPerLevel').value);
             dollarRate = parseInt(document.getElementById('dollarRate').value);
+            saveData();
             displayMembers();
-            alert('Pengaturan gaji berhasil diperbarui!');
+            showNotification('Pengaturan gaji berhasil diperbarui!', 'success');
         }
 
-        // ===== IMAGE HANDLING FUNCTIONS =====
+        // Image Handling Functions
         function handleImageUpload() {
             const fileInput = document.getElementById('memberImg');
             const preview = document.getElementById('imagePreview');
@@ -1391,34 +1943,32 @@
             fileInput.addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
-                    // Check file size (5MB limit)
                     if (file.size > 5 * 1024 * 1024) {
-                        alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                        showNotification('Ukuran file terlalu besar! Maksimal 5MB.', 'error');
                         fileInput.value = '';
                         preview.classList.add('hidden');
                         return;
                     }
 
-                    // Check file type
                     if (!file.type.startsWith('image/')) {
-                        alert('File harus berupa gambar!');
+                        showNotification('File harus berupa gambar!', 'error');
                         fileInput.value = '';
                         preview.classList.add('hidden');
                         return;
                     }
 
-                    // Show preview
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         previewImg.src = e.target.result;
                         preview.classList.remove('hidden');
+                        showNotification('Foto berhasil dipilih', 'success');
                     };
                     reader.readAsDataURL(file);
                 }
             });
         }
 
-        // ===== MEMBER MANAGEMENT FUNCTIONS =====
+        // Member Management Functions
         function addMember(event) {
             event.preventDefault();
             
@@ -1427,7 +1977,6 @@
             const diamondData = diamondSalaryData[level];
             const rewedSalary = rewedSalaryData[level];
             
-            // Handle image upload
             const fileInput = document.getElementById('memberImg');
             let memberImg = 'https://via.placeholder.com/100';
             
@@ -1435,7 +1984,6 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     memberImg = e.target.result;
-                    
                     const member = createMemberObject(memberImg, level, coinData, diamondData, rewedSalary);
                     members.push(member);
                     finalizeMemberAddition(event);
@@ -1470,16 +2018,35 @@
         }
 
         function finalizeMemberAddition(event) {
+            saveData();
             displayMembers();
             event.target.reset();
             document.getElementById('imagePreview').classList.add('hidden');
             updateSalaryFields();
             document.getElementById('addMemberForm').classList.add('hidden');
-            alert('Data member berhasil ditambahkan!');
+            showNotification('Data member berhasil ditambahkan!', 'success');
         }
 
         function displayMembers() {
             const memberList = document.getElementById('memberList');
+            
+            if (members.length === 0) {
+                memberList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-24 h-24 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Belum Ada Data Member</h3>
+                        <p class="text-gray-600 mb-6">Tambahkan member pertama untuk memulai</p>
+                        <button onclick="showSection('home'); showAddForm();" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl transition-all duration-300">
+                            <i class="fas fa-plus mr-2"></i>Tambah Member
+                        </button>
+                    </div>
+                `;
+                updateProfileStatistics();
+                return;
+            }
+
             memberList.innerHTML = '';
 
             members.forEach(member => {
@@ -1491,6 +2058,22 @@
                 memberCard.innerHTML = createMemberCardHTML(member, totalSalaryExcludingDollar, dollarInRupiah);
                 memberList.appendChild(memberCard);
             });
+
+            updateProfileStatistics();
+        }
+
+        function updateProfileStatistics() {
+            const totalMembers = members.length;
+            const paidMembers = members.filter(member => member.salaryStatus === 'sudah').length;
+            const unpaidMembers = members.filter(member => member.salaryStatus === 'belum').length;
+
+            const totalMembersElement = document.getElementById('totalMembersCount');
+            const paidMembersElement = document.getElementById('paidMembersCount');
+            const unpaidMembersElement = document.getElementById('unpaidMembersCount');
+
+            if (totalMembersElement) totalMembersElement.textContent = totalMembers;
+            if (paidMembersElement) paidMembersElement.textContent = paidMembers;
+            if (unpaidMembersElement) unpaidMembersElement.textContent = unpaidMembers;
         }
 
         function createMemberCardHTML(member, totalSalaryExcludingDollar, dollarInRupiah) {
@@ -1510,20 +2093,20 @@
                                 <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-user text-white text-xs"></i>
                                 </div>
-                                <h3 class="font-bold text-xl text-theme-primary">${member.name}</h3>
+                                <h3 class="font-bold text-xl text-gray-800">${member.name}</h3>
                             </div>
                             <div class="space-y-2">
-                                <div class="flex items-center space-x-2 text-theme-secondary">
+                                <div class="flex items-center space-x-2 text-gray-600">
                                     <i class="fas fa-phone text-blue-500"></i>
                                     <span class="text-sm">${member.phone}</span>
                                 </div>
-                                <div class="flex items-center space-x-2 text-theme-secondary">
+                                <div class="flex items-center space-x-2 text-gray-600">
                                     <i class="fas fa-star text-yellow-500"></i>
                                     <span class="text-sm">${member.fayaId}</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fas fa-layer-group text-purple-500"></i>
-                                    <span class="text-theme-primary font-semibold">Level ${member.level}</span>
+                                    <span class="text-gray-800 font-semibold">Level ${member.level}</span>
                                 </div>
                             </div>
                         </div>
@@ -1532,20 +2115,20 @@
                                 <div class="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-coins text-white text-xs"></i>
                                 </div>
-                                <span class="font-semibold text-theme-primary">Gaji Host</span>
+                                <span class="font-semibold text-gray-800">Gaji Host</span>
                             </div>
                             <div class="space-y-2 text-sm">
                                 <div class="flex justify-between">
-                                    <span class="text-theme-secondary">Koin:</span>
-                                    <span class="font-medium text-theme-primary">Rp ${member.coinSalary.toLocaleString()}</span>
+                                    <span class="text-gray-600">Koin:</span>
+                                    <span class="font-medium text-gray-800">Rp ${member.coinSalary.toLocaleString()}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-theme-secondary">Diamond:</span>
-                                    <span class="font-medium text-theme-primary">Rp ${member.diamondSalary.toLocaleString()}</span>
+                                    <span class="text-gray-600">Diamond:</span>
+                                    <span class="font-medium text-gray-800">Rp ${member.diamondSalary.toLocaleString()}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-theme-secondary">Rewed:</span>
-                                    <span class="font-medium text-theme-primary">Rp ${member.rewedSalary.toLocaleString()}</span>
+                                    <span class="text-gray-600">Rewed:</span>
+                                    <span class="font-medium text-gray-800">Rp ${member.rewedSalary.toLocaleString()}</span>
                                 </div>
                             </div>
                         </div>
@@ -1554,16 +2137,16 @@
                                 <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-dollar-sign text-white text-xs"></i>
                                 </div>
-                                <span class="font-semibold text-theme-primary">Pendapatan</span>
+                                <span class="font-semibold text-gray-800">Pendapatan</span>
                             </div>
                             <div class="space-y-2">
-                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 rounded-xl">
-                                    <div class="text-xs text-theme-secondary mb-1">Bonus Dolar</div>
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl">
+                                    <div class="text-xs text-gray-600 mb-1">Bonus Dolar</div>
                                     <div class="font-bold text-blue-600">$${member.dollar}</div>
-                                    <div class="text-xs text-theme-secondary">Rp ${dollarInRupiah.toLocaleString()}</div>
+                                    <div class="text-xs text-gray-600">Rp ${dollarInRupiah.toLocaleString()}</div>
                                 </div>
-                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-3 rounded-xl">
-                                    <div class="text-xs text-theme-secondary mb-1">Total Gaji</div>
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl">
+                                    <div class="text-xs text-gray-600 mb-1">Total Gaji</div>
                                     <div class="font-bold text-green-600">Rp ${totalSalaryExcludingDollar.toLocaleString()}</div>
                                 </div>
                             </div>
@@ -1573,19 +2156,19 @@
                                 <div class="w-6 h-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-credit-card text-white text-xs"></i>
                                 </div>
-                                <span class="font-semibold text-theme-primary">Pembayaran</span>
+                                <span class="font-semibold text-gray-800">Pembayaran</span>
                             </div>
                             <div class="space-y-2 text-sm">
                                 <div>
-                                    <span class="text-theme-secondary">Metode:</span>
-                                    <div class="font-medium text-theme-primary">${(member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-')}</div>
+                                    <span class="text-gray-600">Metode:</span>
+                                    <div class="font-medium text-gray-800">${(member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-')}</div>
                                 </div>
                                 <div>
-                                    <span class="text-theme-secondary">Nomor:</span>
-                                    <div class="font-medium text-theme-primary">${member.bankNumber || '-'}</div>
+                                    <span class="text-gray-600">Nomor:</span>
+                                    <div class="font-medium text-gray-800">${member.bankNumber || '-'}</div>
                                 </div>
                                 <div class="mt-3">
-                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${member.salaryStatus === 'sudah' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'}">
+                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${member.salaryStatus === 'sudah' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                                         ${member.salaryStatus === 'sudah' ? '✅ SUDAH DIBAYAR' : '❌ BELUM DIBAYAR'}
                                     </div>
                                 </div>
@@ -1616,8 +2199,69 @@
             `;
         }
 
-        function editMember(id) {
-            const member = members.find(m => m.id === id);
+        // Member Actions
+        function downloadMemberImage(memberId) {
+            const member = members.find(m => m.id === memberId);
+            if (!member) return;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 1000;
+
+            // Background
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Header
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 32px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('CHANNEL AGENCY', canvas.width / 2, 60);
+            ctx.font = '18px Inter';
+            ctx.fillText('Faya Star Management System', canvas.width / 2, 90);
+
+            // Member Info
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 28px Inter';
+            ctx.textAlign = 'left';
+            ctx.fillText(`Nama: ${member.name}`, 50, 200);
+            ctx.font = '20px Inter';
+            ctx.fillText(`Phone: ${member.phone}`, 50, 240);
+            ctx.fillText(`Faya ID: ${member.fayaId}`, 50, 280);
+            ctx.fillText(`Level: ${member.level}`, 50, 320);
+
+            // Salary Info
+            ctx.fillText(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 50, 380);
+            ctx.fillText(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 50, 420);
+            ctx.fillText(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 50, 460);
+            ctx.fillText(`Bonus Dolar: $${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, 50, 500);
+
+            // Payment Info
+            const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
+            ctx.fillText(`Metode Bayar: ${paymentMethod}`, 50, 560);
+            ctx.fillText(`Nomor: ${member.bankNumber}`, 50, 600);
+            ctx.fillText(`Pemilik: ${member.bankOwner}`, 50, 640);
+
+            // Status
+            ctx.fillStyle = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
+            ctx.font = 'bold 24px Inter';
+            ctx.fillText(`Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}`, 50, 700);
+
+            // Download
+            const link = document.createElement('a');
+            link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+
+            showNotification('Gambar member berhasil didownload!', 'success');
+        }
+
+        function editMember(memberId) {
+            const member = members.find(m => m.id === memberId);
             if (!member) return;
 
             // Fill form with member data
@@ -1625,137 +2269,171 @@
             document.getElementById('memberPhone').value = member.phone;
             document.getElementById('memberFayaId').value = member.fayaId;
             document.getElementById('memberFayaName').value = member.fayaName;
-            document.getElementById('memberBank').value = member.bank || '';
-            document.getElementById('memberEwallet').value = member.ewallet || '';
-            document.getElementById('memberBankNumber').value = member.bankNumber || '';
-            document.getElementById('memberBankOwner').value = member.bankOwner || '';
+            document.getElementById('memberBank').value = member.bank;
+            document.getElementById('memberEwallet').value = member.ewallet;
+            document.getElementById('memberBankNumber').value = member.bankNumber;
+            document.getElementById('memberBankOwner').value = member.bankOwner;
             document.getElementById('memberLevel').value = member.level;
             document.getElementById('memberDollar').value = member.dollar;
             document.querySelector(`input[name="salaryStatus"][value="${member.salaryStatus}"]`).checked = true;
 
-            // Show current image preview if exists
-            if (member.img && member.img !== 'https://via.placeholder.com/100') {
-                document.getElementById('previewImg').src = member.img;
-                document.getElementById('imagePreview').classList.remove('hidden');
-            }
-
-            // Update salary fields based on level
             updateSalaryFields();
 
-            // Remove member and show form
-            deleteMember(id);
+            // Show form
             showSection('home');
             showAddForm();
+
+            // Remove current member from array (will be re-added when form is submitted)
+            members = members.filter(m => m.id !== memberId);
+            saveData();
+
+            showNotification('Data member dimuat untuk diedit', 'info');
         }
 
-        function deleteMember(id) {
-            members = members.filter(m => m.id !== id);
-            displayMembers();
+        function deleteMember(memberId) {
+            if (confirm('Apakah Anda yakin ingin menghapus member ini?')) {
+                members = members.filter(m => m.id !== memberId);
+                saveData();
+                displayMembers();
+                showNotification('Member berhasil dihapus!', 'success');
+            }
         }
 
-        // ===== DOWNLOAD FUNCTIONS =====
+        // PDF Functions
         function downloadAllPDF() {
+            if (members.length === 0) {
+                showNotification('Tidak ada data member untuk didownload', 'error');
+                return;
+            }
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
+
+            // Header
             doc.setFontSize(20);
-            doc.text('Data Member Channel Agency', 20, 20);
-            
-            let yPosition = 40;
-            
+            doc.setFont(undefined, 'bold');
+            doc.text('CHANNEL AGENCY', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('Faya Star Management System', 105, 30, { align: 'center' });
+            doc.text('Data Member Report', 105, 40, { align: 'center' });
+
+            let yPosition = 60;
+
             members.forEach((member, index) => {
-                if (yPosition > 230) {
+                if (yPosition > 250) {
                     doc.addPage();
                     yPosition = 20;
                 }
-                
-                const totalSalary = member.coinSalary + member.diamondSalary + member.rewedSalary;
-                const dollarInRupiah = member.dollar * dollarRate;
-                
-                doc.setFontSize(12);
+
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
                 doc.text(`${index + 1}. ${member.name}`, 20, yPosition);
-                doc.text(`HP: ${member.phone}`, 20, yPosition + 10);
-                doc.text(`ID Faya: ${member.fayaId}`, 20, yPosition + 20);
-                doc.text(`Level: ${member.level}`, 20, yPosition + 30);
-                doc.text(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 20, yPosition + 40);
-                doc.text(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 20, yPosition + 50);
-                doc.text(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 20, yPosition + 60);
-                doc.text(`Total Gaji: Rp ${totalSalary.toLocaleString()}`, 20, yPosition + 70);
-                doc.text(`Bonus Dolar: $${member.dollar} (Rp ${dollarInRupiah.toLocaleString()})`, 20, yPosition + 80);
-                doc.text(`Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DI BAYAR' : 'BELUM DI BAYAR'}`, 20, yPosition + 90);
-                
-                yPosition += 110;
+                yPosition += 10;
+
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.text(`Phone: ${member.phone}`, 20, yPosition);
+                doc.text(`Faya ID: ${member.fayaId}`, 120, yPosition);
+                yPosition += 8;
+
+                doc.text(`Level: ${member.level}`, 20, yPosition);
+                doc.text(`Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}`, 120, yPosition);
+                yPosition += 8;
+
+                doc.text(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 20, yPosition);
+                yPosition += 6;
+                doc.text(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 20, yPosition);
+                yPosition += 6;
+                doc.text(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 20, yPosition);
+                yPosition += 6;
+                doc.text(`Bonus Dolar: $${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, 20, yPosition);
+                yPosition += 10;
+
+                const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
+                doc.text(`Payment: ${paymentMethod} - ${member.bankNumber}`, 20, yPosition);
+                yPosition += 15;
             });
-            
-            doc.save('data-member-channel-agency.pdf');
+
+            doc.save('channel-agency-members.pdf');
+            showNotification('PDF berhasil didownload!', 'success');
         }
 
-        function downloadMemberImage(id) {
-            const member = members.find(m => m.id === id);
-            if (!member) return;
-
-            // Create a temporary div for the member card
-            const tempDiv = document.createElement('div');
-            tempDiv.style.position = 'absolute';
-            tempDiv.style.left = '-9999px';
-            tempDiv.style.background = 'white';
-            tempDiv.style.padding = '20px';
-            tempDiv.style.width = '700px';
-            
-            const totalSalary = member.coinSalary + member.diamondSalary + member.rewedSalary;
-            const dollarInRupiah = member.dollar * dollarRate;
-            
-            tempDiv.innerHTML = createDownloadCardHTML(member, totalSalary, dollarInRupiah);
-            
-            document.body.appendChild(tempDiv);
-            
-            html2canvas(tempDiv).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
-                document.body.removeChild(tempDiv);
-            });
+        // Customer Service Functions
+        function showCustomerServiceModal() {
+            const modal = document.getElementById('customerServiceModal');
+            const content = document.getElementById('customerServiceContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
         }
 
-        function createDownloadCardHTML(member, totalSalary, dollarInRupiah) {
-            return `
-                <div style="border: 2px solid #3B82F6; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif;">
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <img src="${member.img}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-right: 20px;" onerror="this.src='https://via.placeholder.com/100';">
-                        <div>
-                            <h2 style="margin: 0; color: #1F2937; font-size: 24px;">${member.name}</h2>
-                            <p style="margin: 5px 0; color: #6B7280;">📱 ${member.phone}</p>
-                            <p style="margin: 5px 0; color: #6B7280;">🆔 ${member.fayaId}</p>
-                            <p style="margin: 5px 0; color: #1F2937;"><strong>Level:</strong> ${member.level}</p>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <p style="margin: 5px 0;"><strong>Gaji Koin:</strong> Rp ${member.coinSalary.toLocaleString()}</p>
-                            <p style="margin: 5px 0;"><strong>Gaji Diamond:</strong> Rp ${member.diamondSalary.toLocaleString()}</p>
-                            <p style="margin: 5px 0;"><strong>Gaji Rewed:</strong> Rp ${member.rewedSalary.toLocaleString()}</p>
-                            <p style="margin: 5px 0; color: #059669; font-weight: bold;"><strong>Total Gaji:</strong> Rp ${totalSalary.toLocaleString()}</p>
-                        </div>
-                        <div>
-                            <p style="margin: 5px 0; color: #2563EB; font-weight: bold;"><strong>Bonus Dolar:</strong> $${member.dollar} (Rp ${dollarInRupiah.toLocaleString()})</p>
-                            <p style="margin: 5px 0;"><strong>Metode Pembayaran:</strong> ${(member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-')}</p>
-                            <p style="margin: 5px 0;"><strong>Nomor:</strong> ${member.bankNumber || '-'}</p>
-                            <p style="margin: 5px 0;"><strong>Nama Pemilik:</strong> ${member.bankOwner || '-'}</p>
-                            <p style="margin: 5px 0; font-weight: bold;"><strong>Status:</strong> <span style="color: ${member.salaryStatus === 'sudah' ? '#059669' : '#DC2626'};">${member.salaryStatus === 'sudah' ? '✅ SUDAH DI BAYAR' : '❌ BELUM DI BAYAR'}</span></p>
-                        </div>
-                    </div>
-                </div>
-            `;
+        function hideCustomerServiceModal() {
+            const modal = document.getElementById('customerServiceModal');
+            const content = document.getElementById('customerServiceContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
         }
 
-        // ===== PROFILE FUNCTIONS =====
+        function openWhatsApp() {
+            window.open('https://wa.me/6282172070365', '_blank', 'noopener,noreferrer');
+            hideCustomerServiceModal();
+        }
+
+        function openTelegram() {
+            window.open('https://t.me/info_chamelion', '_blank', 'noopener,noreferrer');
+            hideCustomerServiceModal();
+        }
+
+        // Utility Functions
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert(`Berhasil disalin: ${text}`);
+                showNotification('Berhasil disalin ke clipboard!', 'success');
+            }).catch(() => {
+                showNotification('Gagal menyalin ke clipboard', 'error');
             });
         }
 
         function updateVipStatus() {
             const status = document.getElementById('vipStatus').value;
-            alert(`Status VIP berhasil diubah ke: ${status}`);<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98232d7921cbff81',t:'MTc1ODM5MDc1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+            showNotification(`Status VIP diubah ke: ${status}`, 'success');
+        }
+
+        // Statistics Toggle Function
+        function toggleStatistics() {
+            const content = document.getElementById('statisticsContent');
+            const icon = document.getElementById('statisticsToggleIcon');
+            
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                // Close statistics
+                content.style.maxHeight = '0px';
+                content.style.paddingTop = '0px';
+                content.style.paddingBottom = '0px';
+                content.style.opacity = '0';
+                icon.style.transform = 'rotate(0deg)';
+                showNotification('Statistik ditutup', 'info');
+            } else {
+                // Open statistics
+                content.style.maxHeight = '500px';
+                content.style.paddingTop = '0px';
+                content.style.paddingBottom = '32px';
+                content.style.opacity = '1';
+                icon.style.transform = 'rotate(180deg)';
+                showNotification('Statistik dibuka', 'info');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('customerServiceModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideCustomerServiceModal();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9823808c87c48be4',t:'MTc1ODM5NDE2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
