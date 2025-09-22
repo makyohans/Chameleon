@@ -225,6 +225,1433 @@
         .notification.info {
             background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-blue-600/5"></div>
+        <div class="container mx-auto px-6 py-3 relative z-10">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    <div class="relative group">
+                        <div id="channelLogo" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-1 bouncing-logo shadow-2xl" onclick="spinLogo()">
+                            <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Channel Agency" class="w-full h-full rounded-xl object-cover" onerror="this.src=''; this.alt='Logo gagal dimuat'; this.style.display='none';">
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center pulse-glow shadow-lg">
+                            <i class="fas fa-crown text-white text-xs"></i>
+                        </div>
+                        <div class="absolute -bottom-1 -left-1 w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-star text-white text-xs"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-3">
+                            <h1 class="text-3xl font-black gradient-text tracking-wide">CHANNEL AGENCY</h1>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center volume-animation">
+                                    <i class="fas fa-sun text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-sparkles text-white text-xs"></i>
+                            </div>
+                            <p class="text-gray-600 text-base font-semibold">Faya Star Management System</p>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                            <div class="flex items-center space-x-1 bg-green-100 px-2 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-green-700 font-medium text-xs">Active</span>
+                            </div>
+                            <div class="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                                <i class="fas fa-shield-alt text-blue-600 text-xs"></i>
+                                <span class="text-blue-700 font-medium text-xs">Secure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 info-card px-4 py-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center enhanced-icon">
+                            <i class="fas fa-wifi text-white text-sm"></i>
+                        </div>
+                        <div>
+                            <div class="text-gray-800 font-bold text-xs">System Status</div>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-green-600 text-xs font-semibold">Online & Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <button onclick="showCustomerServiceModal()" class="group flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-green-500/20 hover:from-green-500/20 hover:to-emerald-500/20 transition-all duration-300 cursor-pointer">
+                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-headset text-white text-xs"></i>
+                            </div>
+                            <span class="text-gray-800 font-semibold text-xs">Customer Service</span>
+                            <i class="fas fa-chevron-down text-gray-600 text-xs group-hover:rotate-180 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 pb-24">
+        <!-- Home Section -->
+        <div id="homeSection" class="section">
+            <!-- Scrolling Announcement -->
+            <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-2xl p-4 mb-12 overflow-hidden border border-gray-200 custom-shadow relative">
+                <div class="absolute inset-0 bg-black/10"></div>
+                <div class="relative z-10">
+                    <div class="scrolling-text text-white font-semibold text-lg whitespace-nowrap">
+                        🎉 Selamat datang di Channel Agency Management System • Kelola data member Faya Star dengan mudah dan efisien • Fitur lengkap untuk tracking gaji, bonus, dan status pembayaran • Update terbaru: Upload foto langsung dari perangkat • Sistem keamanan tingkat enterprise
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="card-hover">
+                    <button onclick="showAddForm()" class="w-full bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 hover:from-emerald-600 hover:via-green-700 hover:to-teal-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        <div class="relative flex flex-col items-center space-y-6">
+                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
+                                <i class="fas fa-user-plus text-4xl drop-shadow-lg"></i>
+                            </div>
+                            <div class="text-center space-y-3">
+                                <h3 class="text-2xl font-black tracking-wide">TAMBAH MEMBER</h3>
+                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
+                                <p class="text-sm opacity-90 leading-relaxed">Daftarkan member baru dengan data lengkap dan sistem terintegrasi</p>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                                <i class="fas fa-plus text-sm"></i>
+                                <span class="text-xs font-semibold">ADD NEW</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="card-hover">
+                    <button onclick="showEditForm()" class="w-full bg-gradient-to-br from-amber-500 via-orange-600 to-red-700 hover:from-amber-600 hover:via-orange-700 hover:to-red-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        <div class="relative flex flex-col items-center space-y-6">
+                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
+                                <i class="fas fa-edit text-4xl drop-shadow-lg"></i>
+                            </div>
+                            <div class="text-center space-y-3">
+                                <h3 class="text-2xl font-black tracking-wide">EDIT MEMBER</h3>
+                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
+                                <p class="text-sm opacity-90 leading-relaxed">Perbarui informasi member dengan mudah dan cepat</p>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                                <i class="fas fa-pencil-alt text-sm"></i>
+                                <span class="text-xs font-semibold">EDIT</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="card-hover">
+                    <button onclick="showDeleteForm()" class="w-full bg-gradient-to-br from-red-500 via-rose-600 to-pink-700 hover:from-red-600 hover:via-rose-700 hover:to-pink-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        <div class="relative flex flex-col items-center space-y-6">
+                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
+                                <i class="fas fa-user-minus text-4xl drop-shadow-lg"></i>
+                            </div>
+                            <div class="text-center space-y-3">
+                                <h3 class="text-2xl font-black tracking-wide">HAPUS MEMBER</h3>
+                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
+                                <p class="text-sm opacity-90 leading-relaxed">Kelola dan hapus data member dengan aman</p>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                                <i class="fas fa-trash text-sm"></i>
+                                <span class="text-xs font-semibold">DELETE</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add Member Form -->
+            <div id="addMemberForm" class="hidden section-header">
+                <div class="flex items-center space-x-6 mb-10">
+                    <div class="relative">
+                        <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 rounded-3xl flex items-center justify-center enhanced-icon shadow-2xl">
+                            <i class="fas fa-user-plus text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-sparkles text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-3xl font-black text-gray-800 tracking-wide">Tambah Member Baru</h3>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-info text-white text-xs"></i>
+                            </div>
+                            <p class="text-gray-600 text-lg">Lengkapi formulir untuk mendaftarkan member baru</p>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm">
+                            <div class="flex items-center space-x-1 bg-green-100 px-3 py-1 rounded-full">
+                                <i class="fas fa-shield-check text-green-600"></i>
+                                <span class="text-green-700 font-medium">Secure Form</span>
+                            </div>
+                            <div class="flex items-center space-x-1 bg-blue-100 px-3 py-1 rounded-full">
+                                <i class="fas fa-clock text-blue-600"></i>
+                                <span class="text-blue-700 font-medium">Auto Save</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form onsubmit="addMember(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Photo Upload -->
+                    <div class="md:col-span-2">
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-camera text-white text-xs"></i>
+                            </div>
+                            <span>Upload Foto Member</span>
+                        </label>
+                        <div class="relative">
+                            <input type="file" id="memberImg" accept="image/*" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl bg-white text-gray-800 form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                                <i class="fas fa-upload text-gray-400"></i>
+                            </div>
+                        </div>
+                        <small class="text-gray-500 mt-2 block flex items-center space-x-1">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Format: JPG, PNG, GIF (Maksimal: 5MB)</span>
+                        </small>
+                        <div id="imagePreview" class="mt-4 hidden">
+                            <div class="flex items-center space-x-3 p-3 bg-gray-100 rounded-xl">
+                                <img id="previewImg" class="w-16 h-16 rounded-xl object-cover border-2 border-purple-300" alt="Preview">
+                                <div class="text-gray-800">
+                                    <div class="font-medium">Foto berhasil dipilih</div>
+                                    <div class="text-sm text-gray-600">Siap untuk diupload</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Name Field -->
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <span class="text-lg">Nama Lengkap</span>
+                        </label>
+                        <div class="relative group">
+                            <input type="text" id="memberName" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-emerald-400 transition-all duration-300" placeholder="Masukkan nama lengkap">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-5">
+                                <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-user text-white text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Field -->
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                <i class="fas fa-phone text-white text-sm"></i>
+                            </div>
+                            <span class="text-lg">Nomor HP</span>
+                        </label>
+                        <div class="relative group">
+                            <input type="tel" id="memberPhone" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-blue-400 transition-all duration-300" placeholder="08xxxxxxxxxx">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-5">
+                                <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-phone text-white text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Faya ID Field -->
+                    <div>
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-id-card text-white text-xs"></i>
+                            </div>
+                            <span>ID Akun Faya</span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="memberFayaId" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="ID Faya Star">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                <i class="fas fa-star text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Faya Username Field -->
+                    <div>
+                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-at text-white text-xs"></i>
+                            </div>
+                            <span>Username Faya</span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="memberFayaName" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="Username Faya Star">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                <i class="fas fa-at text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method Selection -->
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-800 font-medium mb-2">Pilih Metode Pembayaran</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-800 font-medium mb-2">🏦 Bank</label>
+                                <select id="memberBank" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                                    <option value="">Pilih Bank</option>
+                                    <option value="BCA">Bank Central Asia (BCA)</option>
+                                    <option value="BRI">Bank Rakyat Indonesia (BRI)</option>
+                                    <option value="BNI">Bank Negara Indonesia (BNI)</option>
+                                    <option value="Mandiri">Bank Mandiri</option>
+                                    <option value="CIMB">CIMB Niaga</option>
+                                    <option value="Danamon">Bank Danamon</option>
+                                    <option value="Permata">Bank Permata</option>
+                                    <option value="Maybank">Maybank Indonesia</option>
+                                    <option value="OCBC">OCBC NISP</option>
+                                    <option value="Panin">Bank Panin</option>
+                                    <option value="BTN">Bank Tabungan Negara (BTN)</option>
+                                    <option value="BSI">Bank Syariah Indonesia (BSI)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-800 font-medium mb-2">📱 E-Wallet</label>
+                                <select id="memberEwallet" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                                    <option value="">Pilih E-Wallet</option>
+                                    <option value="GoPay">GoPay</option>
+                                    <option value="OVO">OVO</option>
+                                    <option value="DANA">DANA</option>
+                                    <option value="ShopeePay">ShopeePay</option>
+                                    <option value="LinkAja">LinkAja</option>
+                                    <option value="Jenius">Jenius</option>
+                                    <option value="Sakuku">Sakuku</option>
+                                    <option value="i.saku">i.saku</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bank Number Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Nomor Bank/E-Wallet</label>
+                        <input type="text" id="memberBankNumber" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nomor rekening atau e-wallet">
+                    </div>
+                    
+                    <!-- Bank Owner Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Nama Pemilik</label>
+                        <input type="text" id="memberBankOwner" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nama pemilik rekening/e-wallet">
+                    </div>
+                    
+                    <!-- Level Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Level (0-20)</label>
+                        <input type="number" id="memberLevel" min="0" max="20" value="0" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" onchange="updateSalaryFields()">
+                    </div>
+                    
+                    <!-- Coin Salary Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Koin Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberCoinSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                    </div>
+                    
+                    <!-- Diamond Salary Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Diamond Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberDiamondSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                    </div>
+                    
+                    <!-- Rewed Salary Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Gaji Rewed Host (Otomatis sesuai Level)</label>
+                        <input type="text" id="memberRewedSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
+                    </div>
+                    
+                    <!-- Dollar Bonus Field -->
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Bonus Lotre Dolar (1-100)</label>
+                        <input type="number" id="memberDollar" min="0" max="100" value="0" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Masukkan jumlah dolar (1-100)">
+                        <small class="text-gray-500">1 Dolar = Rp 17.000 | Max: 100 Dolar = Rp 1.700.000</small>
+                    </div>
+                    
+                    <!-- Payment Status -->
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-800 font-medium mb-2">Status Pembayaran</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="salaryStatus" value="sudah" class="mr-2">
+                                <span class="text-green-600 font-medium">✅ SUDAH DI BAYAR</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="salaryStatus" value="belum" checked class="mr-2">
+                                <span class="text-red-600 font-medium">❌ BELUM DI BAYAR</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="md:col-span-2 pt-6">
+                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl group">
+                            <div class="flex items-center justify-center space-x-3">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-save text-lg"></i>
+                                </div>
+                                <span>Simpan Data Member</span>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Data Section -->
+        <div id="dataSection" class="section hidden">
+            <div class="section-header">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-6 lg:space-y-0">
+                    <div class="flex items-center space-x-6">
+                        <div class="relative">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 rounded-2xl flex items-center justify-center enhanced-icon shadow-2xl">
+                                <i class="fas fa-database text-white text-2xl"></i>
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <h2 class="text-3xl font-black text-gray-800 tracking-wide">Data Member</h2>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-users text-white text-xs"></i>
+                                </div>
+                                <p class="text-gray-600 text-lg">Kelola semua data member Faya Star</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="downloadAllPDF()" class="group bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-file-pdf text-lg"></i>
+                            </div>
+                            <span class="font-semibold">Download PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member List -->
+            <div id="memberList" class="space-y-4">
+                <!-- Members will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profileSection" class="section hidden">
+            <!-- Hero Profile Banner -->
+            <div class="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 rounded-3xl p-12 mb-12 text-white overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+                <div class="absolute top-0 left-0 w-full h-full">
+                    <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+                    <div class="absolute bottom-10 right-10 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"></div>
+                    <div class="absolute top-1/2 right-20 w-12 h-12 bg-white/10 rounded-full animate-pulse delay-500"></div>
+                </div>
+                <div class="relative z-10 text-center">
+                    <div class="mb-8">
+                        <div id="profileLogo" class="w-32 h-32 mx-auto rounded-3xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-2 bouncing-logo shadow-2xl cursor-pointer" onclick="spinProfileLogo()">
+                            <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Profile Admin" class="w-full h-full rounded-2xl object-cover" onerror="this.src=''; this.alt='Profile gagal dimuat'; this.style.display='none';">
+                        </div>
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center pulse-glow shadow-xl">
+                                <i class="fas fa-crown text-white text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-shield-check text-white text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="text-5xl font-black mb-4 tracking-wide">RENCY</h2>
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
+                            <span class="text-lg font-bold">ADMIN / OWNER</span>
+                        </div>
+                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
+                            <span class="text-lg font-bold">FAYA STAR OFC</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-6">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-star text-3xl text-yellow-300"></i>
+                            <span class="text-xl font-bold">Premium Account</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-gem text-3xl text-blue-300"></i>
+                            <span class="text-xl font-bold">VIP Access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Details -->
+            <div class="max-w-6xl mx-auto space-y-8">
+                <!-- Personal Information Card -->
+                <div class="bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 border-2 border-gray-200 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+                    <div class="flex items-center space-x-6 mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
+                            <i class="fas fa-user-shield text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-gray-800 tracking-wide">Informasi Personal</h3>
+                            <p class="text-gray-600 text-lg">Data lengkap admin sistem</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-user text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Nama Admin</div>
+                                        <div class="text-2xl font-black text-gray-800">RENCY</div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-venus text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">Jenis Kelamin</div>
+                                        <div class="text-2xl font-black text-pink-600">PEREMPUAN</div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-heart text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-star text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">ID Faya Star</div>
+                                        <div class="text-2xl font-black text-yellow-600 flex items-center space-x-3">
+                                            <span>5500000</span>
+                                            <button onclick="copyToClipboard('5500000')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                                <i class="fas fa-copy text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-sparkles text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card group">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-building text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 font-medium">ID RUM/Agency</div>
+                                        <div class="text-2xl font-black text-purple-600 flex items-center space-x-3">
+                                            <span>10013034</span>
+                                            <button onclick="copyToClipboard('10013034')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                                <i class="fas fa-copy text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-home text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Spacer untuk semua section agar tidak tertutup navigation -->
+        <div class="h-32 w-full"></div>
+    </main>
+
+    <!-- Customer Service Modal -->
+    <div id="customerServiceModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 transform scale-95 opacity-0 transition-all duration-300" id="customerServiceContent">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                    <i class="fas fa-headset text-white text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Customer Service</h3>
+                <p class="text-gray-600">Pilih platform untuk menghubungi kami</p>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <button onclick="openWhatsApp()" class="group w-full flex items-center space-x-4 p-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-lg">WhatsApp</div>
+                        <div class="text-sm opacity-90">082172070365</div>
+                    </div>
+                    <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                
+                <button onclick="openTelegram()" class="group w-full flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fab fa-telegram text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-lg">Telegram</div>
+                        <div class="text-sm opacity-90">@info_chamelion</div>
+                    </div>
+                    <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+            
+            <button onclick="hideCustomerServiceModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 rounded-2xl py-3 px-4 transition-all duration-300 font-semibold">
+                <i class="fas fa-times mr-2"></i>Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 shadow-2xl z-50 border-t-4 border-white/20 backdrop-blur-lg">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-4 py-2">
+                <button onclick="showSection('home')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-home text-sm"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wide">HOME</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                    </div>
+                </button>
+                <button onclick="showSection('data')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-database text-sm"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wide">DATA</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                    </div>
+                </button>
+                <button onclick="showSection('profile')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span class="text-xs font-black tracking-wide">PROFILE</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Global variables
+        let members = JSON.parse(localStorage.getItem('members')) || [];
+        let editingMemberId = null;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+            displayMembers();
+            setupImagePreview();
+        });
+
+        // Section management
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white/30');
+            });
+            event.target.closest('.nav-btn').classList.add('bg-white/30');
+            
+            // Load data if data section
+            if (sectionName === 'data') {
+                displayMembers();
+            }
+        }
+
+        // Show forms
+        function showAddForm() {
+            document.getElementById('addMemberForm').classList.remove('hidden');
+            document.getElementById('addMemberForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showEditForm() {
+            if (members.length === 0) {
+                showNotification('Tidak ada data member untuk diedit', 'error');
+                return;
+            }
+            showSection('data');
+        }
+
+        function showDeleteForm() {
+            if (members.length === 0) {
+                showNotification('Tidak ada data member untuk dihapus', 'error');
+                return;
+            }
+            showSection('data');
+        }
+
+        // Image preview setup
+        function setupImagePreview() {
+            const imageInput = document.getElementById('memberImg');
+            const preview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        preview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.classList.add('hidden');
+                }
+            });
+        }
+
+        // Salary calculation
+        function updateSalaryFields() {
+            const level = parseInt(document.getElementById('memberLevel').value) || 0;
+            
+            // Coin salary calculation
+            let coinAmount = 0;
+            let coinSalary = 0;
+            if (level > 0) {
+                coinAmount = 50000 + ((level - 1) * 750000);
+                coinSalary = Math.round(coinAmount * 0.255);
+            }
+            
+            // Diamond salary calculation  
+            let diamondAmount = 0;
+            let diamondSalary = 0;
+            if (level > 0) {
+                diamondAmount = 50000 + ((level - 1) * 720000);
+                diamondSalary = Math.round(diamondAmount * 0.255);
+            }
+            
+            // Rewed salary calculation
+            let rewedSalary = 0;
+            if (level > 0) {
+                rewedSalary = 3400 + ((level - 1) * 42000);
+            }
+            
+            // Update fields
+            document.getElementById('memberCoinSalary').value = 
+                `${coinAmount.toLocaleString('id-ID')} Coin = Rp ${coinSalary.toLocaleString('id-ID')}`;
+            document.getElementById('memberDiamondSalary').value = 
+                `${diamondAmount.toLocaleString('id-ID')} Diamond = Rp ${diamondSalary.toLocaleString('id-ID')}`;
+            document.getElementById('memberRewedSalary').value = 
+                `Rp ${rewedSalary.toLocaleString('id-ID')}`;
+        }
+
+        // Add member
+        function addMember(event) {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            const imageFile = document.getElementById('memberImg').files[0];
+            
+            // Get form values
+            const name = document.getElementById('memberName').value;
+            const phone = document.getElementById('memberPhone').value;
+            const fayaId = document.getElementById('memberFayaId').value;
+            const fayaName = document.getElementById('memberFayaName').value;
+            const bank = document.getElementById('memberBank').value;
+            const ewallet = document.getElementById('memberEwallet').value;
+            const bankNumber = document.getElementById('memberBankNumber').value;
+            const bankOwner = document.getElementById('memberBankOwner').value;
+            const level = parseInt(document.getElementById('memberLevel').value);
+            const dollar = parseInt(document.getElementById('memberDollar').value) || 0;
+            const salaryStatus = document.querySelector('input[name="salaryStatus"]:checked').value;
+            
+            // Validate payment method
+            if (!bank && !ewallet) {
+                showNotification('Pilih minimal satu metode pembayaran (Bank atau E-Wallet)', 'error');
+                return;
+            }
+            
+            // Calculate salaries
+            let coinAmount = 0, coinSalary = 0, diamondAmount = 0, diamondSalary = 0, rewedSalary = 0;
+            if (level > 0) {
+                coinAmount = 50000 + ((level - 1) * 750000);
+                coinSalary = Math.round(coinAmount * 0.255);
+                diamondAmount = 50000 + ((level - 1) * 720000);
+                diamondSalary = Math.round(diamondAmount * 0.255);
+                rewedSalary = 3400 + ((level - 1) * 42000);
+            }
+            
+            const totalSalary = coinSalary + diamondSalary + rewedSalary + (dollar * 17000);
+            
+            // Handle image
+            let imageData = null;
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageData = e.target.result;
+                    saveMember();
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                saveMember();
+            }
+            
+            function saveMember() {
+                const member = {
+                    id: Date.now(),
+                    name,
+                    phone,
+                    fayaId,
+                    fayaName,
+                    bank,
+                    ewallet,
+                    bankNumber,
+                    bankOwner,
+                    level,
+                    coinAmount,
+                    coinSalary,
+                    diamondAmount,
+                    diamondSalary,
+                    rewedSalary,
+                    dollar,
+                    totalSalary,
+                    salaryStatus,
+                    image: imageData,
+                    createdAt: new Date().toISOString()
+                };
+                
+                members.push(member);
+                localStorage.setItem('members', JSON.stringify(members));
+                
+                // Reset form
+                document.querySelector('#addMemberForm form').reset();
+                document.getElementById('imagePreview').classList.add('hidden');
+                updateSalaryFields();
+                
+                showNotification('Member berhasil ditambahkan!', 'success');
+                displayMembers();
+            }
+        }
+
+        // Display members
+        function displayMembers() {
+            const memberList = document.getElementById('memberList');
+            
+            if (members.length === 0) {
+                memberList.innerHTML = `
+                    <div class="text-center py-16">
+                        <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-users text-gray-400 text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Belum Ada Data Member</h3>
+                        <p class="text-gray-500 mb-6">Tambahkan member pertama untuk memulai</p>
+                        <button onclick="showAddForm()" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300">
+                            <i class="fas fa-plus mr-2"></i>Tambah Member
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            memberList.innerHTML = members.map(member => `
+                <div class="member-card p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+                    <div class="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-8">
+                        <!-- Member Photo & Basic Info -->
+                        <div class="flex items-center space-x-6">
+                            <div class="relative">
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shadow-lg">
+                                    ${member.image ? 
+                                        `<img src="${member.image}" alt="${member.name}" class="w-full h-full object-cover">` :
+                                        `<i class="fas fa-user text-gray-500 text-2xl"></i>`
+                                    }
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                                    <span class="text-white text-xs font-bold">${member.level}</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-black text-gray-800">${member.name}</h3>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                                        <i class="fas fa-phone text-blue-600 text-xs"></i>
+                                        <span class="text-blue-700 text-xs font-medium">${member.phone}</span>
+                                    </div>
+                                    <div class="flex items-center space-x-1 bg-yellow-100 px-2 py-1 rounded-full">
+                                        <i class="fas fa-star text-yellow-600 text-xs"></i>
+                                        <span class="text-yellow-700 text-xs font-medium">${member.fayaId}</span>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600 font-medium">@${member.fayaName}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Salary Info -->
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="info-card p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-coins text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 text-sm font-medium">Coin Host</div>
+                                        <div class="text-lg font-bold text-yellow-600">Rp ${member.coinSalary.toLocaleString('id-ID')}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-card p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-gem text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 text-sm font-medium">Diamond Host</div>
+                                        <div class="text-lg font-bold text-blue-600">Rp ${member.diamondSalary.toLocaleString('id-ID')}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-card p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-award text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-600 text-sm font-medium">Rewed Host</div>
+                                        <div class="text-lg font-bold text-green-600">Rp ${member.rewedSalary.toLocaleString('id-ID')}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Total & Status -->
+                        <div class="flex flex-col items-end space-y-4">
+                            <div class="text-right">
+                                <div class="text-gray-600 text-sm font-medium">Total Gaji</div>
+                                <div class="text-3xl font-black text-gray-800">Rp ${member.totalSalary.toLocaleString('id-ID')}</div>
+                                ${member.dollar > 0 ? `<div class="text-sm text-purple-600 font-medium">+ $${member.dollar} Bonus</div>` : ''}
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <div class="flex items-center space-x-1 px-3 py-1 rounded-full ${member.salaryStatus === 'sudah' ? 'bg-green-100' : 'bg-red-100'}">
+                                    <i class="fas ${member.salaryStatus === 'sudah' ? 'fa-check-circle text-green-600' : 'fa-clock text-red-600'} text-sm"></i>
+                                    <span class="${member.salaryStatus === 'sudah' ? 'text-green-700' : 'text-red-700'} text-sm font-medium">
+                                        ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex space-x-2">
+                                <button onclick="editMember(${member.id})" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                    <i class="fas fa-edit text-sm"></i>
+                                </button>
+                                <button onclick="downloadMemberPDF(${member.id})" class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                    <i class="fas fa-download text-sm"></i>
+                                </button>
+                                <button onclick="deleteMember(${member.id})" class="w-10 h-10 bg-gradient-to-br from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white rounded-xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                    <i class="fas fa-trash text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Edit member
+        function editMember(id) {
+            const member = members.find(m => m.id === id);
+            if (!member) return;
+            
+            editingMemberId = id;
+            
+            // Fill form with member data
+            document.getElementById('memberName').value = member.name;
+            document.getElementById('memberPhone').value = member.phone;
+            document.getElementById('memberFayaId').value = member.fayaId;
+            document.getElementById('memberFayaName').value = member.fayaName;
+            document.getElementById('memberBank').value = member.bank || '';
+            document.getElementById('memberEwallet').value = member.ewallet || '';
+            document.getElementById('memberBankNumber').value = member.bankNumber;
+            document.getElementById('memberBankOwner').value = member.bankOwner;
+            document.getElementById('memberLevel').value = member.level;
+            document.getElementById('memberDollar').value = member.dollar;
+            
+            // Set salary status
+            document.querySelector(`input[name="salaryStatus"][value="${member.salaryStatus}"]`).checked = true;
+            
+            // Update salary fields
+            updateSalaryFields();
+            
+            // Show form
+            showSection('home');
+            showAddForm();
+            
+            // Change button text
+            const submitBtn = document.querySelector('#addMemberForm button[type="submit"]');
+            submitBtn.innerHTML = `
+                <div class="flex items-center justify-center space-x-3">
+                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-save text-lg"></i>
+                    </div>
+                    <span>Update Data Member</span>
+                </div>
+            `;
+            
+            showNotification('Mode edit aktif - Ubah data dan klik Update', 'info');
+        }
+
+        // Delete member
+        function deleteMember(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus member ini?')) {
+                members = members.filter(m => m.id !== id);
+                localStorage.setItem('members', JSON.stringify(members));
+                displayMembers();
+                showNotification('Member berhasil dihapus!', 'success');
+            }
+        }
+
+        // Download PDF functions
+        function downloadMemberPDF(id) {
+            const member = members.find(m => m.id === id);
+            if (!member) return;
+            
+            generatePDF([member], `Member_${member.name.replace(/\s+/g, '_')}`);
+        }
+
+        function downloadAllPDF() {
+            if (members.length === 0) {
+                showNotification('Tidak ada data untuk didownload', 'error');
+                return;
+            }
+            
+            generatePDF(members, 'All_Members_Data');
+        }
+
+        function generatePDF(memberData, filename) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('CHANNEL AGENCY - FAYA STAR', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'normal');
+            doc.text('Data Member Management System', 105, 30, { align: 'center' });
+            
+            // Date
+            doc.setFontSize(10);
+            doc.text(`Generated: ${new Date().toLocaleString('id-ID')}`, 20, 45);
+            
+            let yPosition = 60;
+            
+            memberData.forEach((member, index) => {
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+                
+                // Member header
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text(`${index + 1}. ${member.name}`, 20, yPosition);
+                
+                yPosition += 10;
+                
+                // Member details
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                
+                const details = [
+                    `Phone: ${member.phone}`,
+                    `Faya ID: ${member.fayaId}`,
+                    `Username: @${member.fayaName}`,
+                    `Level: ${member.level}`,
+                    `Bank: ${member.bank || 'N/A'}`,
+                    `E-Wallet: ${member.ewallet || 'N/A'}`,
+                    `Account: ${member.bankNumber} (${member.bankOwner})`,
+                    `Coin Salary: Rp ${member.coinSalary.toLocaleString('id-ID')}`,
+                    `Diamond Salary: Rp ${member.diamondSalary.toLocaleString('id-ID')}`,
+                    `Rewed Salary: Rp ${member.rewedSalary.toLocaleString('id-ID')}`,
+                    `Dollar Bonus: $${member.dollar} (Rp ${(member.dollar * 17000).toLocaleString('id-ID')})`,
+                    `Total Salary: Rp ${member.totalSalary.toLocaleString('id-ID')}`,
+                    `Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}`
+                ];
+                
+                details.forEach(detail => {
+                    doc.text(detail, 25, yPosition);
+                    yPosition += 6;
+                });
+                
+                yPosition += 10;
+            });
+            
+            // Footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
+                doc.text('© Channel Agency - Confidential', 105, 295, { align: 'center' });
+            }
+            
+            doc.save(`${filename}.pdf`);
+            showNotification('PDF berhasil didownload!', 'success');
+        }
+
+        // Utility functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type} show`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification(`Copied: ${text}`, 'success');
+            });
+        }
+
+        // Logo animations
+        function spinLogo() {
+            document.getElementById('channelLogo').classList.add('spinning-logo');
+            setTimeout(() => {
+                document.getElementById('channelLogo').classList.remove('spinning-logo');
+            }, 1000);
+        }
+
+        function spinProfileLogo() {
+            document.getElementById('profileLogo').classList.add('spinning-logo');
+            setTimeout(() => {
+                document.getElementById('profileLogo').classList.remove('spinning-logo');
+            }, 1000);
+        }
+
+        // Customer Service Modal
+        function showCustomerServiceModal() {
+            const modal = document.getElementById('customerServiceModal');
+            const content = document.getElementById('customerServiceContent');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.style.transform = 'scale(1)';
+                content.style.opacity = '1';
+            }, 10);
+        }
+
+        function hideCustomerServiceModal() {
+            const modal = document.getElementById('customerServiceModal');
+            const content = document.getElementById('customerServiceContent');
+            
+            content.style.transform = 'scale(0.95)';
+            content.style.opacity = '0';
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function openWhatsApp() {
+            window.open('https://wa.me/6282172070365', '_blank', 'noopener,noreferrer');
+        }
+
+        function openTelegram() {
+            window.open('https://t.me/info_chamelion', '_blank', 'noopener,noreferrer');
+        }
+
+        // Handle form submission for both add and edit
+        document.querySelector('#addMemberForm form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (editingMemberId) {
+                // Update existing member
+                const memberIndex = members.findIndex(m => m.id === editingMemberId);
+                if (memberIndex !== -1) {
+                    const formData = new FormData(this);
+                    const imageFile = document.getElementById('memberImg').files[0];
+                    
+                    // Get form values
+                    const name = document.getElementById('memberName').value;
+                    const phone = document.getElementById('memberPhone').value;
+                    const fayaId = document.getElementById('memberFayaId').value;
+                    const fayaName = document.getElementById('memberFayaName').value;
+                    const bank = document.getElementById('memberBank').value;
+                    const ewallet = document.getElementById('memberEwallet').value;
+                    const bankNumber = document.getElementById('memberBankNumber').value;
+                    const bankOwner = document.getElementById('memberBankOwner').value;
+                    const level = parseInt(document.getElementById('memberLevel').value);
+                    const dollar = parseInt(document.getElementById('memberDollar').value) || 0;
+                    const salaryStatus = document.querySelector('input[name="salaryStatus"]:checked').value;
+                    
+                    // Calculate salaries
+                    let coinAmount = 0, coinSalary = 0, diamondAmount = 0, diamondSalary = 0, rewedSalary = 0;
+                    if (level > 0) {
+                        coinAmount = 50000 + ((level - 1) * 750000);
+                        coinSalary = Math.round(coinAmount * 0.255);
+                        diamondAmount = 50000 + ((level - 1) * 720000);
+                        diamondSalary = Math.round(diamondAmount * 0.255);
+                        rewedSalary = 3400 + ((level - 1) * 42000);
+                    }
+                    
+                    const totalSalary = coinSalary + diamondSalary + rewedSalary + (dollar * 17000);
+                    
+                    // Handle image
+                    if (imageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            updateMember(e.target.result);
+                        };
+                        reader.readAsDataURL(imageFile);
+                    } else {
+                        updateMember(members[memberIndex].image);
+                    }
+                    
+                    function updateMember(imageData) {
+                        members[memberIndex] = {
+                            ...members[memberIndex],
+                            name,
+                            phone,
+                            fayaId,
+                            fayaName,
+                            bank,
+                            ewallet,
+                            bankNumber,
+                            bankOwner,
+                            level,
+                            coinAmount,
+                            coinSalary,
+                            diamondAmount,
+                            diamondSalary,
+                            rewedSalary,
+                            dollar,
+                            totalSalary,
+                            salaryStatus,
+                            image: imageData,
+                            updatedAt: new Date().toISOString()
+                        };
+                        
+                        localStorage.setItem('members', JSON.stringify(members));
+                        
+                        // Reset form and editing state
+                        this.reset();
+                        document.getElementById('imagePreview').classList.add('hidden');
+                        updateSalaryFields();
+                        editingMemberId = null;
+                        
+                        // Reset button text
+                        const submitBtn = document.querySelector('#addMemberForm button[type="submit"]');
+                        submitBtn.innerHTML = `
+                            <div class="flex items-center justify-center space-x-3">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-save text-lg"></i>
+                                </div>
+                                <span>Simpan Data Member</span>
+                            </div>
+                        `;
+                        
+                        showNotification('Member berhasil diupdate!', 'success');
+                        displayMembers();
+                    }
+                }
+            } else {
+                // Add new member (existing functionality)
+                addMember(e);
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982e4e2403dd3e0e',t:'MTc1ODUwNzQzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+        }
+        
+        .enhanced-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .enhanced-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 12px rgba(59, 130, 246, 0.25);
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .info-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, white 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
 
         /* Animated Green Border Effect */
         .animated-green-border {
