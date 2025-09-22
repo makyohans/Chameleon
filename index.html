@@ -226,6 +226,218 @@
             background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
 
+        /* Animated Green Border Effect */
+        .animated-green-border {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-green-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #10b981, #059669, #34d399, #6ee7b7, 
+                #10b981, #059669, #34d399, #6ee7b7);
+            background-size: 400% 400%;
+            border-radius: inherit;
+            z-index: -1;
+            animation: animated-border 3s ease-in-out infinite;
+        }
+
+        @keyframes animated-border {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Beach Scene Background */
+        .beach-background {
+            background: linear-gradient(135deg, 
+                #87CEEB 0%,     /* Sky Blue */
+                #98D8E8 20%,    /* Light Blue */
+                #F0E68C 40%,    /* Khaki (Sand) */
+                #DEB887 60%,    /* Burlywood (Beach) */
+                #20B2AA 80%,    /* Light Sea Green */
+                #008B8B 100%    /* Dark Cyan (Deep Water) */
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beach-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
+            background-size: 50px 50px, 30px 30px, 70px 70px;
+            animation: float-clouds 20s ease-in-out infinite;
+        }
+
+        .beach-background::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(0deg, 
+                rgba(32, 178, 170, 0.3) 0%,
+                rgba(152, 216, 232, 0.2) 50%,
+                transparent 100%
+            );
+            animation: wave-motion 4s ease-in-out infinite;
+        }
+
+        @keyframes float-clouds {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(-5px) translateY(-10px); }
+            75% { transform: translateX(-10px) translateY(-5px); }
+        }
+
+        @keyframes wave-motion {
+            0%, 100% { transform: scaleY(1) translateY(0px); }
+            50% { transform: scaleY(1.1) translateY(-5px); }
+        }
+
+        /* Beach Elements */
+        .beach-sun {
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FFD700 30%, #FFA500 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            animation: sun-glow 3s ease-in-out infinite alternate;
+        }
+
+        .beach-sun::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            animation: sun-rays 4s linear infinite;
+        }
+
+        @keyframes sun-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes sun-rays {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+
+        .beach-palm {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(0deg, #8B4513 0%, #228B22 70%);
+            border-radius: 20px 20px 5px 5px;
+            animation: palm-sway 6s ease-in-out infinite;
+        }
+
+        .beach-palm::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -15px;
+            width: 70px;
+            height: 30px;
+            background: radial-gradient(ellipse, #228B22 30%, #32CD32 70%);
+            border-radius: 50%;
+        }
+
+        @keyframes palm-sway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        .beach-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.3) 0px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.3) 20px
+            );
+            animation: wave-flow 3s ease-in-out infinite;
+        }
+
+        @keyframes wave-flow {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(-10px); }
+            100% { transform: translateX(0px); }
+        }
+
+        /* Enhanced Modal Styling */
+        .beach-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .modal-header-beach {
+            background: linear-gradient(135deg, 
+                rgba(16, 185, 129, 0.1) 0%,
+                rgba(52, 211, 153, 0.1) 50%,
+                rgba(110, 231, 183, 0.1) 100%
+            );
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header-beach::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                transparent 100%
+            );
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
         /* Time-based Theme Styles */
         .theme-morning {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #f59e0b 100%);
@@ -366,6 +578,26 @@
             100% { opacity: 1; transform: scale(1.5); }
         }
 
+        .morning-snow {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: snow-fall linear infinite;
+        }
+
+        @keyframes snow-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
         .moon-glow {
             position: absolute;
             width: 200px;
@@ -412,6 +644,40 @@
             z-index: 1;
             overflow: hidden;
         }
+
+        /* Custom Scrollbar Styles */
+        .scrollbar-thin {
+            scrollbar-width: thin;
+        }
+
+        .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 6px;
+        }
+
+        .scrollbar-track-gray-100::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 6px;
+            border: 2px solid #f3f4f6;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background-color: #9ca3af;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -450,14 +716,10 @@
                     <div class="space-y-1">
                         <div class="flex items-center space-x-3">
                             <h1 class="text-3xl font-black gradient-text tracking-wide">CHANNEL AGENCY</h1>
-                            <div class="flex items-center space-x-1">
-                                <div class="w-4 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center volume-animation">
-                                    <i class="fas fa-volume-up text-white text-xs"></i>
+                            <div class="flex items-center space-x-1" id="timeBasedIcon">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center volume-animation">
+                                    <i class="fas fa-sun text-white text-sm"></i>
                                 </div>
-                                <div class="w-3 h-6 bg-gradient-to-t from-green-400 to-green-600 rounded-sm volume-animation" style="animation-delay: 0.2s;"></div>
-                                <div class="w-3 h-8 bg-gradient-to-t from-yellow-400 to-yellow-600 rounded-sm volume-animation" style="animation-delay: 0.4s;"></div>
-                                <div class="w-3 h-5 bg-gradient-to-t from-orange-400 to-orange-600 rounded-sm volume-animation" style="animation-delay: 0.6s;"></div>
-                                <div class="w-3 h-7 bg-gradient-to-t from-red-400 to-red-600 rounded-sm volume-animation" style="animation-delay: 0.8s;"></div>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
@@ -527,56 +789,79 @@
 
             <!-- Banner Editor Modal -->
             <div id="bannerEditorModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-                <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-gray-200 transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto" id="bannerEditorContent">
-                    <div class="flex items-center justify-between mb-8">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-ad text-white text-xl"></i>
+                <div class="beach-modal animated-green-border beach-background rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto" id="bannerEditorContent">
+                    <!-- Beach Elements -->
+                    <div class="beach-sun"></div>
+                    <div class="beach-palm"></div>
+                    <div class="beach-waves"></div>
+                    
+                    <div class="modal-header-beach relative z-10">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-2xl animated-green-border">
+                                    <i class="fas fa-umbrella-beach text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-black text-gray-800 tracking-wide">🏖️ Editor Banner Iklan</h3>
+                                    <p class="text-gray-700 font-semibold">🌊 Buat dan edit banner iklan Anda dengan suasana pantai</p>
+                                    <div class="flex items-center space-x-2 mt-2">
+                                        <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                                        <span class="text-sm text-gray-600 font-medium">Beach Theme Editor</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-gray-800">Editor Banner Iklan</h3>
-                                <p class="text-gray-600">Buat dan edit banner iklan Anda</p>
-                            </div>
+                            <button onclick="hideBannerEditor()" class="w-12 h-12 bg-gradient-to-br from-red-400 to-rose-500 hover:from-red-500 hover:to-rose-600 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                <i class="fas fa-times text-white text-lg"></i>
+                            </button>
                         </div>
-                        <button onclick="hideBannerEditor()" class="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors">
-                            <i class="fas fa-times text-gray-600"></i>
-                        </button>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 relative z-10">
                         <!-- Image Upload -->
                         <div class="md:col-span-2">
-                            <label class="block text-gray-800 font-semibold mb-3">
-                                <i class="fas fa-image text-blue-500 mr-2"></i>Gambar Banner
+                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-camera-retro text-white text-sm"></i>
+                                </div>
+                                <span class="text-lg">🖼️ Gambar Banner Pantai</span>
                             </label>
-                            <input type="file" id="bannerImageInput" accept="image/*" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl bg-white text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
+                            <input type="file" id="bannerImageInput" accept="image/*" class="w-full p-4 border-2 border-dashed border-emerald-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-emerald-500 file:to-teal-600 file:text-white hover:file:from-emerald-600 hover:file:to-teal-700 shadow-lg">
                             <div id="bannerImagePreview" class="mt-4 hidden">
-                                <img id="bannerPreviewImg" class="w-full h-32 rounded-xl object-cover border-2 border-purple-300" alt="Preview">
+                                <img id="bannerPreviewImg" class="w-full h-32 rounded-xl object-cover border-3 border-emerald-400 shadow-xl" alt="Preview">
                             </div>
                         </div>
                         
                         <!-- Main Title -->
                         <div>
-                            <label class="block text-gray-800 font-semibold mb-3">
-                                <i class="fas fa-heading text-green-500 mr-2"></i>Judul Besar
+                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-heading text-white text-sm"></i>
+                                </div>
+                                <span class="text-lg">🌅 Judul Besar</span>
                             </label>
-                            <input type="text" id="bannerMainTitle" class="w-full p-4 border border-gray-300 rounded-xl bg-white text-gray-800" placeholder="Masukkan judul utama">
+                            <input type="text" id="bannerMainTitle" class="w-full p-4 border-2 border-yellow-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all duration-300" placeholder="Masukkan judul utama yang menarik...">
                         </div>
                         
                         <!-- Subtitle -->
                         <div>
-                            <label class="block text-gray-800 font-semibold mb-3">
-                                <i class="fas fa-text-height text-orange-500 mr-2"></i>Judul Kecil
+                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-text-height text-white text-sm"></i>
+                                </div>
+                                <span class="text-lg">🌺 Judul Kecil</span>
                             </label>
-                            <input type="text" id="bannerSubtitle" class="w-full p-4 border border-gray-300 rounded-xl bg-white text-gray-800" placeholder="Masukkan subtitle">
+                            <input type="text" id="bannerSubtitle" class="w-full p-4 border-2 border-pink-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition-all duration-300" placeholder="Masukkan subtitle yang menawan...">
                         </div>
                         
                         <!-- Icon Selection -->
                         <div class="md:col-span-2">
-                            <label class="block text-gray-800 font-semibold mb-3">
-                                <i class="fas fa-icons text-purple-500 mr-2"></i>Pilih Icon (Maksimal 3)
+                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-icons text-white text-sm"></i>
+                                </div>
+                                <span class="text-lg">🎨 Pilih Icon Pantai (Maksimal 3)</span>
                             </label>
-                            <div class="grid grid-cols-6 gap-3 max-h-40 overflow-y-auto border border-gray-200 rounded-xl p-4">
+                            <div class="grid grid-cols-6 gap-3 max-h-40 overflow-y-auto border-2 border-purple-400 rounded-xl p-4 bg-white/90 backdrop-blur-sm shadow-lg">
                                 <button type="button" onclick="toggleIcon('fa-star')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-star">
                                     <i class="fas fa-star text-yellow-500"></i>
                                 </button>
@@ -614,19 +899,34 @@
                                     <i class="fas fa-medal text-orange-500"></i>
                                 </button>
                             </div>
-                            <div id="selectedIcons" class="mt-3 flex items-center space-x-2">
-                                <span class="text-sm text-gray-600">Icon terpilih:</span>
+                            <div id="selectedIcons" class="mt-4 flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-xl p-3">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-check text-white text-xs"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-700 font-semibold">🏆 Icon terpilih:</span>
+                                </div>
                                 <div id="selectedIconsList" class="flex space-x-2"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="flex space-x-4">
-                        <button onclick="saveBanner()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold">
-                            <i class="fas fa-save mr-2"></i>Simpan Banner
+                    <div class="flex space-x-4 relative z-10">
+                        <button onclick="saveBanner()" class="flex-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-700 text-white px-8 py-4 rounded-2xl transition-all duration-300 font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 animated-green-border">
+                            <div class="flex items-center justify-center space-x-3">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-save text-lg"></i>
+                                </div>
+                                <span>🏖️ Simpan Banner Pantai</span>
+                            </div>
                         </button>
-                        <button onclick="deleteBanner()" class="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-6 py-3 rounded-xl transition-all duration-300 font-semibold">
-                            <i class="fas fa-trash mr-2"></i>Hapus
+                        <button onclick="deleteBanner()" class="bg-gradient-to-r from-red-500 via-rose-500 to-pink-600 hover:from-red-600 hover:via-rose-600 hover:to-pink-700 text-white px-6 py-4 rounded-2xl transition-all duration-300 font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105">
+                            <div class="flex items-center justify-center space-x-2">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-trash text-lg"></i>
+                                </div>
+                                <span>🗑️ Hapus</span>
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -888,8 +1188,8 @@
                     
                     <!-- Level Field -->
                     <div>
-                        <label class="block text-gray-800 font-medium mb-2">Level (1-20)</label>
-                        <input type="number" id="memberLevel" min="1" max="20" value="1" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" onchange="updateSalaryFields()">
+                        <label class="block text-gray-800 font-medium mb-2">Level (0-20)</label>
+                        <input type="number" id="memberLevel" min="0" max="20" value="0" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" onchange="updateSalaryFields()">
                     </div>
                     
                     <!-- Coin Salary Field -->
@@ -988,22 +1288,132 @@
             </div>
 
             <!-- Salary Settings -->
-            <div id="salarySettings" class="hidden bg-white rounded-lg p-6 mb-6 border border-gray-200">
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Pengaturan Gaji per Level</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji per Level (Rp)</label>
-                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                        <small class="text-gray-500">Level 1 = 1x, Level 2 = 2x, dst.</small>
+            <div id="salarySettings" class="hidden bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 mb-8 border-2 border-gray-200 shadow-2xl">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl">
+                        <i class="fas fa-cogs text-white text-2xl"></i>
                     </div>
                     <div>
-                        <label class="block text-gray-800 font-medium mb-2">Nilai Dolar (Rp)</label>
-                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                        <h3 class="text-3xl font-black text-gray-800 tracking-wide">Pengaturan Gaji per Level</h3>
+                        <p class="text-gray-600 text-lg">Konfigurasi sistem gaji dan bonus</p>
                     </div>
                 </div>
-                <button onclick="updateSalarySettings()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan Pengaturan
-                </button>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Gaji Koin Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-coins text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Koin Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">0 Coin = Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">50.000 Coin = Rp 12.750</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">14.600.000 Coin = Rp 2.723.400</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaji Diamond Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-blue-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-gem text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Diamond Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">0 Diamond = Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">50.000 Diamond = Rp 12.750</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">14.000.000 Diamond = Rp 2.723.400</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaji Rewed Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-green-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-award text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Rewed Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">Rp 3.400</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">Rp 830.000</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bonus Lotre Dolar -->
+                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 border-2 border-purple-200 shadow-lg mb-6">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-gray-800">Bonus Lotre Dolar</h4>
+                            <p class="text-gray-600">Sistem bonus dolar untuk member</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-800 font-medium mb-2">Nilai 1 Dolar (Rp)</label>
+                            <input type="number" id="dollarRate" value="17000" class="w-full p-4 border-2 border-purple-300 rounded-xl bg-white text-gray-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300">
+                            <small class="text-gray-500">1 Dolar = Rp 17.000</small>
+                        </div>
+                        <div>
+                            <label class="block text-gray-800 font-medium mb-2">Maksimal Bonus Dolar</label>
+                            <div class="p-4 bg-white border-2 border-purple-300 rounded-xl">
+                                <div class="text-2xl font-bold text-purple-600">100 Dolar</div>
+                                <div class="text-lg text-gray-600">= Rp 1.700.000</div>
+                                <small class="text-gray-500">Range: 1-100 Dolar</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button onclick="updateSalarySettings()" class="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 hover:from-blue-600 hover:via-indigo-700 hover:to-purple-800 text-white px-8 py-4 rounded-2xl transition-all duration-300 font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-save text-lg"></i>
+                            </div>
+                            <span>Simpan Pengaturan Gaji</span>
+                        </div>
+                    </button>
+                </div>
             </div>
 
             <!-- Member List -->
@@ -1238,30 +1648,102 @@
                         </div>
                     </div>
                     
-                    <div id="statisticsContent" class="px-8 pb-8 transition-all duration-500 ease-in-out">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="info-card group text-center">
-                                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                    <i class="fas fa-users text-white text-2xl"></i>
+                    <div id="statisticsContent" class="px-8 pb-8 transition-all duration-500 ease-in-out overflow-hidden" style="max-height: 0px; padding-top: 0px; padding-bottom: 0px; opacity: 0;">
+                        <div class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-2">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                <div class="info-card group text-center">
+                                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                        <i class="fas fa-users text-white text-2xl"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Total Member</div>
+                                    <div class="text-3xl font-black text-blue-600" id="totalMembersCount">0</div>
                                 </div>
-                                <div class="text-gray-600 font-medium mb-2">Total Member</div>
-                                <div class="text-3xl font-black text-blue-600" id="totalMembersCount">0</div>
+
+                                <div class="info-card group text-center">
+                                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                        <i class="fas fa-check-circle text-white text-2xl"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Sudah Dibayar</div>
+                                    <div class="text-3xl font-black text-green-600" id="paidMembersCount">0</div>
+                                </div>
+
+                                <div class="info-card group text-center">
+                                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
+                                        <i class="fas fa-clock text-white text-2xl"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Belum Dibayar</div>
+                                    <div class="text-3xl font-black text-red-600" id="unpaidMembersCount">0</div>
+                                </div>
                             </div>
 
-                            <div class="info-card group text-center">
-                                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                    <i class="fas fa-check-circle text-white text-2xl"></i>
+                            <!-- Additional Statistics -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div class="info-card group">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                            <i class="fas fa-money-bill-wave text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-600 font-medium">Total Gaji Dibayar</div>
+                                            <div class="text-xl font-black text-purple-600" id="totalPaidSalary">Rp 0</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-gray-600 font-medium mb-2">Sudah Dibayar</div>
-                                <div class="text-3xl font-black text-green-600" id="paidMembersCount">0</div>
+
+                                <div class="info-card group">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                            <i class="fas fa-hourglass-half text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-600 font-medium">Total Gaji Pending</div>
+                                            <div class="text-xl font-black text-orange-600" id="totalPendingSalary">Rp 0</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="info-card group text-center">
-                                <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                    <i class="fas fa-clock text-white text-2xl"></i>
+                            <!-- Level Distribution -->
+                            <div class="info-card group mb-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center enhanced-icon">
+                                        <i class="fas fa-chart-bar text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-800 font-bold text-lg">Distribusi Level Member</div>
+                                        <div class="text-gray-600">Sebaran member berdasarkan level</div>
+                                    </div>
                                 </div>
-                                <div class="text-gray-600 font-medium mb-2">Belum Dibayar</div>
-                                <div class="text-3xl font-black text-red-600" id="unpaidMembersCount">0</div>
+                                <div id="levelDistribution" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <!-- Level distribution will be populated here -->
+                                </div>
+                            </div>
+
+                            <!-- Performance Metrics -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="info-card group text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
+                                        <i class="fas fa-dollar-sign text-white text-lg"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Total Bonus Dolar</div>
+                                    <div class="text-lg font-black text-yellow-600" id="totalDollarBonus">$0</div>
+                                </div>
+
+                                <div class="info-card group text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
+                                        <i class="fas fa-percentage text-white text-lg"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Tingkat Pembayaran</div>
+                                    <div class="text-lg font-black text-pink-600" id="paymentRate">0%</div>
+                                </div>
+
+                                <div class="info-card group text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
+                                        <i class="fas fa-trophy text-white text-lg"></i>
+                                    </div>
+                                    <div class="text-gray-600 font-medium mb-2">Level Tertinggi</div>
+                                    <div class="text-lg font-black text-indigo-600" id="highestLevel">Level 1</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1316,35 +1798,35 @@
     <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 shadow-2xl z-50 border-t-4 border-white/20 backdrop-blur-lg">
         <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-4 py-4">
-                <button onclick="showSection('home')" class="nav-btn group px-8 py-4 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-3xl relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+            <div class="flex justify-center space-x-4 py-2">
+                <button onclick="showSection('home')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-2">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-home text-2xl"></i>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-home text-sm"></i>
                         </div>
-                        <span class="text-sm font-black tracking-wide">HOME</span>
-                        <div class="w-8 h-1 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                        <span class="text-xs font-black tracking-wide">HOME</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
                     </div>
                 </button>
-                <button onclick="showSection('data')" class="nav-btn group px-8 py-4 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-3xl relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+                <button onclick="showSection('data')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-2">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-database text-2xl"></i>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-database text-sm"></i>
                         </div>
-                        <span class="text-sm font-black tracking-wide">DATA</span>
-                        <div class="w-8 h-1 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                        <span class="text-xs font-black tracking-wide">DATA</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
                     </div>
                 </button>
-                <button onclick="showSection('profile')" class="nav-btn group px-8 py-4 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-3xl relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
+                <button onclick="showSection('profile')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-2">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-crown text-2xl"></i>
+                    <div class="relative flex flex-col items-center space-y-0.5">
+                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-crown text-sm"></i>
                         </div>
-                        <span class="text-sm font-black tracking-wide">PROFILE</span>
-                        <div class="w-8 h-1 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
+                        <span class="text-xs font-black tracking-wide">PROFILE</span>
+                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
                     </div>
                 </button>
             </div>
@@ -1361,6 +1843,7 @@
 
         // Salary Data Configuration
         const coinSalaryData = {
+            0: { coin: 0, rupiah: 0 },
             1: { coin: 50000, rupiah: 12750 },
             2: { coin: 100000, rupiah: 22100 },
             3: { coin: 150000, rupiah: 28900 },
@@ -1384,6 +1867,7 @@
         };
 
         const diamondSalaryData = {
+            0: { diamond: 0, rupiah: 0 },
             1: { diamond: 50000, rupiah: 12750 },
             2: { diamond: 100000, rupiah: 22100 },
             3: { diamond: 150000, rupiah: 28900 },
@@ -1407,7 +1891,7 @@
         };
 
         const rewedSalaryData = {
-            1: 3400, 2: 6500, 3: 10000, 4: 15000, 5: 20000,
+            0: 0, 1: 3400, 2: 6500, 3: 10000, 4: 15000, 5: 20000,
             6: 28000, 7: 45000, 8: 55000, 9: 80000, 10: 115000,
             11: 150000, 12: 200000, 13: 250000, 14: 310000, 15: 370000,
             16: 430000, 17: 490000, 18: 600000, 19: 710000, 20: 830000
@@ -1446,28 +1930,48 @@
             document.getElementById('currentTime').textContent = timeString;
             
             // Determine time of day and apply theme
-            let timeOfDay, icon, theme;
+            let timeOfDay, icon, theme, navIcon, navIconClass, navIconBg;
             
             if (hours >= 5 && hours < 12) {
                 timeOfDay = 'Pagi';
                 icon = '🌅';
                 theme = 'morning';
+                navIcon = 'fa-sun';
+                navIconClass = 'fas fa-sun';
+                navIconBg = 'from-yellow-400 to-orange-500';
             } else if (hours >= 12 && hours < 17) {
                 timeOfDay = 'Siang';
                 icon = '☀️';
                 theme = 'afternoon';
+                navIcon = 'fa-sun';
+                navIconClass = 'fas fa-sun';
+                navIconBg = 'from-orange-400 to-red-500';
             } else if (hours >= 17 && hours < 20) {
                 timeOfDay = 'Sore';
                 icon = '🌇';
                 theme = 'evening';
+                navIcon = 'fa-sun';
+                navIconClass = 'fas fa-sun';
+                navIconBg = 'from-red-400 to-pink-500';
             } else {
                 timeOfDay = 'Malam';
                 icon = '🌙';
                 theme = 'night';
+                navIcon = 'fa-moon';
+                navIconClass = 'fas fa-moon';
+                navIconBg = 'from-indigo-400 to-purple-500';
             }
             
             document.getElementById('timeOfDay').textContent = timeOfDay;
             document.getElementById('timeIcon').textContent = icon;
+            
+            // Update navigation icon
+            const timeBasedIcon = document.getElementById('timeBasedIcon');
+            timeBasedIcon.innerHTML = `
+                <div class="w-8 h-8 bg-gradient-to-br ${navIconBg} rounded-full flex items-center justify-center volume-animation">
+                    <i class="${navIconClass} text-white text-sm"></i>
+                </div>
+            `;
             
             // Apply theme to body
             const body = document.getElementById('mainBody');
@@ -1498,13 +2002,14 @@
         }
 
         function createMorningEffects(container) {
-            // Floating clouds
-            for (let i = 0; i < 3; i++) {
-                const cloud = document.createElement('div');
-                cloud.className = 'floating-clouds';
-                cloud.style.top = `${20 + i * 15}%`;
-                cloud.style.animationDelay = `${i * 5}s`;
-                container.appendChild(cloud);
+            // Snow effect for morning
+            for (let i = 0; i < 30; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'morning-snow';
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDelay = `${Math.random() * 3}s`;
+                snowflake.style.animationDuration = `${3 + Math.random() * 2}s`;
+                container.appendChild(snowflake);
             }
         }
 
@@ -2067,6 +2572,37 @@
             const paidMembers = members.filter(member => member.salaryStatus === 'sudah').length;
             const unpaidMembers = members.filter(member => member.salaryStatus === 'belum').length;
 
+            // Calculate salary totals
+            let totalPaidSalary = 0;
+            let totalPendingSalary = 0;
+            let totalDollarBonus = 0;
+            let highestLevel = 0;
+            const levelDistribution = {};
+
+            members.forEach(member => {
+                const memberTotalSalary = member.coinSalary + member.diamondSalary + member.rewedSalary + (member.dollar * dollarRate);
+                
+                if (member.salaryStatus === 'sudah') {
+                    totalPaidSalary += memberTotalSalary;
+                } else {
+                    totalPendingSalary += memberTotalSalary;
+                }
+                
+                totalDollarBonus += member.dollar;
+                
+                if (member.level > highestLevel) {
+                    highestLevel = member.level;
+                }
+                
+                // Level distribution
+                if (levelDistribution[member.level]) {
+                    levelDistribution[member.level]++;
+                } else {
+                    levelDistribution[member.level] = 1;
+                }
+            });
+
+            // Update basic statistics
             const totalMembersElement = document.getElementById('totalMembersCount');
             const paidMembersElement = document.getElementById('paidMembersCount');
             const unpaidMembersElement = document.getElementById('unpaidMembersCount');
@@ -2074,6 +2610,56 @@
             if (totalMembersElement) totalMembersElement.textContent = totalMembers;
             if (paidMembersElement) paidMembersElement.textContent = paidMembers;
             if (unpaidMembersElement) unpaidMembersElement.textContent = unpaidMembers;
+
+            // Update advanced statistics
+            const totalPaidSalaryElement = document.getElementById('totalPaidSalary');
+            const totalPendingSalaryElement = document.getElementById('totalPendingSalary');
+            const totalDollarBonusElement = document.getElementById('totalDollarBonus');
+            const paymentRateElement = document.getElementById('paymentRate');
+            const highestLevelElement = document.getElementById('highestLevel');
+
+            if (totalPaidSalaryElement) totalPaidSalaryElement.textContent = `Rp ${totalPaidSalary.toLocaleString()}`;
+            if (totalPendingSalaryElement) totalPendingSalaryElement.textContent = `Rp ${totalPendingSalary.toLocaleString()}`;
+            if (totalDollarBonusElement) totalDollarBonusElement.textContent = `$${totalDollarBonus}`;
+            if (paymentRateElement) {
+                const paymentRate = totalMembers > 0 ? Math.round((paidMembers / totalMembers) * 100) : 0;
+                paymentRateElement.textContent = `${paymentRate}%`;
+            }
+            if (highestLevelElement) highestLevelElement.textContent = `Level ${highestLevel}`;
+
+            // Update level distribution
+            updateLevelDistribution(levelDistribution);
+        }
+
+        function updateLevelDistribution(levelDistribution) {
+            const levelDistributionElement = document.getElementById('levelDistribution');
+            if (!levelDistributionElement) return;
+
+            levelDistributionElement.innerHTML = '';
+
+            // Sort levels
+            const sortedLevels = Object.keys(levelDistribution).sort((a, b) => parseInt(a) - parseInt(b));
+
+            sortedLevels.forEach(level => {
+                const count = levelDistribution[level];
+                const levelCard = document.createElement('div');
+                levelCard.className = 'bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-3 text-center border border-gray-200';
+                levelCard.innerHTML = `
+                    <div class="text-sm font-bold text-gray-800">Level ${level}</div>
+                    <div class="text-lg font-black text-blue-600">${count}</div>
+                    <div class="text-xs text-gray-600">member${count > 1 ? 's' : ''}</div>
+                `;
+                levelDistributionElement.appendChild(levelCard);
+            });
+
+            if (sortedLevels.length === 0) {
+                levelDistributionElement.innerHTML = `
+                    <div class="col-span-full text-center text-gray-500 py-4">
+                        <i class="fas fa-chart-bar text-2xl mb-2"></i>
+                        <div>Belum ada data untuk ditampilkan</div>
+                    </div>
+                `;
+            }
         }
 
         function createMemberCardHTML(member, totalSalaryExcludingDollar, dollarInRupiah) {
@@ -2134,20 +2720,24 @@
                         </div>
                         <div class="space-y-3">
                             <div class="flex items-center space-x-2 mb-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                                <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-dollar-sign text-white text-xs"></i>
                                 </div>
-                                <span class="font-semibold text-gray-800">Pendapatan</span>
+                                <span class="font-semibold text-gray-800">Bonus & Total</span>
                             </div>
                             <div class="space-y-2">
-                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl">
+                                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-3 rounded-xl border border-purple-200">
                                     <div class="text-xs text-gray-600 mb-1">Bonus Dolar</div>
-                                    <div class="font-bold text-blue-600">$${member.dollar}</div>
+                                    <div class="font-bold text-purple-600">$${member.dollar}</div>
                                     <div class="text-xs text-gray-600">Rp ${dollarInRupiah.toLocaleString()}</div>
                                 </div>
-                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl">
-                                    <div class="text-xs text-gray-600 mb-1">Total Gaji</div>
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl border border-green-200">
+                                    <div class="text-xs text-gray-600 mb-1">Total Gaji (Kecuali Dolar)</div>
                                     <div class="font-bold text-green-600">Rp ${totalSalaryExcludingDollar.toLocaleString()}</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
+                                    <div class="text-xs text-gray-600 mb-1">Grand Total (Semua)</div>
+                                    <div class="font-bold text-blue-600">Rp ${(totalSalaryExcludingDollar + dollarInRupiah).toLocaleString()}</div>
                                 </div>
                             </div>
                         </div>
@@ -2168,7 +2758,8 @@
                                     <div class="font-medium text-gray-800">${member.bankNumber || '-'}</div>
                                 </div>
                                 <div class="mt-3">
-                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${member.salaryStatus === 'sudah' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                    <div class="text-xs text-gray-600 mb-2">Status Pembayaran:</div>
+                                    <div class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-bold ${member.salaryStatus === 'sudah' ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-300' : 'bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border border-red-300'}">
                                         ${member.salaryStatus === 'sudah' ? '✅ SUDAH DIBAYAR' : '❌ BELUM DIBAYAR'}
                                     </div>
                                 </div>
@@ -2418,13 +3009,13 @@
                 icon.style.transform = 'rotate(0deg)';
                 showNotification('Statistik ditutup', 'info');
             } else {
-                // Open statistics
-                content.style.maxHeight = '500px';
+                // Open statistics - increased height for scrollable content
+                content.style.maxHeight = '600px';
                 content.style.paddingTop = '0px';
                 content.style.paddingBottom = '32px';
                 content.style.opacity = '1';
                 icon.style.transform = 'rotate(180deg)';
-                showNotification('Statistik dibuka', 'info');
+                showNotification('Statistik dibuka - scroll untuk melihat lebih banyak', 'info');
             }
         }
 
@@ -2435,5 +3026,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9823808c87c48be4',t:'MTc1ODM5NDE2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982ddb91a4589e2f',t:'MTc1ODUwMjc0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
