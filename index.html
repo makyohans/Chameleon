@@ -1291,16 +1291,122 @@
             <div id="salarySettings" class="hidden bg-white rounded-lg p-6 mb-6 border border-gray-200">
                 <h3 class="text-lg font-bold text-gray-800 mb-4">Pengaturan Gaji per Level</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji per Level (Rp)</label>
-                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                        <small class="text-gray-500">Level 1 = 1x, Level 2 = 2x, dst.</small>
+
+            <!-- Salary Settings -->
+            <div id="salarySettings" class="hidden bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 mb-8 border-2 border-gray-200 shadow-2xl">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl">
+                        <i class="fas fa-cogs text-white text-2xl"></i>
                     </div>
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Nilai Dolar (Rp)</label>
-                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                        <input id="salaryPerLevel" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                </div>
+                                    <!-- Gaji Koin Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-coins text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Koin Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">0 Coin = Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">50.000 Coin = Rp 12.750</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">14.600.000 Coin = Rp 2.723.400</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaji Diamond Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-blue-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-gem text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Diamond Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">0 Diamond = Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">50.000 Diamond = Rp 12.750</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">14.000.000 Diamond = Rp 2.723.400</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
+                    </div>
+
+                    <!-- Gaji Rewed Host -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-green-200 shadow-lg">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-award text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">Gaji Rewed Host</h4>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 0:</span>
+                                <span class="font-medium">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 1:</span>
+                                <span class="font-medium">Rp 3.400</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Level 20:</span>
+                                <span class="font-medium">Rp 830.000</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Bonus Lotre Dolar -->
+                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 border-2 border-purple-200 shadow-lg mb-6">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-gray-800">Bonus Lotre Dolar</h4>
+                            <p class="text-gray-600">Sistem bonus dolar untuk member</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-800 font-medium mb-2">Nilai 1 Dolar (Rp)</label>
+                            <input type="number" id="dollarRate" value="17000" class="w-full p-4 border-2 border-purple-300 rounded-xl bg-white text-gray-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300">
+                            <small class="text-gray-500">1 Dolar = Rp 17.000</small>
+                        </div>
+                        <div>
+                            <label class="block text-gray-800 font-medium mb-2">Maksimal Bonus Dolar</label>
+                            <div class="p-4 bg-white border-2 border-purple-300 rounded-xl">
+                                <div class="text-2xl font-bold text-purple-600">100 Dolar</div>
+                                <div class="text-lg text-gray-600">= Rp 1.700.000</div>
+                                <small class="text-gray-500">Range: 1-100 Dolar</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
 
             <!-- Member List -->
@@ -1723,7 +1829,7 @@
     <script>
         // Global Variables
         let members = [];
-        let salaryPerLevel = 1000;
+        let salarySettings = 1000;
         let dollarRate = 17000;
         let bannerData = null;
         let selectedIcons = [];
