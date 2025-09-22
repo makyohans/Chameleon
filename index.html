@@ -2797,58 +2797,258 @@
 
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 800;
-            canvas.height = 1000;
+            canvas.width = 900;
+            canvas.height = 1200;
 
-            // Background
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            // Create beautiful gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#667eea');
-            gradient.addColorStop(1, '#764ba2');
+            gradient.addColorStop(0.3, '#764ba2');
+            gradient.addColorStop(0.7, '#f093fb');
+            gradient.addColorStop(1, '#f5576c');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Header
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 32px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('CHANNEL AGENCY', canvas.width / 2, 60);
-            ctx.font = '18px Inter';
-            ctx.fillText('Faya Star Management System', canvas.width / 2, 90);
+            // Add decorative elements
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.beginPath();
+            ctx.arc(150, 150, 80, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(750, 200, 60, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(100, 800, 40, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(800, 900, 70, 0, 2 * Math.PI);
+            ctx.fill();
 
-            // Member Info
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 28px Inter';
-            ctx.textAlign = 'left';
-            ctx.fillText(`Nama: ${member.name}`, 50, 200);
-            ctx.font = '20px Inter';
-            ctx.fillText(`Phone: ${member.phone}`, 50, 240);
-            ctx.fillText(`Faya ID: ${member.fayaId}`, 50, 280);
-            ctx.fillText(`Level: ${member.level}`, 50, 320);
+            // Load and draw logo icon
+            const logoImg = new Image();
+            logoImg.crossOrigin = 'anonymous';
+            logoImg.onload = function() {
+                // Draw logo at top center
+                const logoSize = 80;
+                ctx.drawImage(logoImg, (canvas.width - logoSize) / 2, 30, logoSize, logoSize);
+                
+                // Continue with the rest of the drawing
+                drawMemberCard();
+            };
+            logoImg.onerror = function() {
+                // If logo fails to load, continue without it
+                drawMemberCard();
+            };
+            logoImg.src = 'https://i.ibb.co.com/MxCx3wB1/IMG-20250915-WA0000.png';
 
-            // Salary Info
-            ctx.fillText(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 50, 380);
-            ctx.fillText(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 50, 420);
-            ctx.fillText(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 50, 460);
-            ctx.fillText(`Bonus Dolar: $${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, 50, 500);
+            function drawMemberCard() {
+                // Header with shadow effect
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetY = 5;
+                
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 36px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('CHANNEL AGENCY', canvas.width / 2, 150);
+                
+                ctx.font = 'bold 20px Arial, sans-serif';
+                ctx.fillText('Faya Star Management System', canvas.width / 2, 180);
+                
+                ctx.font = '16px Arial, sans-serif';
+                ctx.fillText('Member Information Card', canvas.width / 2, 205);
 
-            // Payment Info
-            const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
-            ctx.fillText(`Metode Bayar: ${paymentMethod}`, 50, 560);
-            ctx.fillText(`Nomor: ${member.bankNumber}`, 50, 600);
-            ctx.fillText(`Pemilik: ${member.bankOwner}`, 50, 640);
+                // Reset shadow
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetY = 0;
 
-            // Status
-            ctx.fillStyle = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
-            ctx.font = 'bold 24px Inter';
-            ctx.fillText(`Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}`, 50, 700);
+                // Main card background
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.roundRect(50, 250, canvas.width - 100, 850, 25);
+                ctx.fill();
 
-            // Download
-            const link = document.createElement('a');
-            link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
+                // Card border
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 3;
+                ctx.roundRect(50, 250, canvas.width - 100, 850, 25);
+                ctx.stroke();
 
-            showNotification('Gambar member berhasil didownload!', 'success');
+                // Member photo placeholder
+                ctx.fillStyle = '#f0f0f0';
+                ctx.roundRect(canvas.width / 2 - 60, 280, 120, 120, 15);
+                ctx.fill();
+                
+                // Photo border
+                ctx.strokeStyle = '#667eea';
+                ctx.lineWidth = 4;
+                ctx.roundRect(canvas.width / 2 - 60, 280, 120, 120, 15);
+                ctx.stroke();
+
+                // Level badge
+                ctx.fillStyle = '#667eea';
+                ctx.roundRect(canvas.width / 2 + 30, 290, 40, 25, 12);
+                ctx.fill();
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(`L${member.level}`, canvas.width / 2 + 50, 307);
+
+                // Member Information Section
+                let yPos = 450;
+                const leftCol = 100;
+                const rightCol = canvas.width / 2 + 50;
+                const lineHeight = 35;
+
+                // Section: Personal Info
+                ctx.fillStyle = '#667eea';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('📋 INFORMASI PERSONAL', canvas.width / 2, yPos);
+                yPos += 40;
+
+                // Personal details
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('👤 Nama Lengkap:', leftCol, yPos);
+                ctx.fillStyle = '#667eea';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.fillText(member.name, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.fillText('📱 Nomor HP:', leftCol, yPos);
+                ctx.fillStyle = '#667eea';
+                ctx.fillText(member.phone, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('⭐ ID Faya Star:', leftCol, yPos);
+                ctx.fillStyle = '#667eea';
+                ctx.fillText(member.fayaId, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('🎯 Username Faya:', leftCol, yPos);
+                ctx.fillStyle = '#667eea';
+                ctx.fillText(member.fayaName, leftCol + 200, yPos);
+                yPos += 50;
+
+                // Section: Salary Info
+                ctx.fillStyle = '#f093fb';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('💰 INFORMASI GAJI', canvas.width / 2, yPos);
+                yPos += 40;
+
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('🪙 Gaji Koin Host:', leftCol, yPos);
+                ctx.fillStyle = '#f093fb';
+                ctx.fillText(`Rp ${member.coinSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('💎 Gaji Diamond Host:', leftCol, yPos);
+                ctx.fillStyle = '#f093fb';
+                ctx.fillText(`Rp ${member.diamondSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('🏆 Gaji Rewed Host:', leftCol, yPos);
+                ctx.fillStyle = '#f093fb';
+                ctx.fillText(`Rp ${member.rewedSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('💵 Bonus Lotre Dolar:', leftCol, yPos);
+                ctx.fillStyle = '#f093fb';
+                ctx.fillText(`$${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, leftCol + 200, yPos);
+                yPos += 50;
+
+                // Section: Payment Info
+                ctx.fillStyle = '#764ba2';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('🏦 INFORMASI PEMBAYARAN', canvas.width / 2, yPos);
+                yPos += 40;
+
+                const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
+                
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('🏪 Metode Pembayaran:', leftCol, yPos);
+                ctx.fillStyle = '#764ba2';
+                ctx.fillText(paymentMethod, leftCol + 220, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('🔢 Nomor Rekening:', leftCol, yPos);
+                ctx.fillStyle = '#764ba2';
+                ctx.fillText(member.bankNumber, leftCol + 220, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#333';
+                ctx.fillText('👨‍💼 Nama Pemilik:', leftCol, yPos);
+                ctx.fillStyle = '#764ba2';
+                ctx.fillText(member.bankOwner, leftCol + 220, yPos);
+                yPos += 50;
+
+                // Status Section with background
+                const statusBgColor = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
+                const statusText = member.salaryStatus === 'sudah' ? '✅ SUDAH DIBAYAR' : '❌ BELUM DIBAYAR';
+                
+                ctx.fillStyle = statusBgColor;
+                ctx.roundRect(100, yPos - 25, canvas.width - 200, 50, 25);
+                ctx.fill();
+                
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 24px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('STATUS PEMBAYARAN', canvas.width / 2, yPos - 5);
+                ctx.font = 'bold 28px Arial, sans-serif';
+                ctx.fillText(statusText, canvas.width / 2, yPos + 25);
+
+                // Footer
+                yPos += 80;
+                ctx.fillStyle = '#666';
+                ctx.font = '14px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Generated by Channel Agency Management System', canvas.width / 2, yPos);
+                ctx.fillText(new Date().toLocaleDateString('id-ID'), canvas.width / 2, yPos + 20);
+
+                // Download the image
+                const link = document.createElement('a');
+                link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+
+                showNotification('Gambar member berhasil didownload dengan desain baru!', 'success');
+            }
+
+            // Add roundRect function if not available
+            if (!ctx.roundRect) {
+                ctx.roundRect = function(x, y, width, height, radius) {
+                    this.beginPath();
+                    this.moveTo(x + radius, y);
+                    this.lineTo(x + width - radius, y);
+                    this.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    this.lineTo(x + width, y + height - radius);
+                    this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    this.lineTo(x + radius, y + height);
+                    this.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    this.lineTo(x, y + radius);
+                    this.quadraticCurveTo(x, y, x + radius, y);
+                    this.closePath();
+                };
+            }
         }
 
         function editMember(memberId) {
@@ -3026,5 +3226,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982ddb91a4589e2f',t:'MTc1ODUwMjc0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982e113cf47bce25',t:'MTc1ODUwNDk0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
