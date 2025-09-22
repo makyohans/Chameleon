@@ -1288,132 +1288,22 @@
             </div>
 
             <!-- Salary Settings -->
-            <div id="salarySettings" class="hidden bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 mb-8 border-2 border-gray-200 shadow-2xl">
-                <div class="flex items-center space-x-4 mb-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl">
-                        <i class="fas fa-cogs text-white text-2xl"></i>
+            <div id="salarySettings" class="hidden bg-white rounded-lg p-6 mb-6 border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Pengaturan Gaji per Level</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-800 font-medium mb-2">Gaji per Level (Rp)</label>
+                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                        <small class="text-gray-500">Level 1 = 1x, Level 2 = 2x, dst.</small>
                     </div>
                     <div>
-                        <h3 class="text-3xl font-black text-gray-800 tracking-wide">Pengaturan Gaji per Level</h3>
-                        <p class="text-gray-600 text-lg">Konfigurasi sistem gaji dan bonus</p>
+                        <label class="block text-gray-800 font-medium mb-2">Nilai Dolar (Rp)</label>
+                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <!-- Gaji Koin Host -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 shadow-lg">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-coins text-white"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-gray-800">Gaji Koin Host</h4>
-                        </div>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 0:</span>
-                                <span class="font-medium">0 Coin = Rp 0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 1:</span>
-                                <span class="font-medium">50.000 Coin = Rp 12.750</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 20:</span>
-                                <span class="font-medium">14.600.000 Coin = Rp 2.723.400</span>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
-                        </div>
-                    </div>
-
-                    <!-- Gaji Diamond Host -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-blue-200 shadow-lg">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-gem text-white"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-gray-800">Gaji Diamond Host</h4>
-                        </div>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 0:</span>
-                                <span class="font-medium">0 Diamond = Rp 0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 1:</span>
-                                <span class="font-medium">50.000 Diamond = Rp 12.750</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 20:</span>
-                                <span class="font-medium">14.000.000 Diamond = Rp 2.723.400</span>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
-                        </div>
-                    </div>
-
-                    <!-- Gaji Rewed Host -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-green-200 shadow-lg">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-award text-white"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-gray-800">Gaji Rewed Host</h4>
-                        </div>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 0:</span>
-                                <span class="font-medium">Rp 0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 1:</span>
-                                <span class="font-medium">Rp 3.400</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Level 20:</span>
-                                <span class="font-medium">Rp 830.000</span>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-2">Otomatis sesuai level member</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bonus Lotre Dolar -->
-                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 border-2 border-purple-200 shadow-lg mb-6">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-dollar-sign text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-2xl font-bold text-gray-800">Bonus Lotre Dolar</h4>
-                            <p class="text-gray-600">Sistem bonus dolar untuk member</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-800 font-medium mb-2">Nilai 1 Dolar (Rp)</label>
-                            <input type="number" id="dollarRate" value="17000" class="w-full p-4 border-2 border-purple-300 rounded-xl bg-white text-gray-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300">
-                            <small class="text-gray-500">1 Dolar = Rp 17.000</small>
-                        </div>
-                        <div>
-                            <label class="block text-gray-800 font-medium mb-2">Maksimal Bonus Dolar</label>
-                            <div class="p-4 bg-white border-2 border-purple-300 rounded-xl">
-                                <div class="text-2xl font-bold text-purple-600">100 Dolar</div>
-                                <div class="text-lg text-gray-600">= Rp 1.700.000</div>
-                                <small class="text-gray-500">Range: 1-100 Dolar</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center">
-                    <button onclick="updateSalarySettings()" class="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 hover:from-blue-600 hover:via-indigo-700 hover:to-purple-800 text-white px-8 py-4 rounded-2xl transition-all duration-300 font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-save text-lg"></i>
-                            </div>
-                            <span>Simpan Pengaturan Gaji</span>
-                        </div>
-                    </button>
-                </div>
+                <button onclick="updateSalarySettings()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-save mr-2"></i>Simpan Pengaturan
+                </button>
             </div>
 
             <!-- Member List -->
@@ -1607,6 +1497,9 @@
                                     <div>
                                         <div class="text-gray-600 font-medium">Level VIP</div>
                                         <select id="vipStatus" onchange="updateVipStatus()" class="text-xl font-black text-indigo-600 bg-transparent border-2 border-indigo-300 rounded-xl px-4 py-2 focus:border-indigo-500 focus:outline-none transition-all duration-300">
+                                            <option value="ADMIN" selected>ADMIN</option>
+                                            <option value="WAKIL ADMIN">WAKIL ADMIN</option>
+                                            <option value="ADMIN RUM">ADMIN RUM</option>
                                             <option value="VIP 1">VIP 1</option>
                                             <option value="VIP 2">VIP 2</option>
                                             <option value="VIP 3">VIP 3</option>
@@ -1614,9 +1507,6 @@
                                             <option value="VIP 5">VIP 5</option>
                                             <option value="VIP 6">VIP 6</option>
                                             <option value="VIP 7">VIP 7</option>
-                                            <option value="ADMIN" selected>ADMIN</option>
-                                            <option value="WAKIL ADMIN">WAKIL ADMIN</option>
-                                            <option value="ADMIN RUM">ADMIN RUM</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1771,8 +1661,8 @@
                         <i class="fab fa-whatsapp text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <div class="font-bold text-lg">WhatsApp</div>
-                        <div class="text-sm opacity-90">082172070365</div>
+                        <div class="font-bold text-lg">WHATSAPP</div>
+                        <div class="text-sm opacity-90">Owner Rency</div>
                     </div>
                     <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
                 </button>
@@ -1782,8 +1672,8 @@
                         <i class="fab fa-telegram text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <div class="font-bold text-lg">Telegram</div>
-                        <div class="text-sm opacity-90">@info_chamelion</div>
+                        <div class="font-bold text-lg">TELEGRAM</div>
+                        <div class="text-sm opacity-90">INFO CHAMELION AGENCY</div>
                     </div>
                     <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
                 </button>
@@ -2483,7 +2373,7 @@
             const rewedSalary = rewedSalaryData[level];
             
             const fileInput = document.getElementById('memberImg');
-            let memberImg = 'https://via.placeholder.com/100';
+            let memberImg = 'https://via.placeholder.com/400x600.png/ffffff/000000?Text=400x600';
             
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
@@ -2667,7 +2557,7 @@
                 <div class="flex flex-col lg:flex-row items-start space-y-6 lg:space-y-0 lg:space-x-8">
                     <div class="flex-shrink-0">
                         <div class="relative">
-                            <img src="${member.img}" alt="${member.name}" class="w-24 h-24 rounded-2xl object-cover shadow-lg" onerror="this.src='https://via.placeholder.com/100'; this.alt='Foto tidak tersedia';">
+                            <img src="${member.img}" alt="${member.name}" class="w-24 h-24 rounded-2xl object-cover shadow-lg" onerror="this.src='https://via.placeholder.com/400x600.png/ffffff/000000?Text=400x600'; this.alt='Foto tidak tersedia';">
                             <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center">
                                 <span class="text-white text-xs font-bold">${member.level}</span>
                             </div>
@@ -2720,24 +2610,20 @@
                         </div>
                         <div class="space-y-3">
                             <div class="flex items-center space-x-2 mb-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                                <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-dollar-sign text-white text-xs"></i>
                                 </div>
-                                <span class="font-semibold text-gray-800">Bonus & Total</span>
+                                <span class="font-semibold text-gray-800">Pendapatan</span>
                             </div>
                             <div class="space-y-2">
-                                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-3 rounded-xl border border-purple-200">
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl">
                                     <div class="text-xs text-gray-600 mb-1">Bonus Dolar</div>
-                                    <div class="font-bold text-purple-600">$${member.dollar}</div>
+                                    <div class="font-bold text-blue-600">$${member.dollar}</div>
                                     <div class="text-xs text-gray-600">Rp ${dollarInRupiah.toLocaleString()}</div>
                                 </div>
-                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl border border-green-200">
-                                    <div class="text-xs text-gray-600 mb-1">Total Gaji (Kecuali Dolar)</div>
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl">
+                                    <div class="text-xs text-gray-600 mb-1">Total Gaji</div>
                                     <div class="font-bold text-green-600">Rp ${totalSalaryExcludingDollar.toLocaleString()}</div>
-                                </div>
-                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
-                                    <div class="text-xs text-gray-600 mb-1">Grand Total (Semua)</div>
-                                    <div class="font-bold text-blue-600">Rp ${(totalSalaryExcludingDollar + dollarInRupiah).toLocaleString()}</div>
                                 </div>
                             </div>
                         </div>
@@ -2758,8 +2644,7 @@
                                     <div class="font-medium text-gray-800">${member.bankNumber || '-'}</div>
                                 </div>
                                 <div class="mt-3">
-                                    <div class="text-xs text-gray-600 mb-2">Status Pembayaran:</div>
-                                    <div class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-bold ${member.salaryStatus === 'sudah' ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-300' : 'bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border border-red-300'}">
+                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${member.salaryStatus === 'sudah' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                                         ${member.salaryStatus === 'sudah' ? '✅ SUDAH DIBAYAR' : '❌ BELUM DIBAYAR'}
                                     </div>
                                 </div>
@@ -2797,45 +2682,134 @@
 
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 800;
-            canvas.height = 1000;
+            canvas.width = 600;
+            canvas.height = 800;
 
             // Background
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#667eea');
-            gradient.addColorStop(1, '#764ba2');
+            // Create beautiful gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#abb600');
+            gradient.addColorStop(0.3, '#818a00');
+            gradient.addColorStop(0.7, '#656c00');
+            gradient.addColorStop(1, '#383b00');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+                // Member Information Section
+                let yPos = 130;
+                const leftCol = 100;
+                const rightCol = canvas.width / 2 + 50;
+                const lineHeight = 35;
+
             // Header
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 32px Inter';
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 35px Inter';
             ctx.textAlign = 'center';
-            ctx.fillText('CHANNEL AGENCY', canvas.width / 2, 60);
-            ctx.font = '18px Inter';
+            ctx.fillText('OFC CHAMELION AGENCY', canvas.width / 2, 60);
+            ctx.font = '25px Inter';
             ctx.fillText('Faya Star Management System', canvas.width / 2, 90);
 
-            // Member Info
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 28px Inter';
-            ctx.textAlign = 'left';
-            ctx.fillText(`Nama: ${member.name}`, 50, 200);
-            ctx.font = '20px Inter';
-            ctx.fillText(`Phone: ${member.phone}`, 50, 240);
-            ctx.fillText(`Faya ID: ${member.fayaId}`, 50, 280);
-            ctx.fillText(`Level: ${member.level}`, 50, 320);
+                // Section: Personal Info
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('📋 INFORMASI PERSONAL MEMBER', canvas.width / 2, yPos);
+                yPos += 40;
 
-            // Salary Info
-            ctx.fillText(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 50, 380);
-            ctx.fillText(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 50, 420);
-            ctx.fillText(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 50, 460);
-            ctx.fillText(`Bonus Dolar: $${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, 50, 500);
+                // Personal details
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('👤 Nama Lengkap :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.fillText(member.name, leftCol + 200, yPos);
+                yPos += lineHeight;
 
-            // Payment Info
-            const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
-            ctx.fillText(`Metode Bayar: ${paymentMethod}`, 50, 560);
-            ctx.fillText(`Nomor: ${member.bankNumber}`, 50, 600);
-            ctx.fillText(`Pemilik: ${member.bankOwner}`, 50, 640);
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.fillText('📱 Nomor HP :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(member.phone, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('⭐ ID Faya Star :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(member.fayaId, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('🎯 Username Faya :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(member.fayaName, leftCol + 200, yPos);
+                yPos += 50;
+
+                // Section: Salary Info
+                ctx.fillStyle = '#0002ae';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('💰 INFORMASI GAJI MEMBER', canvas.width / 2, yPos);
+                yPos += 40;
+
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('🪙 Gaji Koin Host :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`Rp ${member.coinSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('💎 Gaji Diamond Host :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`Rp ${member.diamondSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('🏆 Gaji Rewed Host :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`Rp ${member.rewedSalary.toLocaleString()}`, leftCol + 200, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('💵 Bonus Lotre Dolar :', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`$${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, leftCol + 200, yPos);
+                yPos += 50;
+
+                // Section: Payment Info
+                ctx.fillStyle = '#00ddd9';
+                ctx.font = 'bold 22px Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('🏦 INFORMASI PEMBAYARAN', canvas.width / 2, yPos);
+                yPos += 40;
+
+                const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
+                
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 18px Arial, sans-serif';
+                ctx.textAlign = 'left';
+                
+                ctx.fillText('🏪 Metode Pembayaran:', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(paymentMethod, leftCol + 220, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('🔢 Nomor Rekening:', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(member.bankNumber, leftCol + 220, yPos);
+                yPos += lineHeight;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillText('👨‍💼 Nama Pemilik:', leftCol, yPos);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(member.bankOwner, leftCol + 220, yPos);
+                yPos += 50;
+
 
             // Status
             ctx.fillStyle = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
@@ -2972,7 +2946,7 @@
         }
 
         function openWhatsApp() {
-            window.open('https://wa.me/6282172070365', '_blank', 'noopener,noreferrer');
+            window.open('https://wa.me/6282184102963', '_blank', 'noopener,noreferrer');
             hideCustomerServiceModal();
         }
 
@@ -3026,5 +3000,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982e635be531601b',t:'MTc1ODUwODMwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982e6c13a5e1f92e',t:'MTc1ODUwODY2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
