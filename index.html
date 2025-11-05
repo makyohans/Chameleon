@@ -358,12 +358,12 @@
 
                 <!-- Setatis (baru) -->
                 <div>
-                    <label class="field-label">SETATIS (Wakil / Oner / Admin / Member)</label>
+                    <label class="field-label">SETATIS (Wakil / Admin / Member)</label>
                     <div class="field">
                         <select id="statusSelect" onchange="updateStatus(); hitungTotalGaji();" aria-label="Setatis">
+                            <option value="Member">Member</option>
                             <option value="Wakil">Wakil</option>
                             <option value="Admin">Admin</option>
-                            <option value="Member">Member</option>
                         </select>
                         <input type="hidden" id="statusHidden" value="Member">
                         <span class="sub-muted" id="statusDisplay">Status terpilih: <strong>Member</strong></span>
