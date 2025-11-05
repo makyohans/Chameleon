@@ -3,3202 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channel Agency - Data Member</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Data Gaji Karyawan Berdasarkan Level (Update)</title>
+    
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
         
-        * {
-            font-family: 'Inter', sans-serif;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .scrolling-text {
-            animation: scroll 20s linear infinite;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        /* Styling untuk Tabel */
+        #dataGaji {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
         }
         
-        .bouncing-logo {
-            animation: bounce-logo 2s ease-in-out infinite;
+        #dataGaji th, #dataGaji td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #dataGaji th {
+            background-color: #3f51b5;
+            color: white;
+            font-weight: bold;
+        }
+        
+        #dataGaji tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* Styling untuk Kolom Data */
+        .data-label {
+            width: 40%;
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .data-value {
+            width: 60%;
+            min-height: 20px;
+        }
+
+        /* Styling untuk Total Gaji */
+        #totalGajiRow td {
+             background-color: #c5cae9 !important;
+        }
+        #totalGaji {
+            background-color: #e8eaf6 !important;
+            font-weight: bold;
+        }
+
+        /* Styling untuk Input dan Dropdown */
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .bank-ewallet-select, .bank-ewallet-input {
+            margin-top: 5px;
+        }
+
+        /* Styling untuk Tombol Radio/Pilihan Bank/E-wallet */
+        .radio-group label {
+            margin-right: 15px;
             cursor: pointer;
         }
-        @keyframes bounce-logo {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            25% { transform: translateY(-8px) scale(1.02); }
-            50% { transform: translateY(-12px) scale(1.05); }
-            75% { transform: translateY(-8px) scale(1.02); }
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
         }
         
-        .volume-animation {
-            animation: volume-bounce 1.5s ease-in-out infinite;
-        }
-        @keyframes volume-bounce {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-5px) scale(1.1); }
-        }
-        
-        .spinning-logo {
-            animation: spin-logo 1s ease-in-out;
-        }
-        @keyframes spin-logo {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 3s ease-in-out infinite alternate;
-        }
-        @keyframes pulse-glow {
-            from { box-shadow: 0 0 8px rgba(59, 130, 246, 0.3); }
-            to { box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); }
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .custom-shadow {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-        }
-        
-        .icon-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .member-card {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
-        }
-        
-        .enhanced-icon {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .enhanced-icon:hover {
-            transform: scale(1.05);
-            box-shadow: 0 3px 12px rgba(59, 130, 246, 0.25);
-        }
-        
-        .info-card {
-            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .info-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-        
-        .info-card:hover::before {
-            transform: translateX(100%);
-        }
-        
-        .section-header {
-            background: linear-gradient(135deg, white 0%, #f1f5f9 100%);
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .section-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
-        }
-
-        .form-input {
-            transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
-        }
-        .form-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            outline: none;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .stats-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            padding: 16px 24px;
-            border-radius: 12px;
+        /* Styling untuk Tombol Download */
+        #downloadImgBtn {
+            background-color: #4CAF50;
             color: white;
-            font-weight: 600;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-
-        .notification.error {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-
-        .notification.info {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-
-        /* Animated Green Border Effect */
-        .animated-green-border {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .animated-green-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                #10b981, #059669, #34d399, #6ee7b7, 
-                #10b981, #059669, #34d399, #6ee7b7);
-            background-size: 400% 400%;
-            border-radius: inherit;
-            z-index: -1;
-            animation: animated-border 3s ease-in-out infinite;
-        }
-
-        @keyframes animated-border {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* Beach Scene Background */
-        .beach-background {
-            background: linear-gradient(135deg, 
-                #87CEEB 0%,     /* Sky Blue */
-                #98D8E8 20%,    /* Light Blue */
-                #F0E68C 40%,    /* Khaki (Sand) */
-                #DEB887 60%,    /* Burlywood (Beach) */
-                #20B2AA 80%,    /* Light Sea Green */
-                #008B8B 100%    /* Dark Cyan (Deep Water) */
-            );
-            position: relative;
-            overflow: hidden;
-        }
-
-        .beach-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-                radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
-                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
-            background-size: 50px 50px, 30px 30px, 70px 70px;
-            animation: float-clouds 20s ease-in-out infinite;
-        }
-
-        .beach-background::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30%;
-            background: linear-gradient(0deg, 
-                rgba(32, 178, 170, 0.3) 0%,
-                rgba(152, 216, 232, 0.2) 50%,
-                transparent 100%
-            );
-            animation: wave-motion 4s ease-in-out infinite;
-        }
-
-        @keyframes float-clouds {
-            0%, 100% { transform: translateX(0px) translateY(0px); }
-            25% { transform: translateX(10px) translateY(-5px); }
-            50% { transform: translateX(-5px) translateY(-10px); }
-            75% { transform: translateX(-10px) translateY(-5px); }
-        }
-
-        @keyframes wave-motion {
-            0%, 100% { transform: scaleY(1) translateY(0px); }
-            50% { transform: scaleY(1.1) translateY(-5px); }
-        }
-
-        /* Beach Elements */
-        .beach-sun {
-            position: absolute;
-            top: 15%;
-            right: 15%;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #FFD700 30%, #FFA500 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-            animation: sun-glow 3s ease-in-out infinite alternate;
-        }
-
-        .beach-sun::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 50%;
-            animation: sun-rays 4s linear infinite;
-        }
-
-        @keyframes sun-glow {
-            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
-        }
-
-        @keyframes sun-rays {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
-        }
-
-        .beach-palm {
-            position: absolute;
-            bottom: 20%;
-            left: 10%;
-            width: 40px;
-            height: 80px;
-            background: linear-gradient(0deg, #8B4513 0%, #228B22 70%);
-            border-radius: 20px 20px 5px 5px;
-            animation: palm-sway 6s ease-in-out infinite;
-        }
-
-        .beach-palm::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -15px;
-            width: 70px;
-            height: 30px;
-            background: radial-gradient(ellipse, #228B22 30%, #32CD32 70%);
-            border-radius: 50%;
-        }
-
-        @keyframes palm-sway {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
-        }
-
-        .beach-waves {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 20px;
-            background: repeating-linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.3) 0px,
-                rgba(255, 255, 255, 0.1) 10px,
-                rgba(255, 255, 255, 0.3) 20px
-            );
-            animation: wave-flow 3s ease-in-out infinite;
-        }
-
-        @keyframes wave-flow {
-            0% { transform: translateX(0px); }
-            50% { transform: translateX(-10px); }
-            100% { transform: translateX(0px); }
-        }
-
-        /* Enhanced Modal Styling */
-        .beach-modal {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 3px solid transparent;
-            background-clip: padding-box;
-        }
-
-        .modal-header-beach {
-            background: linear-gradient(135deg, 
-                rgba(16, 185, 129, 0.1) 0%,
-                rgba(52, 211, 153, 0.1) 50%,
-                rgba(110, 231, 183, 0.1) 100%
-            );
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-header-beach::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%,
-                rgba(255, 255, 255, 0.4) 50%,
-                transparent 100%
-            );
-            animation: shimmer 3s ease-in-out infinite;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 10px;
         }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        #downloadImgBtn:hover {
+            background-color: #45a049;
         }
-
-        /* Time-based Theme Styles */
-        .theme-morning {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #f59e0b 100%);
-        }
-
-        .theme-afternoon {
-            background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 50%, #3b82f6 100%);
-        }
-
-        .theme-evening {
-            background: linear-gradient(135deg, #fed7aa 0%, #fb923c 50%, #ea580c 100%);
-        }
-
-        .theme-night {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
-        }
-
-        /* Morning Animations */
-        .sun-rays {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 70%);
-            animation: sun-rotation 20s linear infinite;
-        }
-
-        @keyframes sun-rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .floating-clouds {
-            position: absolute;
-            width: 80px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 40px;
-            animation: cloud-float 15s ease-in-out infinite;
-        }
-
-        .floating-clouds::before,
-        .floating-clouds::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .floating-clouds::before {
-            width: 50px;
-            height: 50px;
-            top: -25px;
-            left: 10px;
-        }
-
-        .floating-clouds::after {
-            width: 60px;
-            height: 60px;
-            top: -35px;
-            right: 10px;
-        }
-
-        @keyframes cloud-float {
-            0%, 100% { transform: translateX(-100px) translateY(0px); }
-            50% { transform: translateX(calc(100vw + 100px)) translateY(-20px); }
-        }
-
-        /* Afternoon Animations */
-        .water-ripples {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
-            animation: ripple-effect 3s ease-out infinite;
-        }
-
-        @keyframes ripple-effect {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-
-        /* Evening Animations */
-        .sunset-glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(251, 146, 60, 0.4) 0%, rgba(234, 88, 12, 0.2) 50%, transparent 70%);
-            animation: sunset-pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes sunset-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        /* Night Animations */
-        .falling-stars {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px white;
-            animation: star-fall 3s linear infinite;
-        }
-
-        @keyframes star-fall {
-            0% {
-                transform: translateY(-100vh) translateX(0px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) translateX(200px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .twinkling-stars {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.5); }
-        }
-
-        .morning-snow {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: snow-fall linear infinite;
-        }
-
-        @keyframes snow-fall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0.3;
-            }
-        }
-
-        .moon-glow {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0);
-            box-shadow: 0 0 80px rgba(248, 250, 252, 0.6);
-            animation: moon-float 10s ease-in-out infinite;
-        }
-
-        @keyframes moon-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Time Display */
-        .time-display {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .time-icon {
-            display: inline-block;
-            margin-right: 8px;
-            font-size: 20px;
-        }
-
-        /* Weather Effects */
-        .weather-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        /* Custom Scrollbar Styles */
-        .scrollbar-thin {
-            scrollbar-width: thin;
-        }
-
-        .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
-            background-color: #d1d5db;
-            border-radius: 6px;
-        }
-
-        .scrollbar-track-gray-100::-webkit-scrollbar-track {
-            background-color: #f3f4f6;
-            border-radius: 6px;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-            background-color: #d1d5db;
-            border-radius: 6px;
-            border: 2px solid #f3f4f6;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-            background-color: #9ca3af;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-track {
-            background-color: #f3f4f6;
-            border-radius: 6px;
-        }
+        
     </style>
 </head>
+<body>
 
-<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen" id="mainBody">
-    <!-- Time Display -->
-    <div class="time-display">
-        <div class="flex items-center space-x-2">
-            <span class="time-icon" id="timeIcon">🌅</span>
-            <div>
-                <div class="font-bold text-gray-800" id="currentTime">00:00:00</div>
-                <div class="text-sm text-gray-600" id="timeOfDay">Pagi</div>
-            </div>
+    <div class="container">
+        
+        <h2>AGENCY SAHABAT KITA</h2>
+        <p>WELCOME TO AGENCY SAHABAT KITA</p>
+
+        <table id="dataGaji">
+            <thead>
+                <tr>
+                    <th colspan="2">GAJI MEMBER FAYA STAR SAHABAT KITA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">PILIH LEVEL GAJI</td>
+                    <td class="data-value">
+                        <select id="levelGaji" onchange="isiGajiOtomatis()">
+                            <option value="0">--- Level 0 (Data Kosong) ---</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">PUST COIN / PUST DIAMOND</td>
+                    <td class="data-value pust-data" id="pustData"></td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">ID FAYA</td>
+                    <td class="data-value" contenteditable="true" id="idFaya"></td>
+                </tr>
+                <tr>
+                    <td class="data-label">NAMA FAYA</td>
+                    <td class="data-value" contenteditable="true" id="namaFaya"></td>
+                </tr>
+                <tr>
+                    <td class="data-label">NOMOR HP</td>
+                    <td class="data-value" contenteditable="true" id="nomorHP"></td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">JENIS AKUN</td>
+                    <td class="data-value radio-group">
+                        <label>
+                            <input type="radio" name="jenisAkun" value="bank" checked onchange="updateAkunOptions()"> Bank
+                        </label>
+                        <label>
+                            <input type="radio" name="jenisAkun" value="ewallet" onchange="updateAkunOptions()"> E-Wallet
+                        </label>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">BANK / E-WALLET</td>
+                    <td class="data-value">
+                        <select id="selectAkun" class="bank-ewallet-select" onchange="updateNamaBank()">
+                            </select>
+                        <input type="hidden" id="namaBank" value="">
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">NOMOR AKUN / HP</td>
+                    <td class="data-value" contenteditable="true" id="akunBank"></td>
+                </tr>
+                <tr>
+                    <td class="data-label">NAMA PEMILIK</td>
+                    <td class="data-value" contenteditable="true" id="namaPemilik"></td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">GAJI COIN (IDR)</td>
+                    <td class="data-value" id="gajiCoin">Rp 0</td>
+                </tr>
+                <tr>
+                    <td class="data-label">GAJI DIAMOND (IDR)</td>
+                    <td class="data-value" id="gajiDiamond">Rp 0</td>
+                </tr>
+                <tr>
+                    <td class="data-label">BONUS (IDR)</td>
+                    <td class="data-value" id="bonus">Rp 0</td>
+                </tr>
+                
+                <tr>
+                    <td class="data-label">DOLAR (Angka Saja)</td>
+                    <td class="data-value editable-cell">
+                        <input type="text" id="dolarInput" value="0" oninput="hitungTotalGaji()">
+                    </td>
+                </tr>
+                
+                <tr id="totalGajiRow">
+                    <td class="data-label"><strong>TOTAL GAJIH (IDR)</strong></td>
+                    <td class="data-value" id="totalGaji"><strong>Rp 0</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button id="downloadImgBtn">⬇️ DOWNLOAD DATA JADI GAMBAR (IMG)</button>
+        
+        <div class="catatan">
+            <strong>CATATAN:</strong>
+            <br>1. Kurs **1 Dolar = Rp 17.000**.
+            <br>2. Pilih **Bank** atau **E-Wallet** untuk memuat daftar yang sesuai.
         </div>
     </div>
-
-    <!-- Weather Overlay -->
-    <div class="weather-overlay" id="weatherOverlay"></div>
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-blue-600/5"></div>
-        <div class="container mx-auto px-6 py-3 relative z-10">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-6">
-                    <div class="relative group">
-                        <div id="channelLogo" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-1 bouncing-logo shadow-2xl" onclick="spinLogo()">
-                            <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Channel Agency" class="w-full h-full rounded-xl object-cover" onerror="this.src=''; this.alt='Logo gagal dimuat'; this.style.display='none';">
-                        </div>
-                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center pulse-glow shadow-lg">
-                            <i class="fas fa-crown text-white text-xs"></i>
-                        </div>
-                        <div class="absolute -bottom-1 -left-1 w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-star text-white text-xs"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-1">
-                        <div class="flex items-center space-x-3">
-                            <h1 class="text-3xl font-black gradient-text tracking-wide">CHANNEL AGENCY</h1>
-                            <div class="flex items-center space-x-1" id="timeBasedIcon">
-                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center volume-animation">
-                                    <i class="fas fa-sun text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-sparkles text-white text-xs"></i>
-                            </div>
-                            <p class="text-gray-600 text-base font-semibold">Faya Star Management System</p>
-                        </div>
-                        <div class="flex items-center space-x-3 text-sm">
-                            <div class="flex items-center space-x-1 bg-green-100 px-2 py-1 rounded-full">
-                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-green-700 font-medium text-xs">Active</span>
-                            </div>
-                            <div class="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
-                                <i class="fas fa-shield-alt text-blue-600 text-xs"></i>
-                                <span class="text-blue-700 font-medium text-xs">Secure</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                    <div class="hidden md:flex items-center space-x-2 info-card px-4 py-2">
-                        <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center enhanced-icon">
-                            <i class="fas fa-wifi text-white text-sm"></i>
-                        </div>
-                        <div>
-                            <div class="text-gray-800 font-bold text-xs">System Status</div>
-                            <div class="flex items-center space-x-1">
-                                <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-green-600 text-xs font-semibold">Online & Active</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-3">
-                        <button onclick="showCustomerServiceModal()" class="group flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-green-500/20 hover:from-green-500/20 hover:to-emerald-500/20 transition-all duration-300 cursor-pointer">
-                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <i class="fas fa-headset text-white text-xs"></i>
-                            </div>
-                            <span class="text-gray-800 font-semibold text-xs">Customer Service</span>
-                            <i class="fas fa-chevron-down text-gray-600 text-xs group-hover:rotate-180 transition-transform"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-12 pb-24">
-        <!-- Home Section -->
-        <div id="homeSection" class="section">
-            <!-- Hero Banner / Advertisement -->
-            <div id="heroBanner" class="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-12 mb-12 overflow-hidden shadow-lg border-2 border-dashed border-gray-300 min-h-[300px] flex items-center justify-center group cursor-pointer" onclick="showBannerEditor()">
-                <div id="bannerContent" class="text-center">
-                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-plus text-gray-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-600 mb-2">Tambah Banner Iklan</h3>
-                    <p class="text-gray-500">Klik untuk menambah atau edit banner iklan</p>
-                </div>
-                <div class="absolute top-4 right-4 w-10 h-10 bg-blue-500 hover:bg-blue-600 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-pencil-alt text-white"></i>
-                </div>
-            </div>
-
-            <!-- Banner Editor Modal -->
-            <div id="bannerEditorModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-                <div class="beach-modal animated-green-border beach-background rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto" id="bannerEditorContent">
-                    <!-- Beach Elements -->
-                    <div class="beach-sun"></div>
-                    <div class="beach-palm"></div>
-                    <div class="beach-waves"></div>
-                    
-                    <div class="modal-header-beach relative z-10">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-2xl animated-green-border">
-                                    <i class="fas fa-umbrella-beach text-white text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-gray-800 tracking-wide">🏖️ Editor Banner Iklan</h3>
-                                    <p class="text-gray-700 font-semibold">🌊 Buat dan edit banner iklan Anda dengan suasana pantai</p>
-                                    <div class="flex items-center space-x-2 mt-2">
-                                        <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-                                        <span class="text-sm text-gray-600 font-medium">Beach Theme Editor</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button onclick="hideBannerEditor()" class="w-12 h-12 bg-gradient-to-br from-red-400 to-rose-500 hover:from-red-500 hover:to-rose-600 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
-                                <i class="fas fa-times text-white text-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 relative z-10">
-                        <!-- Image Upload -->
-                        <div class="md:col-span-2">
-                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-camera-retro text-white text-sm"></i>
-                                </div>
-                                <span class="text-lg">🖼️ Gambar Banner Pantai</span>
-                            </label>
-                            <input type="file" id="bannerImageInput" accept="image/*" class="w-full p-4 border-2 border-dashed border-emerald-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-emerald-500 file:to-teal-600 file:text-white hover:file:from-emerald-600 hover:file:to-teal-700 shadow-lg">
-                            <div id="bannerImagePreview" class="mt-4 hidden">
-                                <img id="bannerPreviewImg" class="w-full h-32 rounded-xl object-cover border-3 border-emerald-400 shadow-xl" alt="Preview">
-                            </div>
-                        </div>
-                        
-                        <!-- Main Title -->
-                        <div>
-                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-heading text-white text-sm"></i>
-                                </div>
-                                <span class="text-lg">🌅 Judul Besar</span>
-                            </label>
-                            <input type="text" id="bannerMainTitle" class="w-full p-4 border-2 border-yellow-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all duration-300" placeholder="Masukkan judul utama yang menarik...">
-                        </div>
-                        
-                        <!-- Subtitle -->
-                        <div>
-                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-text-height text-white text-sm"></i>
-                                </div>
-                                <span class="text-lg">🌺 Judul Kecil</span>
-                            </label>
-                            <input type="text" id="bannerSubtitle" class="w-full p-4 border-2 border-pink-400 rounded-xl bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition-all duration-300" placeholder="Masukkan subtitle yang menawan...">
-                        </div>
-                        
-                        <!-- Icon Selection -->
-                        <div class="md:col-span-2">
-                            <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-icons text-white text-sm"></i>
-                                </div>
-                                <span class="text-lg">🎨 Pilih Icon Pantai (Maksimal 3)</span>
-                            </label>
-                            <div class="grid grid-cols-6 gap-3 max-h-40 overflow-y-auto border-2 border-purple-400 rounded-xl p-4 bg-white/90 backdrop-blur-sm shadow-lg">
-                                <button type="button" onclick="toggleIcon('fa-star')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-star">
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-crown')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-crown">
-                                    <i class="fas fa-crown text-yellow-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-gem')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-gem">
-                                    <i class="fas fa-gem text-blue-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-fire')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-fire">
-                                    <i class="fas fa-fire text-red-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-heart')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-heart">
-                                    <i class="fas fa-heart text-pink-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-trophy')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-trophy">
-                                    <i class="fas fa-trophy text-yellow-600"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-rocket')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-rocket">
-                                    <i class="fas fa-rocket text-purple-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-lightning-bolt')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-lightning-bolt">
-                                    <i class="fas fa-bolt text-yellow-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-magic')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-magic">
-                                    <i class="fas fa-magic text-purple-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-sparkles')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-sparkles">
-                                    <i class="fas fa-sparkles text-blue-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-gift')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-gift">
-                                    <i class="fas fa-gift text-green-500"></i>
-                                </button>
-                                <button type="button" onclick="toggleIcon('fa-medal')" class="icon-selector w-12 h-12 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors" data-icon="fa-medal">
-                                    <i class="fas fa-medal text-orange-500"></i>
-                                </button>
-                            </div>
-                            <div id="selectedIcons" class="mt-4 flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-xl p-3">
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-check text-white text-xs"></i>
-                                    </div>
-                                    <span class="text-sm text-gray-700 font-semibold">🏆 Icon terpilih:</span>
-                                </div>
-                                <div id="selectedIconsList" class="flex space-x-2"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex space-x-4 relative z-10">
-                        <button onclick="saveBanner()" class="flex-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-700 text-white px-8 py-4 rounded-2xl transition-all duration-300 font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 animated-green-border">
-                            <div class="flex items-center justify-center space-x-3">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-save text-lg"></i>
-                                </div>
-                                <span>🏖️ Simpan Banner Pantai</span>
-                            </div>
-                        </button>
-                        <button onclick="deleteBanner()" class="bg-gradient-to-r from-red-500 via-rose-500 to-pink-600 hover:from-red-600 hover:via-rose-600 hover:to-pink-700 text-white px-6 py-4 rounded-2xl transition-all duration-300 font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105">
-                            <div class="flex items-center justify-center space-x-2">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-trash text-lg"></i>
-                                </div>
-                                <span>🗑️ Hapus</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scrolling Announcement -->
-            <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-2xl p-4 mb-12 overflow-hidden border border-gray-200 custom-shadow relative">
-                <div class="absolute inset-0 bg-black/10"></div>
-                <div class="relative z-10">
-                    <div class="scrolling-text text-white font-semibold text-lg whitespace-nowrap">
-                        🎉 Selamat datang di Channel Agency Management System • Kelola data member Faya Star dengan mudah dan efisien • Fitur lengkap untuk tracking gaji, bonus, dan status pembayaran • Update terbaru: Upload foto langsung dari perangkat • Sistem keamanan tingkat enterprise
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="card-hover">
-                    <button onclick="showAddForm()" class="w-full bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 hover:from-emerald-600 hover:via-green-700 hover:to-teal-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                        <div class="relative flex flex-col items-center space-y-6">
-                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
-                                <i class="fas fa-user-plus text-4xl drop-shadow-lg"></i>
-                            </div>
-                            <div class="text-center space-y-3">
-                                <h3 class="text-2xl font-black tracking-wide">TAMBAH MEMBER</h3>
-                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
-                                <p class="text-sm opacity-90 leading-relaxed">Daftarkan member baru dengan data lengkap dan sistem terintegrasi</p>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
-                                <i class="fas fa-plus text-sm"></i>
-                                <span class="text-xs font-semibold">ADD NEW</span>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="card-hover">
-                    <button onclick="showEditForm()" class="w-full bg-gradient-to-br from-amber-500 via-orange-600 to-red-700 hover:from-amber-600 hover:via-orange-700 hover:to-red-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                        <div class="relative flex flex-col items-center space-y-6">
-                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
-                                <i class="fas fa-edit text-4xl drop-shadow-lg"></i>
-                            </div>
-                            <div class="text-center space-y-3">
-                                <h3 class="text-2xl font-black tracking-wide">EDIT MEMBER</h3>
-                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
-                                <p class="text-sm opacity-90 leading-relaxed">Perbarui informasi member dengan mudah dan cepat</p>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
-                                <i class="fas fa-pencil-alt text-sm"></i>
-                                <span class="text-xs font-semibold">EDIT</span>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="card-hover">
-                    <button onclick="showDeleteForm()" class="w-full bg-gradient-to-br from-red-500 via-rose-600 to-pink-700 hover:from-red-600 hover:via-rose-700 hover:to-pink-800 text-white p-10 rounded-3xl transition-all duration-300 shadow-2xl hover:shadow-3xl group relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                        <div class="relative flex flex-col items-center space-y-6">
-                            <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl">
-                                <i class="fas fa-user-minus text-4xl drop-shadow-lg"></i>
-                            </div>
-                            <div class="text-center space-y-3">
-                                <h3 class="text-2xl font-black tracking-wide">HAPUS MEMBER</h3>
-                                <div class="w-16 h-1 bg-white/50 rounded-full mx-auto"></div>
-                                <p class="text-sm opacity-90 leading-relaxed">Kelola dan hapus data member dengan aman</p>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
-                                <i class="fas fa-trash text-sm"></i>
-                                <span class="text-xs font-semibold">DELETE</span>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Add Member Form -->
-            <div id="addMemberForm" class="hidden section-header">
-                <div class="flex items-center space-x-6 mb-10">
-                    <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 rounded-3xl flex items-center justify-center enhanced-icon shadow-2xl">
-                            <i class="fas fa-user-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-sparkles text-white text-sm"></i>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="text-3xl font-black text-gray-800 tracking-wide">Tambah Member Baru</h3>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-info text-white text-xs"></i>
-                            </div>
-                            <p class="text-gray-600 text-lg">Lengkapi formulir untuk mendaftarkan member baru</p>
-                        </div>
-                        <div class="flex items-center space-x-4 text-sm">
-                            <div class="flex items-center space-x-1 bg-green-100 px-3 py-1 rounded-full">
-                                <i class="fas fa-shield-check text-green-600"></i>
-                                <span class="text-green-700 font-medium">Secure Form</span>
-                            </div>
-                            <div class="flex items-center space-x-1 bg-blue-100 px-3 py-1 rounded-full">
-                                <i class="fas fa-clock text-blue-600"></i>
-                                <span class="text-blue-700 font-medium">Auto Save</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <form onsubmit="addMember(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Photo Upload -->
-                    <div class="md:col-span-2">
-                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
-                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-camera text-white text-xs"></i>
-                            </div>
-                            <span>Upload Foto Member</span>
-                        </label>
-                        <div class="relative">
-                            <input type="file" id="memberImg" accept="image/*" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl bg-white text-gray-800 form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-blue-600 file:text-white hover:file:from-purple-600 hover:file:to-blue-700">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                <i class="fas fa-upload text-gray-400"></i>
-                            </div>
-                        </div>
-                        <small class="text-gray-500 mt-2 block flex items-center space-x-1">
-                            <i class="fas fa-info-circle"></i>
-                            <span>Format: JPG, PNG, GIF (Maksimal: 5MB)</span>
-                        </small>
-                        <div id="imagePreview" class="mt-4 hidden">
-                            <div class="flex items-center space-x-3 p-3 bg-gray-100 rounded-xl">
-                                <img id="previewImg" class="w-16 h-16 rounded-xl object-cover border-2 border-purple-300" alt="Preview">
-                                <div class="text-gray-800">
-                                    <div class="font-medium">Foto berhasil dipilih</div>
-                                    <div class="text-sm text-gray-600">Siap untuk diupload</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Name Field -->
-                    <div class="space-y-3">
-                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
-                            <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                <i class="fas fa-user text-white text-sm"></i>
-                            </div>
-                            <span class="text-lg">Nama Lengkap</span>
-                        </label>
-                        <div class="relative group">
-                            <input type="text" id="memberName" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-emerald-400 transition-all duration-300" placeholder="Masukkan nama lengkap">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-5">
-                                <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-user text-white text-xs"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Phone Field -->
-                    <div class="space-y-3">
-                        <label class="flex items-center space-x-3 text-gray-800 font-bold mb-4">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                <i class="fas fa-phone text-white text-sm"></i>
-                            </div>
-                            <span class="text-lg">Nomor HP</span>
-                        </label>
-                        <div class="relative group">
-                            <input type="tel" id="memberPhone" required class="w-full p-5 pl-14 border-2 border-gray-300 rounded-2xl bg-white text-gray-800 form-input text-lg font-medium group-hover:border-blue-400 transition-all duration-300" placeholder="08xxxxxxxxxx">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-5">
-                                <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-phone text-white text-xs"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Faya ID Field -->
-                    <div>
-                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
-                            <div class="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-id-card text-white text-xs"></i>
-                            </div>
-                            <span>ID Akun Faya</span>
-                        </label>
-                        <div class="relative">
-                            <input type="text" id="memberFayaId" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="ID Faya Star">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
-                                <i class="fas fa-star text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Faya Username Field -->
-                    <div>
-                        <label class="flex items-center space-x-2 text-gray-800 font-semibold mb-3">
-                            <div class="w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-at text-white text-xs"></i>
-                            </div>
-                            <span>Username Faya</span>
-                        </label>
-                        <div class="relative">
-                            <input type="text" id="memberFayaName" required class="w-full p-4 pl-12 border border-gray-300 rounded-xl bg-white text-gray-800 form-input" placeholder="Username Faya Star">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
-                                <i class="fas fa-at text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Payment Method Selection -->
-                    <div class="md:col-span-2">
-                        <label class="block text-gray-800 font-medium mb-2">Pilih Metode Pembayaran</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-gray-800 font-medium mb-2">🏦 Bank</label>
-                                <select id="memberBank" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                                    <option value="">Pilih Bank</option>
-                                    <option value="BCA">Bank Central Asia (BCA)</option>
-                                    <option value="BRI">Bank Rakyat Indonesia (BRI)</option>
-                                    <option value="BNI">Bank Negara Indonesia (BNI)</option>
-                                    <option value="Mandiri">Bank Mandiri</option>
-                                    <option value="CIMB">CIMB Niaga</option>
-                                    <option value="Danamon">Bank Danamon</option>
-                                    <option value="Permata">Bank Permata</option>
-                                    <option value="Maybank">Maybank Indonesia</option>
-                                    <option value="OCBC">OCBC NISP</option>
-                                    <option value="Panin">Bank Panin</option>
-                                    <option value="BTN">Bank Tabungan Negara (BTN)</option>
-                                    <option value="BSI">Bank Syariah Indonesia (BSI)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-gray-800 font-medium mb-2">📱 E-Wallet</label>
-                                <select id="memberEwallet" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                                    <option value="">Pilih E-Wallet</option>
-                                    <option value="GoPay">GoPay</option>
-                                    <option value="OVO">OVO</option>
-                                    <option value="DANA">DANA</option>
-                                    <option value="ShopeePay">ShopeePay</option>
-                                    <option value="LinkAja">LinkAja</option>
-                                    <option value="Jenius">Jenius</option>
-                                    <option value="Sakuku">Sakuku</option>
-                                    <option value="i.saku">i.saku</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Bank Number Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Nomor Bank/E-Wallet</label>
-                        <input type="text" id="memberBankNumber" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nomor rekening atau e-wallet">
-                    </div>
-                    
-                    <!-- Bank Owner Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Nama Pemilik</label>
-                        <input type="text" id="memberBankOwner" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Nama pemilik rekening/e-wallet">
-                    </div>
-                    
-                    <!-- Level Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Level (0-20)</label>
-                        <input type="number" id="memberLevel" min="0" max="20" value="0" required class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" onchange="updateSalaryFields()">
-                    </div>
-                    
-                    <!-- Coin Salary Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji Koin Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberCoinSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
-                    </div>
-                    
-                    <!-- Diamond Salary Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji Diamond Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberDiamondSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
-                    </div>
-                    
-                    <!-- Rewed Salary Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji Rewed Host (Otomatis sesuai Level)</label>
-                        <input type="text" id="memberRewedSalary" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600" placeholder="Otomatis berdasarkan level">
-                    </div>
-                    
-                    <!-- Dollar Bonus Field -->
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Bonus Lotre Dolar (1-100)</label>
-                        <input type="number" id="memberDollar" min="0" max="100" value="0" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800" placeholder="Masukkan jumlah dolar (1-100)">
-                        <small class="text-gray-500">1 Dolar = Rp 17.000 | Max: 100 Dolar = Rp 1.700.000</small>
-                    </div>
-                    
-                    <!-- Payment Status -->
-                    <div class="md:col-span-2">
-                        <label class="block text-gray-800 font-medium mb-2">Status Pembayaran</label>
-                        <div class="flex space-x-4">
-                            <label class="flex items-center">
-                                <input type="radio" name="salaryStatus" value="sudah" class="mr-2">
-                                <span class="text-green-600 font-medium">✅ SUDAH DI BAYAR</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="radio" name="salaryStatus" value="belum" checked class="mr-2">
-                                <span class="text-red-600 font-medium">❌ BELUM DI BAYAR</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Submit Button -->
-                    <div class="md:col-span-2 pt-6">
-                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl group">
-                            <div class="flex items-center justify-center space-x-3">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-save text-lg"></i>
-                                </div>
-                                <span>Simpan Data Member</span>
-                            </div>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Data Section -->
-        <div id="dataSection" class="section hidden">
-            <div class="section-header">
-                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-6 lg:space-y-0">
-                    <div class="flex items-center space-x-6">
-                        <div class="relative">
-                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 rounded-2xl flex items-center justify-center enhanced-icon shadow-2xl">
-                                <i class="fas fa-database text-white text-2xl"></i>
-                            </div>
-                            <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <h2 class="text-3xl font-black text-gray-800 tracking-wide">Data Member</h2>
-                            <div class="flex items-center space-x-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-users text-white text-xs"></i>
-                                </div>
-                                <p class="text-gray-600 text-lg">Kelola semua data member Faya Star</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-4">
-                        <button onclick="downloadAllPDF()" class="group bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <i class="fas fa-file-pdf text-lg"></i>
-                            </div>
-                            <span class="font-semibold">Download PDF</span>
-                        </button>
-                        <button onclick="showSalarySettings()" class="group bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:rotate-180 transition-transform duration-500">
-                                <i class="fas fa-cog text-lg"></i>
-                            </div>
-                            <span class="font-semibold">Pengaturan Gaji</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Salary Settings -->
-            <div id="salarySettings" class="hidden bg-white rounded-lg p-6 mb-6 border border-gray-200">
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Pengaturan Gaji per Level</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Gaji per Level (Rp)</label>
-                        <input type="number" id="salaryPerLevel" value="1000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                        <small class="text-gray-500">Level 1 = 1x, Level 2 = 2x, dst.</small>
-                    </div>
-                    <div>
-                        <label class="block text-gray-800 font-medium mb-2">Nilai Dolar (Rp)</label>
-                        <input type="number" id="dollarRate" value="17000" class="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                    </div>
-                </div>
-                <button onclick="updateSalarySettings()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan Pengaturan
-                </button>
-            </div>
-
-            <!-- Member List -->
-            <div id="memberList" class="space-y-4">
-                <!-- Members will be displayed here -->
-            </div>
-        </div>
-
-        <!-- Profile Section -->
-        <div id="profileSection" class="section hidden">
-            <!-- Hero Profile Banner -->
-            <div class="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 rounded-3xl p-12 mb-12 text-white overflow-hidden shadow-2xl">
-                <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-                <div class="absolute top-0 left-0 w-full h-full">
-                    <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
-                    <div class="absolute bottom-10 right-10 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"></div>
-                    <div class="absolute top-1/2 right-20 w-12 h-12 bg-white/10 rounded-full animate-pulse delay-500"></div>
-                </div>
-                <div class="relative z-10 text-center">
-                    <div class="mb-8">
-                        <div id="profileLogo" class="w-32 h-32 mx-auto rounded-3xl bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-700 p-2 bouncing-logo shadow-2xl cursor-pointer" onclick="spinProfileLogo()">
-                            <img src="https://i.ibb.co.com/zhZxy5Fg/IMG-20250915-WA0000.jpg" alt="Profile Admin" class="w-full h-full rounded-2xl object-cover" onerror="this.src=''; this.alt='Profile gagal dimuat'; this.style.display='none';">
-                        </div>
-                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
-                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center pulse-glow shadow-xl">
-                                <i class="fas fa-crown text-white text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2">
-                            <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-shield-check text-white text-lg"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <h2 class="text-5xl font-black mb-4 tracking-wide">RENCY</h2>
-                    <div class="flex items-center justify-center space-x-4 mb-6">
-                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
-                            <span class="text-lg font-bold">ADMIN / OWNER</span>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 rounded-full backdrop-blur-sm">
-                            <span class="text-lg font-bold">FAYA STAR OFC</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center space-x-6">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-star text-3xl text-yellow-300"></i>
-                            <span class="text-xl font-bold">Premium Account</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-gem text-3xl text-blue-300"></i>
-                            <span class="text-xl font-bold">VIP Access</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profile Details -->
-            <div class="max-w-6xl mx-auto space-y-8">
-                <!-- Personal Information Card -->
-                <div class="bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-3xl p-8 border-2 border-gray-200 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
-                    <div class="flex items-center space-x-6 mb-8">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
-                            <i class="fas fa-user-shield text-white text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black text-gray-800 tracking-wide">Informasi Personal</h3>
-                            <p class="text-gray-600 text-lg">Data lengkap admin sistem</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-user text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">Nama Admin</div>
-                                        <div class="text-2xl font-black text-gray-800">RENCY</div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-venus text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">Jenis Kelamin</div>
-                                        <div class="text-2xl font-black text-pink-600">PEREMPUAN</div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-heart text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-star text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">ID Faya Star</div>
-                                        <div class="text-2xl font-black text-yellow-600 flex items-center space-x-3">
-                                            <span>5500000</span>
-                                            <button onclick="copyToClipboard('5500000')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                                <i class="fas fa-copy text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-sparkles text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-building text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">ID RUM/Agency</div>
-                                        <div class="text-2xl font-black text-purple-600 flex items-center space-x-3">
-                                            <span>10013034</span>
-                                            <button onclick="copyToClipboard('10013034')" class="w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                                <i class="fas fa-copy text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-home text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Status & Privileges Card -->
-                <div class="bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-3xl p-8 border-2 border-gray-200 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500"></div>
-                    <div class="flex items-center space-x-6 mb-8">
-                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
-                            <i class="fas fa-crown text-white text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black text-gray-800 tracking-wide">Status & Hak Akses</h3>
-                            <p class="text-gray-600 text-lg">Tingkat akses dan privilese sistem</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-user-crown text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">Status Admin</div>
-                                        <div class="text-xl font-black text-red-600">ADMIN / OWNER</div>
-                                        <div class="text-lg font-bold text-red-500">FAYA STAR OFC</div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-red-400 to-rose-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-shield-alt text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card group">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-gem text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-600 font-medium">Level VIP</div>
-                                        <select id="vipStatus" onchange="updateVipStatus()" class="text-xl font-black text-indigo-600 bg-transparent border-2 border-indigo-300 rounded-xl px-4 py-2 focus:border-indigo-500 focus:outline-none transition-all duration-300">
-                                            <option value="ADMIN" selected>ADMIN</option>
-                                            <option value="WAKIL ADMIN">WAKIL ADMIN</option>
-                                            <option value="ADMIN RUM">ADMIN RUM</option>
-                                            <option value="VIP 1">VIP 1</option>
-                                            <option value="VIP 2">VIP 2</option>
-                                            <option value="VIP 3">VIP 3</option>
-                                            <option value="VIP 4">VIP 4</option>
-                                            <option value="VIP 5">VIP 5</option>
-                                            <option value="VIP 6">VIP 6</option>
-                                            <option value="VIP 7">VIP 7</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-diamond text-white text-sm"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- System Statistics Card -->
-                <div class="bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-3xl border-2 border-gray-200 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></div>
-                    <div class="p-8 cursor-pointer" onclick="toggleStatistics()">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-6">
-                                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon shadow-xl">
-                                    <i class="fas fa-chart-line text-white text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-gray-800 tracking-wide">Statistik Sistem</h3>
-                                    <p class="text-gray-600 text-lg">Ringkasan aktivitas dan performa</p>
-                                </div>
-                            </div>
-                            <div class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center hover:from-gray-200 hover:to-gray-300 transition-all duration-300">
-                                <i id="statisticsToggleIcon" class="fas fa-chevron-down text-gray-600 text-xl transition-transform duration-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="statisticsContent" class="px-8 pb-8 transition-all duration-500 ease-in-out overflow-hidden" style="max-height: 0px; padding-top: 0px; padding-bottom: 0px; opacity: 0;">
-                        <div class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-2">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                                <div class="info-card group text-center">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                        <i class="fas fa-users text-white text-2xl"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Total Member</div>
-                                    <div class="text-3xl font-black text-blue-600" id="totalMembersCount">0</div>
-                                </div>
-
-                                <div class="info-card group text-center">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                        <i class="fas fa-check-circle text-white text-2xl"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Sudah Dibayar</div>
-                                    <div class="text-3xl font-black text-green-600" id="paidMembersCount">0</div>
-                                </div>
-
-                                <div class="info-card group text-center">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center enhanced-icon mx-auto mb-4">
-                                        <i class="fas fa-clock text-white text-2xl"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Belum Dibayar</div>
-                                    <div class="text-3xl font-black text-red-600" id="unpaidMembersCount">0</div>
-                                </div>
-                            </div>
-
-                            <!-- Additional Statistics -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                <div class="info-card group">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                            <i class="fas fa-money-bill-wave text-white text-lg"></i>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-600 font-medium">Total Gaji Dibayar</div>
-                                            <div class="text-xl font-black text-purple-600" id="totalPaidSalary">Rp 0</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="info-card group">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                            <i class="fas fa-hourglass-half text-white text-lg"></i>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-600 font-medium">Total Gaji Pending</div>
-                                            <div class="text-xl font-black text-orange-600" id="totalPendingSalary">Rp 0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Level Distribution -->
-                            <div class="info-card group mb-6">
-                                <div class="flex items-center space-x-4 mb-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center enhanced-icon">
-                                        <i class="fas fa-chart-bar text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="text-gray-800 font-bold text-lg">Distribusi Level Member</div>
-                                        <div class="text-gray-600">Sebaran member berdasarkan level</div>
-                                    </div>
-                                </div>
-                                <div id="levelDistribution" class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    <!-- Level distribution will be populated here -->
-                                </div>
-                            </div>
-
-                            <!-- Performance Metrics -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div class="info-card group text-center">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
-                                        <i class="fas fa-dollar-sign text-white text-lg"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Total Bonus Dolar</div>
-                                    <div class="text-lg font-black text-yellow-600" id="totalDollarBonus">$0</div>
-                                </div>
-
-                                <div class="info-card group text-center">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
-                                        <i class="fas fa-percentage text-white text-lg"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Tingkat Pembayaran</div>
-                                    <div class="text-lg font-black text-pink-600" id="paymentRate">0%</div>
-                                </div>
-
-                                <div class="info-card group text-center">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center enhanced-icon mx-auto mb-3">
-                                        <i class="fas fa-trophy text-white text-lg"></i>
-                                    </div>
-                                    <div class="text-gray-600 font-medium mb-2">Level Tertinggi</div>
-                                    <div class="text-lg font-black text-indigo-600" id="highestLevel">Level 1</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Spacer untuk semua section agar tidak tertutup navigation -->
-        <div class="h-32 w-full"></div>
-    </main>
-
-    <!-- Customer Service Modal -->
-    <div id="customerServiceModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 transform scale-95 opacity-0 transition-all duration-300" id="customerServiceContent">
-            <div class="text-center mb-8">
-                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
-                    <i class="fas fa-headset text-white text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-2">Customer Service</h3>
-                <p class="text-gray-600">Pilih platform untuk menghubungi kami</p>
-            </div>
-            
-            <div class="space-y-4 mb-6">
-                <button onclick="openWhatsApp()" class="group w-full flex items-center space-x-4 p-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i class="fab fa-whatsapp text-2xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="font-bold text-lg">WHATSAPP</div>
-                        <div class="text-sm opacity-90">Owner Rency</div>
-                    </div>
-                    <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
-                </button>
-                
-                <button onclick="openTelegram()" class="group w-full flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i class="fab fa-telegram text-2xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="font-bold text-lg">TELEGRAM</div>
-                        <div class="text-sm opacity-90">INFO CHAMELION AGENCY</div>
-                    </div>
-                    <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
-                </button>
-            </div>
-            
-            <button onclick="hideCustomerServiceModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 rounded-2xl py-3 px-4 transition-all duration-300 font-semibold">
-                <i class="fas fa-times mr-2"></i>Tutup
-            </button>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 shadow-2xl z-50 border-t-4 border-white/20 backdrop-blur-lg">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-4 py-2">
-                <button onclick="showSection('home')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
-                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-0.5">
-                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-home text-sm"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wide">HOME</span>
-                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
-                    </div>
-                </button>
-                <button onclick="showSection('data')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
-                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-0.5">
-                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-database text-sm"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wide">DATA</span>
-                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
-                    </div>
-                </button>
-                <button onclick="showSection('profile')" class="nav-btn group px-3 py-1.5 text-white hover:bg-white/20 transition-all duration-300 font-bold rounded-t-lg relative overflow-hidden flex-1 max-w-xs border-2 border-transparent hover:border-white/30">
-                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    <div class="relative flex flex-col items-center space-y-0.5">
-                        <div class="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-crown text-sm"></i>
-                        </div>
-                        <span class="text-xs font-black tracking-wide">PROFILE</span>
-                        <div class="w-3 h-0.5 bg-white/30 rounded-full group-hover:bg-white/60 transition-colors"></div>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </nav>
-
+    
     <script>
-        // Global Variables
-        let members = [];
-        let salaryPerLevel = 1000;
-        let dollarRate = 17000;
-        let bannerData = null;
-        let selectedIcons = [];
+        // Data Gaji per Level (Nilai disimpan dalam format angka MURNI)
+        const dataGajiLevel = [
+            // Level 0 (Kosong/Default)
+            { lvl: 0, pustCoin: 0, pustDM: 0, gajiCoin: 0, gajiDiamond: 0, bonus: 0 },
+            { lvl: 1, pustCoin: 50000, pustDM: 50000, gajiCoin: 10000, gajiDiamond: 10000, bonus: 7000 },
+            { lvl: 2, pustCoin: 100000, pustDM: 100000, gajiCoin: 20000, gajiDiamond: 20000, bonus: 11000 },
+            { lvl: 3, pustCoin: 150000, pustDM: 150000, gajiCoin: 25000, gajiDiamond: 25000, bonus: 16000 },
+            { lvl: 4, pustCoin: 250000, pustDM: 250000, gajiCoin: 45000, gajiDiamond: 45000, bonus: 20000 },
+            { lvl: 5, pustCoin: 400000, pustDM: 400000, gajiCoin: 70000, gajiDiamond: 70000, bonus: 33000 },
+            { lvl: 6, pustCoin: 550000, pustDM: 550000, gajiCoin: 100000, gajiDiamond: 100000, bonus: 39000 },
+            { lvl: 7, pustCoin: 750000, pustDM: 750000, gajiCoin: 140000, gajiDiamond: 140000, bonus: 47000 },
+            { lvl: 8, pustCoin: 1100000, pustDM: 1100000, gajiCoin: 200000, gajiDiamond: 200000, bonus: 70000 },
+            { lvl: 9, pustCoin: 1450000, pustDM: 1450000, gajiCoin: 270000, gajiDiamond: 270000, bonus: 90000 },
+            { lvl: 10, pustCoin: 1900000, pustDM: 1900000, gajiCoin: 360000, gajiDiamond: 360000, bonus: 126000 },
+            { lvl: 11, pustCoin: 2500000, pustDM: 2500000, gajiCoin: 460000, gajiDiamond: 460000, bonus: 169000 },
+            { lvl: 12, pustCoin: 3200000, pustDM: 3200000, gajiCoin: 600000, gajiDiamond: 600000, bonus: 203000 },
+            { lvl: 13, pustCoin: 4000000, pustDM: 4000000, gajiCoin: 750000, gajiDiamond: 750000, bonus: 263000 },
+            { lvl: 14, pustCoin: 5000000, pustDM: 5000000, gajiCoin: 940000, gajiDiamond: 940000, bonus: 328000 },
+            { lvl: 15, pustCoin: 6000000, pustDM: 6000000, gajiCoin: 1130000, gajiDiamond: 1130000, bonus: 388000 },
+            { lvl: 16, pustCoin: 7000000, pustDM: 7000000, gajiCoin: 1320000, gajiDiamond: 1320000, bonus: 445000 },
+            { lvl: 17, pustCoin: 8000000, pustDM: 8000000, gajiCoin: 1500000, gajiDiamond: 1500000, bonus: 526000 },
+            { lvl: 18, pustCoin: 10000000, pustDM: 10000000, gajiCoin: 1880000, gajiDiamond: 1880000, bonus: 604000 },
+            { lvl: 19, pustCoin: 12200000, pustDM: 12200000, gajiCoin: 2280000, gajiDiamond: 2280000, bonus: 719000 },
+            { lvl: 20, pustCoin: 14600000, pustDM: 14600000, gajiCoin: 2720000, gajiDiamond: 2720000, bonus: 836000 }
+        ];
 
-        // Salary Data Configuration
-        const coinSalaryData = {
-            0: { coin: 0, rupiah: 0 },
-            1: { coin: 50000, rupiah: 12750 },
-            2: { coin: 100000, rupiah: 22100 },
-            3: { coin: 150000, rupiah: 28900 },
-            4: { coin: 250000, rupiah: 47600 },
-            5: { coin: 400000, rupiah: 76500 },
-            6: { coin: 550000, rupiah: 105400 },
-            7: { coin: 750000, rupiah: 141100 },
-            8: { coin: 1100000, rupiah: 207400 },
-            9: { coin: 1450000, rupiah: 275400 },
-            10: { coin: 1900000, rupiah: 365500 },
-            11: { coin: 2500000, rupiah: 469200 },
-            12: { coin: 3200000, rupiah: 601800 },
-            13: { coin: 4000000, rupiah: 756500 },
-            14: { coin: 5000000, rupiah: 948600 },
-            15: { coin: 6000000, rupiah: 1139000 },
-            16: { coin: 7000000, rupiah: 1327700 },
-            17: { coin: 8000000, rupiah: 1518100 },
-            18: { coin: 10000000, rupiah: 1881900 },
-            19: { coin: 12200000, rupiah: 2284800 },
-            20: { coin: 14600000, rupiah: 2723400 }
+        // Daftar Bank dan E-Wallet
+        const optionsAkun = {
+            bank: [
+                'Pilih Bank', 'BCA', 'Mandiri', 'BNI', 'BRI', 'CIMB Niaga', 'BSI', 'Permata', 'Danamon', 'Maybank', 'Panin'
+            ],
+            ewallet: [
+                'Pilih E-Wallet', 'DANA', 'GoPay', 'OVO', 'ShopeePay', 'LinkAja'
+            ]
         };
 
-        const diamondSalaryData = {
-            0: { diamond: 0, rupiah: 0 },
-            1: { diamond: 50000, rupiah: 12750 },
-            2: { diamond: 100000, rupiah: 22100 },
-            3: { diamond: 150000, rupiah: 28900 },
-            4: { diamond: 250000, rupiah: 47600 },
-            5: { diamond: 400000, rupiah: 76500 },
-            6: { diamond: 550000, rupiah: 105400 },
-            7: { diamond: 750000, rupiah: 141100 },
-            8: { diamond: 1100000, rupiah: 207400 },
-            9: { diamond: 1450000, rupiah: 275400 },
-            10: { diamond: 1900000, rupiah: 365500 },
-            11: { diamond: 2500000, rupiah: 469200 },
-            12: { diamond: 3200000, rupiah: 601800 },
-            13: { diamond: 4000000, rupiah: 756500 },
-            14: { diamond: 5000000, rupiah: 948600 },
-            15: { diamond: 6000000, rupiah: 1139000 },
-            16: { diamond: 7000000, rupiah: 1327700 },
-            17: { diamond: 8000000, rupiah: 1518100 },
-            18: { diamond: 10000000, rupiah: 1881900 },
-            19: { diamond: 12200000, rupiah: 2284800 },
-            20: { diamond: 14000000, rupiah: 2723400 }
-        };
+        // Konstanta Kurs Dolar yang baru
+        const KURS_DOLAR = 17000; 
 
-        const rewedSalaryData = {
-            0: 0, 1: 3400, 2: 6500, 3: 10000, 4: 15000, 5: 20000,
-            6: 28000, 7: 45000, 8: 55000, 9: 80000, 10: 115000,
-            11: 150000, 12: 200000, 13: 250000, 14: 310000, 15: 370000,
-            16: 430000, 17: 490000, 18: 600000, 19: 710000, 20: 830000
-        };
-
-        // Initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-        });
-
-        function initializeApp() {
-            loadSavedData();
-            handleImageUpload();
-            handleBannerImageUpload();
-            updateSalaryFields();
-            displayMembers();
-            initializeTimeSystem();
-            showNotification('Sistem berhasil dimuat!', 'success');
+        // Fungsi untuk memformat angka kembali menjadi format mata uang
+        function formatRupiah(number, includeRp = true) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number).replace('IDR', includeRp ? 'Rp' : '');
         }
 
-        // Time System Functions
-        function initializeTimeSystem() {
-            updateTimeAndTheme();
-            // Update every second
-            setInterval(updateTimeAndTheme, 1000);
-        }
-
-        function updateTimeAndTheme() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            
-            // Update time display
-            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('currentTime').textContent = timeString;
-            
-            // Determine time of day and apply theme
-            let timeOfDay, icon, theme, navIcon, navIconClass, navIconBg;
-            
-            if (hours >= 5 && hours < 12) {
-                timeOfDay = 'Pagi';
-                icon = '🌅';
-                theme = 'morning';
-                navIcon = 'fa-sun';
-                navIconClass = 'fas fa-sun';
-                navIconBg = 'from-yellow-400 to-orange-500';
-            } else if (hours >= 12 && hours < 17) {
-                timeOfDay = 'Siang';
-                icon = '☀️';
-                theme = 'afternoon';
-                navIcon = 'fa-sun';
-                navIconClass = 'fas fa-sun';
-                navIconBg = 'from-orange-400 to-red-500';
-            } else if (hours >= 17 && hours < 20) {
-                timeOfDay = 'Sore';
-                icon = '🌇';
-                theme = 'evening';
-                navIcon = 'fa-sun';
-                navIconClass = 'fas fa-sun';
-                navIconBg = 'from-red-400 to-pink-500';
-            } else {
-                timeOfDay = 'Malam';
-                icon = '🌙';
-                theme = 'night';
-                navIcon = 'fa-moon';
-                navIconClass = 'fas fa-moon';
-                navIconBg = 'from-indigo-400 to-purple-500';
-            }
-            
-            document.getElementById('timeOfDay').textContent = timeOfDay;
-            document.getElementById('timeIcon').textContent = icon;
-            
-            // Update navigation icon
-            const timeBasedIcon = document.getElementById('timeBasedIcon');
-            timeBasedIcon.innerHTML = `
-                <div class="w-8 h-8 bg-gradient-to-br ${navIconBg} rounded-full flex items-center justify-center volume-animation">
-                    <i class="${navIconClass} text-white text-sm"></i>
-                </div>
-            `;
-            
-            // Apply theme to body
-            const body = document.getElementById('mainBody');
-            body.className = `theme-${theme} min-h-screen transition-all duration-1000`;
-            
-            // Update weather effects
-            updateWeatherEffects(theme);
-        }
-
-        function updateWeatherEffects(theme) {
-            const weatherOverlay = document.getElementById('weatherOverlay');
-            weatherOverlay.innerHTML = '';
-            
-            switch(theme) {
-                case 'morning':
-                    createMorningEffects(weatherOverlay);
-                    break;
-                case 'afternoon':
-                    createAfternoonEffects(weatherOverlay);
-                    break;
-                case 'evening':
-                    createEveningEffects(weatherOverlay);
-                    break;
-                case 'night':
-                    createNightEffects(weatherOverlay);
-                    break;
+        // Fungsi untuk Mengisi Opsi Level pada Dropdown
+        function populateLevelOptions() {
+            const select = document.getElementById('levelGaji');
+            for (let i = 1; i <= 20; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Level ${i}`;
+                select.appendChild(option);
             }
         }
-
-        function createMorningEffects(container) {
-            // Snow effect for morning
-            for (let i = 0; i < 30; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'morning-snow';
-                snowflake.style.left = `${Math.random() * 100}%`;
-                snowflake.style.animationDelay = `${Math.random() * 3}s`;
-                snowflake.style.animationDuration = `${3 + Math.random() * 2}s`;
-                container.appendChild(snowflake);
-            }
-        }
-
-        function createAfternoonEffects(container) {
-            // Water ripples
-            for (let i = 0; i < 5; i++) {
-                const ripple = document.createElement('div');
-                ripple.className = 'water-ripples';
-                ripple.style.top = `${Math.random() * 80}%`;
-                ripple.style.left = `${Math.random() * 80}%`;
-                ripple.style.animationDelay = `${Math.random() * 3}s`;
-                container.appendChild(ripple);
-            }
-        }
-
-        function createEveningEffects(container) {
-            // No effects for evening, keeping it clean
-        }
-
-        function createNightEffects(container) {
-            // Twinkling stars
-            for (let i = 0; i < 20; i++) {
-                const star = document.createElement('div');
-                star.className = 'twinkling-stars';
-                star.style.top = `${Math.random() * 60}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                container.appendChild(star);
-            }
+        
+        // Fungsi untuk mengupdate opsi Bank/E-Wallet
+        function updateAkunOptions() {
+            const jenis = document.querySelector('input[name="jenisAkun"]:checked').value;
+            const selectAkun = document.getElementById('selectAkun');
             
-            // Falling stars
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const fallingStar = document.createElement('div');
-                    fallingStar.className = 'falling-stars';
-                    fallingStar.style.top = '-10px';
-                    fallingStar.style.left = `${Math.random() * 80}%`;
-                    fallingStar.style.animationDelay = `${Math.random() * 2}s`;
-                    container.appendChild(fallingStar);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        if (fallingStar.parentNode) {
-                            fallingStar.parentNode.removeChild(fallingStar);
-                        }
-                    }, 3000);
-                }, i * 2000);
-            }
+            // Bersihkan opsi lama
+            selectAkun.innerHTML = '';
             
-            // Create new falling stars periodically
-            setInterval(() => {
-                if (document.getElementById('timeOfDay').textContent === 'Malam') {
-                    const fallingStar = document.createElement('div');
-                    fallingStar.className = 'falling-stars';
-                    fallingStar.style.top = '-10px';
-                    fallingStar.style.left = `${Math.random() * 80}%`;
-                    container.appendChild(fallingStar);
-                    
-                    setTimeout(() => {
-                        if (fallingStar.parentNode) {
-                            fallingStar.parentNode.removeChild(fallingStar);
-                        }
-                    }, 3000);
-                }
-            }, 4000);
-        }
-
-        // Banner Functions
-        function showBannerEditor() {
-            const modal = document.getElementById('bannerEditorModal');
-            const content = document.getElementById('bannerEditorContent');
-            
-            // Load existing banner data if available
-            if (bannerData) {
-                document.getElementById('bannerMainTitle').value = bannerData.mainTitle || '';
-                document.getElementById('bannerSubtitle').value = bannerData.subtitle || '';
-                selectedIcons = bannerData.icons || [];
-                
-                if (bannerData.image) {
-                    document.getElementById('bannerPreviewImg').src = bannerData.image;
-                    document.getElementById('bannerImagePreview').classList.remove('hidden');
-                }
-                
-                updateSelectedIconsDisplay();
-                updateIconSelectors();
-            }
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-
-        function hideBannerEditor() {
-            const modal = document.getElementById('bannerEditorModal');
-            const content = document.getElementById('bannerEditorContent');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                // Reset form
-                document.getElementById('bannerMainTitle').value = '';
-                document.getElementById('bannerSubtitle').value = '';
-                document.getElementById('bannerImageInput').value = '';
-                document.getElementById('bannerImagePreview').classList.add('hidden');
-                selectedIcons = [];
-                updateSelectedIconsDisplay();
-                updateIconSelectors();
-            }, 300);
-        }
-
-        function handleBannerImageUpload() {
-            const fileInput = document.getElementById('bannerImageInput');
-            const preview = document.getElementById('bannerImagePreview');
-            const previewImg = document.getElementById('bannerPreviewImg');
-
-            fileInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    if (file.size > 5 * 1024 * 1024) {
-                        showNotification('Ukuran file terlalu besar! Maksimal 5MB.', 'error');
-                        fileInput.value = '';
-                        preview.classList.add('hidden');
-                        return;
-                    }
-
-                    if (!file.type.startsWith('image/')) {
-                        showNotification('File harus berupa gambar!', 'error');
-                        fileInput.value = '';
-                        preview.classList.add('hidden');
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewImg.src = e.target.result;
-                        preview.classList.remove('hidden');
-                        showNotification('Gambar banner berhasil dipilih', 'success');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        function toggleIcon(iconClass) {
-            const index = selectedIcons.indexOf(iconClass);
-            
-            if (index > -1) {
-                // Remove icon
-                selectedIcons.splice(index, 1);
-            } else {
-                // Add icon (max 3)
-                if (selectedIcons.length < 3) {
-                    selectedIcons.push(iconClass);
-                } else {
-                    showNotification('Maksimal 3 icon yang bisa dipilih!', 'error');
-                    return;
-                }
-            }
-            
-            updateSelectedIconsDisplay();
-            updateIconSelectors();
-        }
-
-        function updateSelectedIconsDisplay() {
-            const container = document.getElementById('selectedIconsList');
-            container.innerHTML = '';
-            
-            selectedIcons.forEach(iconClass => {
-                const iconDiv = document.createElement('div');
-                iconDiv.className = 'w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center';
-                iconDiv.innerHTML = `<i class="fas ${iconClass} text-blue-600"></i>`;
-                container.appendChild(iconDiv);
-            });
-        }
-
-        function updateIconSelectors() {
-            document.querySelectorAll('.icon-selector').forEach(btn => {
-                const iconClass = btn.dataset.icon;
-                if (selectedIcons.includes(iconClass)) {
-                    btn.classList.add('bg-blue-500', 'text-white');
-                    btn.classList.remove('bg-gray-100', 'hover:bg-blue-100');
-                } else {
-                    btn.classList.remove('bg-blue-500', 'text-white');
-                    btn.classList.add('bg-gray-100', 'hover:bg-blue-100');
-                }
-            });
-        }
-
-        function saveBanner() {
-            const mainTitle = document.getElementById('bannerMainTitle').value;
-            const subtitle = document.getElementById('bannerSubtitle').value;
-            const fileInput = document.getElementById('bannerImageInput');
-            
-            if (!mainTitle && !subtitle && selectedIcons.length === 0 && !fileInput.files[0] && !bannerData?.image) {
-                showNotification('Harap isi minimal satu field!', 'error');
-                return;
-            }
-
-            const saveBannerData = (imageData = null) => {
-                bannerData = {
-                    mainTitle: mainTitle,
-                    subtitle: subtitle,
-                    icons: [...selectedIcons],
-                    image: imageData || bannerData?.image || null
-                };
-                
-                saveData();
-                displayBanner();
-                hideBannerEditor();
-                showNotification('Banner berhasil disimpan!', 'success');
-            };
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    saveBannerData(e.target.result);
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                saveBannerData();
-            }
-        }
-
-        function displayBanner() {
-            const bannerElement = document.getElementById('heroBanner');
-            const bannerContent = document.getElementById('bannerContent');
-            
-            if (!bannerData) return;
-
-            let backgroundStyle = 'bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700';
-            let textColor = 'text-white';
-            
-            if (bannerData.image) {
-                backgroundStyle = '';
-                bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${bannerData.image})`;
-                bannerElement.style.backgroundSize = 'cover';
-                bannerElement.style.backgroundPosition = 'center';
-            }
-
-            bannerElement.className = `relative ${backgroundStyle} rounded-3xl p-12 mb-12 overflow-hidden shadow-lg min-h-[300px] flex items-center justify-center group cursor-pointer`;
-            
-            bannerContent.innerHTML = `
-                <div class="text-center ${textColor}">
-                    ${bannerData.mainTitle ? `<h2 class="text-5xl font-black mb-4">${bannerData.mainTitle}</h2>` : ''}
-                    ${bannerData.subtitle ? `<p class="text-xl opacity-90 mb-6">${bannerData.subtitle}</p>` : ''}
-                    ${bannerData.icons && bannerData.icons.length > 0 ? `
-                        <div class="flex items-center justify-center space-x-4">
-                            ${bannerData.icons.map(icon => `<i class="fas ${icon} text-3xl text-yellow-300"></i>`).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }
-
-        function deleteBanner() {
-            if (confirm('Apakah Anda yakin ingin menghapus banner ini?')) {
-                bannerData = null;
-                localStorage.removeItem('bannerData');
-                
-                // Reset banner to default state
-                const bannerElement = document.getElementById('heroBanner');
-                const bannerContent = document.getElementById('bannerContent');
-                
-                bannerElement.className = 'relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-12 mb-12 overflow-hidden shadow-lg border-2 border-dashed border-gray-300 min-h-[300px] flex items-center justify-center group cursor-pointer';
-                bannerElement.style.backgroundImage = '';
-                
-                bannerContent.innerHTML = `
-                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-plus text-gray-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-600 mb-2">Tambah Banner Iklan</h3>
-                    <p class="text-gray-500">Klik untuk menambah atau edit banner iklan</p>
-                `;
-                
-                hideBannerEditor();
-                showNotification('Banner berhasil dihapus!', 'success');
-            }
-        }
-
-        function loadSavedData() {
-            const savedMembers = localStorage.getItem('members');
-            if (savedMembers) {
-                members = JSON.parse(savedMembers);
-            }
-            
-            const savedSalaryPerLevel = localStorage.getItem('salaryPerLevel');
-            if (savedSalaryPerLevel) {
-                salaryPerLevel = parseInt(savedSalaryPerLevel);
-                document.getElementById('salaryPerLevel').value = salaryPerLevel;
-            }
-            
-            const savedDollarRate = localStorage.getItem('dollarRate');
-            if (savedDollarRate) {
-                dollarRate = parseInt(savedDollarRate);
-                document.getElementById('dollarRate').value = dollarRate;
-            }
-
-            const savedBanner = localStorage.getItem('bannerData');
-            if (savedBanner) {
-                bannerData = JSON.parse(savedBanner);
-                displayBanner();
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem('members', JSON.stringify(members));
-            localStorage.setItem('salaryPerLevel', salaryPerLevel.toString());
-            localStorage.setItem('dollarRate', dollarRate.toString());
-            if (bannerData) {
-                localStorage.setItem('bannerData', JSON.stringify(bannerData));
-            }
-        }
-
-        // Notification System
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div class="flex items-center space-x-3">
-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => document.body.removeChild(notification), 300);
-            }, 3000);
-        }
-
-        // Logo Animation
-        function spinLogo() {
-            const logo = document.getElementById('channelLogo');
-            logo.classList.remove('bouncing-logo');
-            logo.classList.add('spinning-logo');
-            
-            setTimeout(() => {
-                logo.classList.remove('spinning-logo');
-                logo.classList.add('bouncing-logo');
-            }, 1000);
-        }
-
-        // Profile Logo Animation
-        function spinProfileLogo() {
-            const logo = document.getElementById('profileLogo');
-            logo.classList.remove('bouncing-logo');
-            logo.classList.add('spinning-logo');
-            
-            setTimeout(() => {
-                logo.classList.remove('spinning-logo');
-                logo.classList.add('bouncing-logo');
-            }, 1000);
-        }
-
-        // Navigation Functions
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(section + 'Section').classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-white/30');
+            // Isi opsi baru
+            optionsAkun[jenis].forEach(nama => {
+                const option = document.createElement('option');
+                option.value = nama;
+                option.textContent = nama;
+                selectAkun.appendChild(option);
             });
             
-            const clickedBtn = event ? event.currentTarget : document.querySelector(`[onclick="showSection('${section}')"]`);
-            if (clickedBtn) {
-                clickedBtn.classList.add('bg-white/30');
+            // Update hidden input agar nama bank/ewallet terbawa saat download
+            updateNamaBank();
+        }
+
+        // Fungsi untuk menyimpan pilihan Bank/E-Wallet ke hidden input
+        function updateNamaBank() {
+            const selectAkun = document.getElementById('selectAkun');
+            document.getElementById('namaBank').value = selectAkun.value;
+        }
+        
+        // Fungsi untuk Mengisi Data Gaji Otomatis Berdasarkan Level
+        function isiGajiOtomatis() {
+            const selectedLevel = parseInt(document.getElementById('levelGaji').value);
+            const data = dataGajiLevel.find(item => item.lvl === selectedLevel);
+
+            if (data) {
+                // Isi data PUST COIN dan PUST DM
+                document.getElementById('pustData').textContent = `Coin: ${formatRupiah(data.pustCoin, false)} | Diamond: ${formatRupiah(data.pustDM, false)} | LVL ${data.lvl}`;
+                
+                // Isi data GAJI COIN, GAJI DIAMOND, dan BONUS
+                document.getElementById('gajiCoin').textContent = formatRupiah(data.gajiCoin);
+                document.getElementById('gajiDiamond').textContent = formatRupiah(data.gajiDiamond);
+                document.getElementById('bonus').textContent = formatRupiah(data.bonus);
+                
+                // Hitung Total Gaji
+                hitungTotalGaji();
             }
         }
-
-        // Form Management Functions
-        function showAddForm() {
-            const form = document.getElementById('addMemberForm');
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                updateSalaryFields();
-                showNotification('Form tambah member dibuka', 'info');
-            }
-        }
-
-        function showEditForm() {
-            if (members.length === 0) {
-                showNotification('Belum ada data member untuk diedit', 'error');
-                return;
-            }
-            showNotification('Pilih member dari daftar data untuk mengedit', 'info');
-            showSection('data');
-        }
-
-        function showDeleteForm() {
-            if (members.length === 0) {
-                showNotification('Belum ada data member untuk dihapus', 'error');
-                return;
-            }
-            showNotification('Pilih member dari daftar data untuk menghapus', 'info');
-            showSection('data');
-        }
-
-        function showSalarySettings() {
-            document.getElementById('salarySettings').classList.toggle('hidden');
-        }
-
-        // Salary Calculation Functions
-        function updateSalaryFields() {
-            const level = parseInt(document.getElementById('memberLevel').value);
-            const coinData = coinSalaryData[level];
-            const diamondData = diamondSalaryData[level];
-            const rewedSalary = rewedSalaryData[level];
-
-            if (coinData && diamondData && rewedSalary) {
-                document.getElementById('memberCoinSalary').value = `${coinData.coin.toLocaleString()} Coin = Rp ${coinData.rupiah.toLocaleString()}`;
-                document.getElementById('memberDiamondSalary').value = `${diamondData.diamond.toLocaleString()} Diamond = Rp ${diamondData.rupiah.toLocaleString()}`;
-                document.getElementById('memberRewedSalary').value = `Rp ${rewedSalary.toLocaleString()}`;
-            }
-        }
-
-        function updateSalarySettings() {
-            salaryPerLevel = parseInt(document.getElementById('salaryPerLevel').value);
-            dollarRate = parseInt(document.getElementById('dollarRate').value);
-            saveData();
-            displayMembers();
-            showNotification('Pengaturan gaji berhasil diperbarui!', 'success');
-        }
-
-        // Image Handling Functions
-        function handleImageUpload() {
-            const fileInput = document.getElementById('memberImg');
-            const preview = document.getElementById('imagePreview');
-            const previewImg = document.getElementById('previewImg');
-
-            fileInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    if (file.size > 5 * 1024 * 1024) {
-                        showNotification('Ukuran file terlalu besar! Maksimal 5MB.', 'error');
-                        fileInput.value = '';
-                        preview.classList.add('hidden');
-                        return;
-                    }
-
-                    if (!file.type.startsWith('image/')) {
-                        showNotification('File harus berupa gambar!', 'error');
-                        fileInput.value = '';
-                        preview.classList.add('hidden');
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewImg.src = e.target.result;
-                        preview.classList.remove('hidden');
-                        showNotification('Foto berhasil dipilih', 'success');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        // Member Management Functions
-        function addMember(event) {
-            event.preventDefault();
+        
+        // Fungsi Perhitungan Total Gaji
+        function hitungTotalGaji() {
+            // Ambil data gaji yang sudah terisi otomatis
+            const gajiCoin = parseInt(document.getElementById('gajiCoin').textContent.replace(/[^0-9]/g, '')) || 0;
+            const gajiDiamond = parseInt(document.getElementById('gajiDiamond').textContent.replace(/[^0-9]/g, '')) || 0;
+            const bonus = parseInt(document.getElementById('bonus').textContent.replace(/[^0-9]/g, '')) || 0;
             
-            const level = parseInt(document.getElementById('memberLevel').value);
-            const coinData = coinSalaryData[level];
-            const diamondData = diamondSalaryData[level];
-            const rewedSalary = rewedSalaryData[level];
+            // Ambil nilai Dolar manual
+            const dolar = parseInt(document.getElementById('dolarInput').value.replace(/[^0-9]/g, '')) || 0;
+            const nilaiDolar = dolar * KURS_DOLAR;
             
-            const fileInput = document.getElementById('memberImg');
-            let memberImg = 'https://via.placeholder.com/400x600.png/ffffff/000000?Text=400x600';
+            const totalGaji = gajiCoin + gajiDiamond + bonus + nilaiDolar;
             
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    memberImg = e.target.result;
-                    const member = createMemberObject(memberImg, level, coinData, diamondData, rewedSalary);
-                    members.push(member);
-                    finalizeMemberAddition(event);
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                const member = createMemberObject(memberImg, level, coinData, diamondData, rewedSalary);
-                members.push(member);
-                finalizeMemberAddition(event);
-            }
+            // Tampilkan hasil total gaji
+            document.getElementById('totalGaji').innerHTML = `<strong>${formatRupiah(totalGaji)}</strong>`;
         }
 
-        function createMemberObject(memberImg, level, coinData, diamondData, rewedSalary) {
-            return {
-                id: Date.now(),
-                img: memberImg,
-                name: document.getElementById('memberName').value,
-                phone: document.getElementById('memberPhone').value,
-                fayaId: document.getElementById('memberFayaId').value,
-                fayaName: document.getElementById('memberFayaName').value,
-                bank: document.getElementById('memberBank').value,
-                ewallet: document.getElementById('memberEwallet').value,
-                bankNumber: document.getElementById('memberBankNumber').value,
-                bankOwner: document.getElementById('memberBankOwner').value,
-                level: level,
-                coinSalary: coinData.rupiah,
-                diamondSalary: diamondData.rupiah,
-                rewedSalary: rewedSalary,
-                dollar: parseInt(document.getElementById('memberDollar').value),
-                salaryStatus: document.querySelector('input[name="salaryStatus"]:checked').value
-            };
-        }
-
-        function finalizeMemberAddition(event) {
-            saveData();
-            displayMembers();
-            event.target.reset();
-            document.getElementById('imagePreview').classList.add('hidden');
-            updateSalaryFields();
-            document.getElementById('addMemberForm').classList.add('hidden');
-            showNotification('Data member berhasil ditambahkan!', 'success');
-        }
-
-        function displayMembers() {
-            const memberList = document.getElementById('memberList');
+        // Pemicu Download Gambar (menggunakan html2canvas)
+        document.getElementById('downloadImgBtn').addEventListener('click', function() {
+            const table = document.getElementById('dataGaji');
             
-            if (members.length === 0) {
-                memberList.innerHTML = `
-                    <div class="text-center py-12">
-                        <div class="w-24 h-24 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-users text-white text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Belum Ada Data Member</h3>
-                        <p class="text-gray-600 mb-6">Tambahkan member pertama untuk memulai</p>
-                        <button onclick="showSection('home'); showAddForm();" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl transition-all duration-300">
-                            <i class="fas fa-plus mr-2"></i>Tambah Member
-                        </button>
-                    </div>
-                `;
-                updateProfileStatistics();
-                return;
-            }
-
-            memberList.innerHTML = '';
-
-            members.forEach(member => {
-                const totalSalaryExcludingDollar = member.coinSalary + member.diamondSalary + member.rewedSalary;
-                const dollarInRupiah = member.dollar * dollarRate;
-
-                const memberCard = document.createElement('div');
-                memberCard.className = 'member-card p-8 custom-shadow card-hover';
-                memberCard.innerHTML = createMemberCardHTML(member, totalSalaryExcludingDollar, dollarInRupiah);
-                memberList.appendChild(memberCard);
-            });
-
-            updateProfileStatistics();
-        }
-
-        function updateProfileStatistics() {
-            const totalMembers = members.length;
-            const paidMembers = members.filter(member => member.salaryStatus === 'sudah').length;
-            const unpaidMembers = members.filter(member => member.salaryStatus === 'belum').length;
-
-            // Calculate salary totals
-            let totalPaidSalary = 0;
-            let totalPendingSalary = 0;
-            let totalDollarBonus = 0;
-            let highestLevel = 0;
-            const levelDistribution = {};
-
-            members.forEach(member => {
-                const memberTotalSalary = member.coinSalary + member.diamondSalary + member.rewedSalary + (member.dollar * dollarRate);
-                
-                if (member.salaryStatus === 'sudah') {
-                    totalPaidSalary += memberTotalSalary;
-                } else {
-                    totalPendingSalary += memberTotalSalary;
-                }
-                
-                totalDollarBonus += member.dollar;
-                
-                if (member.level > highestLevel) {
-                    highestLevel = member.level;
-                }
-                
-                // Level distribution
-                if (levelDistribution[member.level]) {
-                    levelDistribution[member.level]++;
-                } else {
-                    levelDistribution[member.level] = 1;
-                }
-            });
-
-            // Update basic statistics
-            const totalMembersElement = document.getElementById('totalMembersCount');
-            const paidMembersElement = document.getElementById('paidMembersCount');
-            const unpaidMembersElement = document.getElementById('unpaidMembersCount');
-
-            if (totalMembersElement) totalMembersElement.textContent = totalMembers;
-            if (paidMembersElement) paidMembersElement.textContent = paidMembers;
-            if (unpaidMembersElement) unpaidMembersElement.textContent = unpaidMembers;
-
-            // Update advanced statistics
-            const totalPaidSalaryElement = document.getElementById('totalPaidSalary');
-            const totalPendingSalaryElement = document.getElementById('totalPendingSalary');
-            const totalDollarBonusElement = document.getElementById('totalDollarBonus');
-            const paymentRateElement = document.getElementById('paymentRate');
-            const highestLevelElement = document.getElementById('highestLevel');
-
-            if (totalPaidSalaryElement) totalPaidSalaryElement.textContent = `Rp ${totalPaidSalary.toLocaleString()}`;
-            if (totalPendingSalaryElement) totalPendingSalaryElement.textContent = `Rp ${totalPendingSalary.toLocaleString()}`;
-            if (totalDollarBonusElement) totalDollarBonusElement.textContent = `$${totalDollarBonus}`;
-            if (paymentRateElement) {
-                const paymentRate = totalMembers > 0 ? Math.round((paidMembers / totalMembers) * 100) : 0;
-                paymentRateElement.textContent = `${paymentRate}%`;
-            }
-            if (highestLevelElement) highestLevelElement.textContent = `Level ${highestLevel}`;
-
-            // Update level distribution
-            updateLevelDistribution(levelDistribution);
-        }
-
-        function updateLevelDistribution(levelDistribution) {
-            const levelDistributionElement = document.getElementById('levelDistribution');
-            if (!levelDistributionElement) return;
-
-            levelDistributionElement.innerHTML = '';
-
-            // Sort levels
-            const sortedLevels = Object.keys(levelDistribution).sort((a, b) => parseInt(a) - parseInt(b));
-
-            sortedLevels.forEach(level => {
-                const count = levelDistribution[level];
-                const levelCard = document.createElement('div');
-                levelCard.className = 'bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-3 text-center border border-gray-200';
-                levelCard.innerHTML = `
-                    <div class="text-sm font-bold text-gray-800">Level ${level}</div>
-                    <div class="text-lg font-black text-blue-600">${count}</div>
-                    <div class="text-xs text-gray-600">member${count > 1 ? 's' : ''}</div>
-                `;
-                levelDistributionElement.appendChild(levelCard);
-            });
-
-            if (sortedLevels.length === 0) {
-                levelDistributionElement.innerHTML = `
-                    <div class="col-span-full text-center text-gray-500 py-4">
-                        <i class="fas fa-chart-bar text-2xl mb-2"></i>
-                        <div>Belum ada data untuk ditampilkan</div>
-                    </div>
-                `;
-            }
-        }
-
-        function createMemberCardHTML(member, totalSalaryExcludingDollar, dollarInRupiah) {
-            return `
-                <div class="flex flex-col lg:flex-row items-start space-y-6 lg:space-y-0 lg:space-x-8">
-                    <div class="flex-shrink-0">
-                        <div class="relative">
-                            <img src="${member.img}" alt="${member.name}" class="w-24 h-24 rounded-2xl object-cover shadow-lg" onerror="this.src='https://via.placeholder.com/400x600.png/ffffff/000000?Text=400x600'; this.alt='Foto tidak tersedia';">
-                            <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center">
-                                <span class="text-white text-xs font-bold">${member.level}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                        <div class="space-y-3">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-6 h-6 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-user text-white text-xs"></i>
-                                </div>
-                                <h3 class="font-bold text-xl text-gray-800">${member.name}</h3>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex items-center space-x-2 text-gray-600">
-                                    <i class="fas fa-phone text-blue-500"></i>
-                                    <span class="text-sm">${member.phone}</span>
-                                </div>
-                                <div class="flex items-center space-x-2 text-gray-600">
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                    <span class="text-sm">${member.fayaId}</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-layer-group text-purple-500"></i>
-                                    <span class="text-gray-800 font-semibold">Level ${member.level}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-center space-x-2 mb-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-coins text-white text-xs"></i>
-                                </div>
-                                <span class="font-semibold text-gray-800">Gaji Host</span>
-                            </div>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Koin:</span>
-                                    <span class="font-medium text-gray-800">Rp ${member.coinSalary.toLocaleString()}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Diamond:</span>
-                                    <span class="font-medium text-gray-800">Rp ${member.diamondSalary.toLocaleString()}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">Rewed:</span>
-                                    <span class="font-medium text-gray-800">Rp ${member.rewedSalary.toLocaleString()}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-center space-x-2 mb-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-dollar-sign text-white text-xs"></i>
-                                </div>
-                                <span class="font-semibold text-gray-800">Pendapatan</span>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-xl">
-                                    <div class="text-xs text-gray-600 mb-1">Bonus Dolar</div>
-                                    <div class="font-bold text-blue-600">$${member.dollar}</div>
-                                    <div class="text-xs text-gray-600">Rp ${dollarInRupiah.toLocaleString()}</div>
-                                </div>
-                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl">
-                                    <div class="text-xs text-gray-600 mb-1">Total Gaji</div>
-                                    <div class="font-bold text-green-600">Rp ${totalSalaryExcludingDollar.toLocaleString()}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-center space-x-2 mb-3">
-                                <div class="w-6 h-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-credit-card text-white text-xs"></i>
-                                </div>
-                                <span class="font-semibold text-gray-800">Pembayaran</span>
-                            </div>
-                            <div class="space-y-2 text-sm">
-                                <div>
-                                    <span class="text-gray-600">Metode:</span>
-                                    <div class="font-medium text-gray-800">${(member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-')}</div>
-                                </div>
-                                <div>
-                                    <span class="text-gray-600">Nomor:</span>
-                                    <div class="font-medium text-gray-800">${member.bankNumber || '-'}</div>
-                                </div>
-                                <div class="mt-3">
-                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${member.salaryStatus === 'sudah' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                                        ${member.salaryStatus === 'sudah' ? '✅ SUDAH DIBAYAR' : '❌ BELUM DIBAYAR'}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-3">
-                        <button onclick="downloadMemberImage(${member.id})" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 rounded-xl text-sm transition-all duration-300 shadow-lg hover:shadow-xl group">
-                            <div class="flex items-center space-x-2">
-                                <i class="fas fa-download group-hover:scale-110 transition-transform"></i>
-                                <span class="hidden lg:inline">Download</span>
-                            </div>
-                        </button>
-                        <button onclick="editMember(${member.id})" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-4 py-2 rounded-xl text-sm transition-all duration-300 shadow-lg hover:shadow-xl group">
-                            <div class="flex items-center space-x-2">
-                                <i class="fas fa-edit group-hover:scale-110 transition-transform"></i>
-                                <span class="hidden lg:inline">Edit</span>
-                            </div>
-                        </button>
-                        <button onclick="deleteMember(${member.id})" class="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-4 py-2 rounded-xl text-sm transition-all duration-300 shadow-lg hover:shadow-xl group">
-                            <div class="flex items-center space-x-2">
-                                <i class="fas fa-trash group-hover:scale-110 transition-transform"></i>
-                                <span class="hidden lg:inline">Hapus</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Member Actions
-        function downloadMemberImage(memberId) {
-            const member = members.find(m => m.id === memberId);
-            if (!member) return;
-
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 600;
-            canvas.height = 800;
-
-            // Create beautiful gradient background
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#abb600');
-            gradient.addColorStop(0.3, '#818a00');
-            gradient.addColorStop(0.7, '#656c00');
-            gradient.addColorStop(1, '#383b00');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Add decorative elements
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-            ctx.beginPath();
-            ctx.arc(150, 150, 80, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(750, 200, 60, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(100, 800, 40, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(800, 900, 70, 0, 2 * Math.PI);
-            ctx.fill();
-
-            // Load and draw logo icon
-            const logoImg = new Image();
-            logoImg.crossOrigin = 'anonymous';
-            logoImg.onload = function() {
-                // Draw logo at top center
-                const logoSize = 80;
-                ctx.drawImage(logoImg, (canvas.width - logoSize) / 2, 30, logoSize, logoSize);
-                
-                // Continue with the rest of the drawing
-                drawMemberCard();
-            };
-            logoImg.onerror = function() {
-                // If logo fails to load, continue without it
-                drawMemberCard();
-            };
-            logoImg.src = 'https://i.ibb.co.com/MxCx3wB1/IMG-20250915-WA0000.png';
-            
-                // Header with shadow effect
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-                ctx.shadowBlur = 10;
-                ctx.shadowOffsetY = 5;
-                
-                // Reset shadow
-                ctx.shadowColor = 'transparent';
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetY = 0;
-
-                // Member Information Section
-                let yPos = 130;
-                const leftCol = 100;
-                const rightCol = canvas.width / 2 + 50;
-                const lineHeight = 35;
-
-            // Header
-            ctx.fillStyle = '#000000';
-            ctx.font = 'bold 35px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('OFC CHAMELION AGENCY', canvas.width / 2, 60);
-            ctx.font = '25px Inter';
-            ctx.fillText('Faya Star Management System', canvas.width / 2, 90);
-
-                // Section: Personal Info
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 22px Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('📋 INFORMASI PERSONAL MEMBER', canvas.width / 2, yPos);
-                yPos += 40;
-
-                // Personal details
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 18px Arial, sans-serif';
-                ctx.textAlign = 'left';
-                
-                ctx.fillText('👤 Nama Lengkap :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 18px Arial, sans-serif';
-                ctx.fillText(member.name, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 18px Arial, sans-serif';
-                ctx.fillText('📱 Nomor HP :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(member.phone, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('⭐ ID Faya Star :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(member.fayaId, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('🎯 Username Faya :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(member.fayaName, leftCol + 200, yPos);
-                yPos += 50;
-
-                // Section: Salary Info
-                ctx.fillStyle = '#0002ae';
-                ctx.font = 'bold 22px Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('💰 INFORMASI GAJI MEMBER', canvas.width / 2, yPos);
-                yPos += 40;
-
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 18px Arial, sans-serif';
-                ctx.textAlign = 'left';
-                
-                ctx.fillText('🪙 Gaji Koin Host :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(`Rp ${member.coinSalary.toLocaleString()}`, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('💎 Gaji Diamond Host :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(`Rp ${member.diamondSalary.toLocaleString()}`, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('🏆 Gaji Rewed Host :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(`Rp ${member.rewedSalary.toLocaleString()}`, leftCol + 200, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('💵 Bonus Lotre Dolar :', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(`$${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, leftCol + 200, yPos);
-                yPos += 50;
-
-                // Section: Payment Info
-                ctx.fillStyle = '#00ddd9';
-                ctx.font = 'bold 22px Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('🏦 INFORMASI PEMBAYARAN', canvas.width / 2, yPos);
-                yPos += 40;
-
-                const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
-                
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 18px Arial, sans-serif';
-                ctx.textAlign = 'left';
-                
-                ctx.fillText('🏪 Metode Pembayaran:', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(paymentMethod, leftCol + 220, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('🔢 Nomor Rekening:', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(member.bankNumber, leftCol + 220, yPos);
-                yPos += lineHeight;
-
-                ctx.fillStyle = '#000000';
-                ctx.fillText('👨‍💼 Nama Pemilik:', leftCol, yPos);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(member.bankOwner, leftCol + 220, yPos);
-                yPos += 50;
-
-
-                // Status Section with background
-                const statusBgColor = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
-                const statusText = member.salaryStatus === 'sudah' ? '✅ SUDAH DI GAJIH ✅' : ' ❎ BELUM DI GAJIH ❎';
-                
-                ctx.fillStyle = statusBgColor;
-                ctx.roundRect(100, yPos - 35, canvas.width - 200, 75, 100);
-                ctx.fill();
-                
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 24px Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('STATUS PEMBAYARAN', canvas.width / 2, yPos - 5);
-                ctx.font = 'bold 28px Arial, sans-serif';
-                ctx.fillText(statusText, canvas.width / 2, yPos + 25);
-
-                // Footer
-                yPos += 80;
-                ctx.fillStyle = '#666';
-                ctx.font = '14px Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Generated by Channel Agency Management System', canvas.width / 2, yPos);
-                ctx.fillText(new Date().toLocaleDateString('id-ID'), canvas.width / 2, yPos + 20);
-
-                // Download the image
+            html2canvas(table, {
+                scale: 2, 
+                logging: false,
+                useCORS: true 
+            }).then(function(canvas) {
+                const image = canvas.toDataURL('image/png'); 
                 const link = document.createElement('a');
-                link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
+                
+                const namaFaya = document.getElementById('namaFaya').textContent.trim() || 'Karyawan';
+                link.href = image;
+                link.download = `Data_Gaji_Lvl${document.getElementById('levelGaji').value}_${namaFaya.replace(/\s/g, '_')}.png`;
+                
+                document.body.appendChild(link);
                 link.click();
-
-                showNotification('Gambar member berhasil didownload dengan desain baru!', 'success');
-            }
-
-        function editMember(memberId) {
-            const member = members.find(m => m.id === memberId);
-            if (!member) return;
-
-            // Fill form with member data
-            document.getElementById('memberName').value = member.name;
-            document.getElementById('memberPhone').value = member.phone;
-            document.getElementById('memberFayaId').value = member.fayaId;
-            document.getElementById('memberFayaName').value = member.fayaName;
-            document.getElementById('memberBank').value = member.bank;
-            document.getElementById('memberEwallet').value = member.ewallet;
-            document.getElementById('memberBankNumber').value = member.bankNumber;
-            document.getElementById('memberBankOwner').value = member.bankOwner;
-            document.getElementById('memberLevel').value = member.level;
-            document.getElementById('memberDollar').value = member.dollar;
-            document.querySelector(`input[name="salaryStatus"][value="${member.salaryStatus}"]`).checked = true;
-
-            updateSalaryFields();
-
-            // Show form
-            showSection('home');
-            showAddForm();
-
-            // Remove current member from array (will be re-added when form is submitted)
-            members = members.filter(m => m.id !== memberId);
-            saveData();
-
-            showNotification('Data member dimuat untuk diedit', 'info');
-        }
-
-        function deleteMember(memberId) {
-            if (confirm('Apakah Anda yakin ingin menghapus member ini?')) {
-                members = members.filter(m => m.id !== memberId);
-                saveData();
-                displayMembers();
-                showNotification('Member berhasil dihapus!', 'success');
-            }
-        }
-
-        // PDF Functions
-        function downloadAllPDF() {
-            if (members.length === 0) {
-                showNotification('Tidak ada data member untuk didownload', 'error');
-                return;
-            }
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // Header
-            doc.setFontSize(20);
-            doc.setFont(undefined, 'bold');
-            doc.text('CHANNEL AGENCY', 105, 20, { align: 'center' });
-            doc.setFontSize(12);
-            doc.setFont(undefined, 'normal');
-            doc.text('Faya Star Management System', 105, 30, { align: 'center' });
-            doc.text('Data Member Report', 105, 40, { align: 'center' });
-
-            let yPosition = 60;
-
-            members.forEach((member, index) => {
-                if (yPosition > 250) {
-                    doc.addPage();
-                    yPosition = 20;
-                }
-
-                doc.setFontSize(14);
-                doc.setFont(undefined, 'bold');
-                doc.text(`${index + 1}. ${member.name}`, 20, yPosition);
-                yPosition += 10;
-
-                doc.setFontSize(10);
-                doc.setFont(undefined, 'normal');
-                doc.text(`Phone: ${member.phone}`, 20, yPosition);
-                doc.text(`Faya ID: ${member.fayaId}`, 120, yPosition);
-                yPosition += 8;
-
-                doc.text(`Level: ${member.level}`, 20, yPosition);
-                doc.text(`Status: ${member.salaryStatus === 'sudah' ? 'SUDAH DIBAYAR' : 'BELUM DIBAYAR'}`, 120, yPosition);
-                yPosition += 8;
-
-                doc.text(`Gaji Koin: Rp ${member.coinSalary.toLocaleString()}`, 20, yPosition);
-                yPosition += 6;
-                doc.text(`Gaji Diamond: Rp ${member.diamondSalary.toLocaleString()}`, 20, yPosition);
-                yPosition += 6;
-                doc.text(`Gaji Rewed: Rp ${member.rewedSalary.toLocaleString()}`, 20, yPosition);
-                yPosition += 6;
-                doc.text(`Bonus Dolar: $${member.dollar} (Rp ${(member.dollar * dollarRate).toLocaleString()})`, 20, yPosition);
-                yPosition += 10;
-
-                const paymentMethod = (member.bank && member.ewallet) ? `${member.bank} & ${member.ewallet}` : (member.bank || member.ewallet || '-');
-                doc.text(`Payment: ${paymentMethod} - ${member.bankNumber}`, 20, yPosition);
-                yPosition += 15;
+                document.body.removeChild(link);
             });
-
-            doc.save('channel-agency-members.pdf');
-            showNotification('PDF berhasil didownload!', 'success');
-        }
-
-        // Customer Service Functions
-        function showCustomerServiceModal() {
-            const modal = document.getElementById('customerServiceModal');
-            const content = document.getElementById('customerServiceContent');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-
-        function hideCustomerServiceModal() {
-            const modal = document.getElementById('customerServiceModal');
-            const content = document.getElementById('customerServiceContent');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        function openWhatsApp() {
-            window.open('https://wa.me/6282184102963', '_blank', 'noopener,noreferrer');
-            hideCustomerServiceModal();
-        }
-
-        function openTelegram() {
-            window.open('https://t.me/info_chamelion', '_blank', 'noopener,noreferrer');
-            hideCustomerServiceModal();
-        }
-
-        // Utility Functions
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('Berhasil disalin ke clipboard!', 'success');
-            }).catch(() => {
-                showNotification('Gagal menyalin ke clipboard', 'error');
-            });
-        }
-
-        function updateVipStatus() {
-            const status = document.getElementById('vipStatus').value;
-            showNotification(`Status VIP diubah ke: ${status}`, 'success');
-        }
-
-        // Statistics Toggle Function
-        function toggleStatistics() {
-            const content = document.getElementById('statisticsContent');
-            const icon = document.getElementById('statisticsToggleIcon');
-            
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                // Close statistics
-                content.style.maxHeight = '0px';
-                content.style.paddingTop = '0px';
-                content.style.paddingBottom = '0px';
-                content.style.opacity = '0';
-                icon.style.transform = 'rotate(0deg)';
-                showNotification('Statistik ditutup', 'info');
-            } else {
-                // Open statistics - increased height for scrollable content
-                content.style.maxHeight = '600px';
-                content.style.paddingTop = '0px';
-                content.style.paddingBottom = '32px';
-                content.style.opacity = '1';
-                icon.style.transform = 'rotate(180deg)';
-                showNotification('Statistik dibuka - scroll untuk melihat lebih banyak', 'info');
-            }
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('customerServiceModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideCustomerServiceModal();
-            }
         });
+        
+        // Inisialisasi:
+        populateLevelOptions();
+        updateAkunOptions(); // Memuat daftar Bank di awal
+        isiGajiOtomatis(); // Menghitung total gaji di awal (Level 0)
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982e6c13a5e1f92e',t:'MTc1ODUwODY2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-
-<script>
-    // === JAVASCRIPT DIPERBAIKI ===
-
-    // Global Variables
-    let members = [];
-    let salaryPerLevel = 1000;
-    let dollarRate = 17000;
-    let bannerData = null;
-    let selectedIcons = [];
-    let currentEditId = null;
-
-    // Salary Data Configuration (tetap sama)
-    const coinSalaryData = { /* ... */ };
-    const diamondSalaryData = { /* ... */ };
-    const rewedSalaryData = { /* ... */ };
-
-    // Utility: Draw rounded rectangle (pengganti ctx.roundRect)
-    function drawRoundedRect(ctx, x, y, width, height, radius) {
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.lineTo(x + width - radius, y);
-        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-        ctx.lineTo(x + width, y + height - radius);
-        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        ctx.lineTo(x + radius, y + height);
-        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-        ctx.lineTo(x, y + radius);
-        ctx.quadraticCurveTo(x, y, x + radius, y);
-        ctx.closePath();
-    }
-
-    // Utility: Base64 placeholder logo (hindari CORS)
-    const placeholderLogo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjNjY3ZWVhIi8+PHRleHQgeD0iNDAiIHk9IjQ1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxPR088L3RleHQ+PC9zdmc+";
-
-    // === SISA FUNGSI JAVASCRIPT ===
-    // (Semua fungsi lain tetap sama, kecuali bagian downloadMemberImage)
-
-    function downloadMemberImage(memberId) {
-        const member = members.find(m => m.id === memberId);
-        if (!member) return;
-
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 600;
-        canvas.height = 800;
-
-        // Background gradient
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        gradient.addColorStop(0, '#abb600');
-        gradient.addColorStop(1, '#383b00');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Logo (tanpa CORS)
-        const logoImg = new Image();
-        logoImg.onload = () => {
-            ctx.drawImage(logoImg, (canvas.width - 80) / 2, 30, 80, 80);
-            drawMemberCardContent();
-        };
-        logoImg.onerror = drawMemberCardContent;
-        logoImg.src = placeholderLogo;
-
-        function drawMemberCardContent() {
-            // Header
-            ctx.fillStyle = '#000';
-            ctx.font = 'bold 35px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('OFC CHAMELION AGENCY', canvas.width / 2, 60);
-            ctx.font = '25px Inter';
-            ctx.fillText('Faya Star Management System', canvas.width / 2, 90);
-
-            // Personal Info
-            let yPos = 150;
-            const leftCol = 100;
-            const lineHeight = 35;
-
-            ctx.fillStyle = '#000';
-            ctx.font = 'bold 22px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('📋 INFORMASI PERSONAL MEMBER', canvas.width / 2, yPos);
-            yPos += 40;
-
-            ctx.textAlign = 'left';
-            ctx.font = 'bold 18px Inter';
-            ctx.fillText('👤 Nama Lengkap :', leftCol, yPos);
-            ctx.fillStyle = '#fff';
-            ctx.fillText(member.name, leftCol + 200, yPos);
-            yPos += lineHeight;
-
-            // ... (lanjutkan menggambar data member seperti aslinya) ...
-
-            // Status Pembayaran dengan rounded rect
-            const statusBgColor = member.salaryStatus === 'sudah' ? '#10b981' : '#ef4444';
-            const statusText = member.salaryStatus === 'sudah' ? '✅ SUDAH DI GAJIH ✅' : ' ❎ BELUM DI GAJIH ❎';
-
-            ctx.fillStyle = statusBgColor;
-            drawRoundedRect(ctx, 100, yPos - 35, canvas.width - 200, 75, 20);
-            ctx.fill();
-
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 24px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('STATUS PEMBAYARAN', canvas.width / 2, yPos - 5);
-            ctx.font = 'bold 28px Inter';
-            ctx.fillText(statusText, canvas.width / 2, yPos + 25);
-
-            // Footer
-            yPos += 80;
-            ctx.fillStyle = '#666';
-            ctx.font = '14px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText('Generated by Channel Agency', canvas.width / 2, yPos);
-            ctx.fillText(new Date().toLocaleDateString('id-ID'), canvas.width / 2, yPos + 20);
-
-            // Download
-            const link = document.createElement('a');
-            link.download = `member-${member.name.replace(/\s+/g, '-')}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
-            showNotification('Gambar member berhasil didownload!', 'success');
-        }
-    }
-
-    // === FUNGSI LAINNYA TETAP SAMA ===
-    // (copy semua fungsi lain dari file asli, kecuali downloadMemberImage)
-
-    // Inisialisasi
-    document.addEventListener('DOMContentLoaded', () => {
-        loadSavedData();
-        handleImageUpload();
-        handleBannerImageUpload();
-        updateSalaryFields();
-        displayMembers();
-        initializeTimeSystem();
-        showNotification('Sistem berhasil dimuat!', 'success');
-    });
-
-    // ... (semua fungsi lain seperti addMember, editMember, dll tetap sama) ...
-</script>
 </body>
 </html>
