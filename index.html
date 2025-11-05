@@ -81,6 +81,23 @@
             overflow:hidden;
         }
 
+        /* tambahan: judul di dalam card, tampil besar dan centered */
+        .card-header{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:18px 0 8px 0;
+        }
+        .card-header h2{
+            margin: 0;
+            font-size: clamp(22px, 6vw, 42px);
+            text-align:center;
+            letter-spacing:0.8px;
+            color: var(--accent-solid);
+            font-weight:800;
+            line-height:1;
+        }
+
         /* grid layout untuk form */
         .grid{
             display:grid;
@@ -239,6 +256,7 @@
             .grid{ grid-template-columns: 1fr; }
             .logo{ width:56px; height:56px; border-radius:12px }
             header.app-header{ gap:10px }
+            .card-header{ padding:14px 0 6px 0; }
         }
     </style>
 </head>
@@ -253,6 +271,11 @@
         </header>
 
         <main class="card" role="main" aria-labelledby="main-title">
+            <!-- Judul tambahan di atas kartu (besar dan center) -->
+            <div class="card-header">
+                <h2>GAJI SAHABAT KITA</h2>
+            </div>
+
             <div class="grid" id="dataGaji">
                 <!-- Pilih Level -->
                 <div>
@@ -545,9 +568,17 @@
             const el = document.querySelector('main.card');
             // small temporary style tweak for download clarity
             const originalBG = el.style.background;
+
+            // Hide tombol download (.actions) dan catatan (.notes) sementara saat capture
+            const hiddenEls = document.querySelectorAll('.actions, .notes');
+            const prev = [];
+            hiddenEls.forEach(h => {
+                prev.push({ el: h, display: h.style.display });
+                h.style.display = 'none';
+            });
+
             el.style.background = '#ffffff';
             html2canvas(el, { scale: 2, logging: false, useCORS: true }).then(canvas=>{
-                el.style.background = originalBG;
                 const image = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 const namaFaya = (document.getElementById('namaFaya').textContent || 'Karyawan').trim() || 'Karyawan';
@@ -562,6 +593,12 @@
             }).catch(err=>{
                 console.error(err);
                 alert('Terjadi masalah saat membuat gambar. Coba lagi.');
+            }).finally(()=>{
+                // restore background & tampilkan lagi tombol/notes
+                el.style.background = originalBG;
+                prev.forEach(p => {
+                    p.el.style.display = p.display || '';
+                });
             });
         });
 
