@@ -1,227 +1,415 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Data Gaji Karyawan Berdasarkan Level (Update)</title>
-    
+
+    <!-- Font modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- html2canvas tetap digunakan untuk download gambar -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+        :root{
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --accent: linear-gradient(135deg,#5b6cff 0%, #7b61ff 100%);
+            --accent-solid: #5b6cff;
+            --success: #18a159;
+            --glass: rgba(255,255,255,0.6);
+            --radius: 12px;
+            --shadow-sm: 0 4px 12px rgba(33, 33, 33, 0.06);
         }
-        
-        .container {
-            max-width: 800px;
+
+        *{box-sizing: border-box}
+        body{
+            margin: 0;
+            padding: 32px;
+            font-family: 'Inter', Arial, sans-serif;
+            background: radial-gradient(1200px 400px at 10% 10%, rgba(91,108,255,0.06), transparent 10%),
+                        radial-gradient(1000px 300px at 90% 90%, rgba(123,97,255,0.04), transparent 10%),
+                        var(--bg);
+            color: #111827;
+        }
+
+        .wrap{
+            max-width: 920px;
             margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Styling untuk Tabel */
-        #dataGaji {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            table-layout: fixed;
+        header.app-header{
+            display:flex;
+            gap:16px;
+            align-items:center;
+            margin-bottom:18px;
         }
-        
-        #dataGaji th, #dataGaji td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+        .logo{
+            width:64px;
+            height:64px;
+            border-radius:14px;
+            background: var(--accent);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-weight:700;
+            box-shadow: var(--shadow-sm);
         }
-
-        #dataGaji th {
-            background-color: #3f51b5;
-            color: white;
-            font-weight: bold;
+        .title{
+            display:flex;
+            flex-direction:column;
         }
-        
-        #dataGaji tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .title h1{
+            margin:0;
+            font-size:18px;
+            letter-spacing:0.2px;
         }
-        
-        /* Styling untuk Kolom Data */
-        .data-label {
-            width: 40%;
-            font-weight: bold;
-            background-color: #f2f2f2;
-        }
-
-        .data-value {
-            width: 60%;
-            min-height: 20px;
+        .title p{
+            margin:2px 0 0 0;
+            color:var(--muted);
+            font-size:13px;
         }
 
-        /* Styling untuk Total Gaji */
-        #totalGajiRow td {
-             background-color: #c5cae9 !important;
-        }
-        #totalGaji {
-            background-color: #e8eaf6 !important;
-            font-weight: bold;
-        }
-
-        /* Styling untuk Input dan Dropdown */
-        select, input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        
-        .bank-ewallet-select, .bank-ewallet-input {
-            margin-top: 5px;
+        .card{
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+            border-radius: var(--radius);
+            padding:20px;
+            box-shadow: var(--shadow-sm);
+            overflow:hidden;
         }
 
-        /* Styling untuk Tombol Radio/Pilihan Bank/E-wallet */
-        .radio-group label {
-            margin-right: 15px;
-            cursor: pointer;
+        /* grid layout untuk form */
+        .grid{
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            gap:14px;
+            align-items:start;
         }
-        .radio-group input[type="radio"] {
-            margin-right: 5px;
+
+        /* full width row */
+        .full{
+            grid-column: 1 / -1;
         }
-        
-        /* Styling untuk Tombol Download */
-        #downloadImgBtn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+
+        label.field-label{
+            display:block;
+            font-size:13px;
+            color:var(--muted);
+            margin-bottom:8px;
+            font-weight:600;
+        }
+
+        /* field block */
+        .field{
+            background: #fbfdff;
+            border: 1px solid #eef2ff;
+            padding:12px;
+            border-radius:10px;
+            min-height:48px;
+        }
+
+        select, input[type="text"]{
+            width:100%;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            display: block;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-            margin-bottom: 10px;
+            outline:none;
+            background: transparent;
+            font-size:15px;
+            color: #0f172a;
         }
-        #downloadImgBtn:hover {
-            background-color: #45a049;
+
+        .editable{
+            min-height:36px;
+            padding:6px 2px;
         }
-        
+
+        .radio-group{
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+        .radio-group label{
+            display:flex;
+            gap:8px;
+            align-items:center;
+            background: #f8faff;
+            padding:6px 10px;
+            border-radius:8px;
+            border:1px solid #eef3ff;
+            cursor:pointer;
+            font-weight:600;
+            color: #334155;
+        }
+        .radio-group input{accent-color: var(--accent-solid)}
+
+        /* PUST badge */
+        .pust-badges{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            align-items:center;
+        }
+        .badge{
+            background: linear-gradient(90deg,#eef2ff, #f6f5ff);
+            color: #2b2e4a;
+            padding:7px 12px;
+            border-radius:999px;
+            font-weight:700;
+            font-size:13px;
+            border:1px solid rgba(91,108,255,0.08);
+        }
+
+        /* Money display */
+        .money{
+            font-weight:700;
+            color:#0f172a;
+            display:inline-block;
+        }
+        .sub-muted{ color:var(--muted); font-weight:600; font-size:13px; margin-top:6px; display:block }
+
+        /* total card */
+        .total-box{
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            padding:14px;
+            border-radius:10px;
+            background: linear-gradient(90deg, rgba(91,108,255,0.06), rgba(123,97,255,0.03));
+            border:1px solid rgba(91,108,255,0.08);
+        }
+        .total-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+        }
+        .total-left{ font-size:14px; color:#243042; font-weight:700 }
+        .total-right{ font-size:20px; color:#0b1220; font-weight:800 }
+        .total-small{ font-size:13px; color:var(--muted); font-weight:600 }
+
+        /* tombol */
+        .actions{
+            display:flex;
+            gap:12px;
+            margin-top:14px;
+            align-items:center;
+        }
+
+        .btn{
+            display:inline-flex;
+            gap:8px;
+            align-items:center;
+            justify-content:center;
+            padding:12px 16px;
+            border-radius:10px;
+            cursor:pointer;
+            border:none;
+            font-weight:700;
+            color:white;
+            text-decoration:none;
+            box-shadow: 0 6px 18px rgba(43,45,66,0.08);
+        }
+        .btn-download{
+            background: var(--accent);
+            width:100%;
+        }
+        .btn-secondary{
+            background: #f3f4f6;
+            color:#0b1220;
+            font-weight:700;
+            border-radius:10px;
+            padding:10px 12px;
+        }
+
+        .notes{
+            margin-top:14px;
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.5;
+            background: linear-gradient(180deg, rgba(14,165,233,0.02), transparent);
+            padding:10px 12px;
+            border-radius:10px;
+            border:1px dashed rgba(99,102,241,0.06);
+        }
+
+        /* responsive */
+        @media (max-width:760px){
+            .grid{ grid-template-columns: 1fr; }
+            .logo{ width:56px; height:56px; border-radius:12px }
+            header.app-header{ gap:10px }
+        }
     </style>
 </head>
 <body>
+    <div class="wrap">
+        <header class="app-header">
+            <div class="logo">FS</div>
+            <div class="title">
+                <h1>AGENCY SAHABAT KITA — Data Gaji</h1>
+                <p>Formulir ringkas untuk generate data gaji per anggota</p>
+            </div>
+        </header>
 
-    <div class="container">
-        
-        <h2>AGENCY SAHABAT KITA</h2>
-        <p>WELCOME TO AGENCY SAHABAT KITA</p>
-
-        <table id="dataGaji">
-            <thead>
-                <tr>
-                    <th colspan="2">GAJI MEMBER FAYA STAR SAHABAT KITA</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="data-label">PILIH LEVEL GAJI</td>
-                    <td class="data-value">
+        <main class="card" role="main" aria-labelledby="main-title">
+            <div class="grid" id="dataGaji">
+                <!-- Pilih Level -->
+                <div>
+                    <label class="field-label" for="levelGaji">Pilih Level Gaji</label>
+                    <div class="field">
                         <select id="levelGaji" onchange="isiGajiOtomatis()">
                             <option value="0">--- Level 0 (Data Kosong) ---</option>
                         </select>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">PUST COIN / PUST DIAMOND</td>
-                    <td class="data-value pust-data" id="pustData"></td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">ID FAYA</td>
-                    <td class="data-value" contenteditable="true" id="idFaya"></td>
-                </tr>
-                <tr>
-                    <td class="data-label">NAMA FAYA</td>
-                    <td class="data-value" contenteditable="true" id="namaFaya"></td>
-                </tr>
-                <tr>
-                    <td class="data-label">NOMOR HP</td>
-                    <td class="data-value" contenteditable="true" id="nomorHP"></td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">JENIS AKUN</td>
-                    <td class="data-value radio-group">
-                        <label>
-                            <input type="radio" name="jenisAkun" value="bank" checked onchange="updateAkunOptions()"> Bank
-                        </label>
-                        <label>
-                            <input type="radio" name="jenisAkun" value="ewallet" onchange="updateAkunOptions()"> E-Wallet
-                        </label>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">BANK / E-WALLET</td>
-                    <td class="data-value">
-                        <select id="selectAkun" class="bank-ewallet-select" onchange="updateNamaBank()">
-                            </select>
+                    </div>
+                </div>
+
+                <!-- PUST -->
+                <div>
+                    <label class="field-label">PUST COIN / PUST DIAMOND</label>
+                    <div class="field pust-badges" id="pustData">
+                        <span class="badge">Coin: Rp 0</span>
+                        <span class="badge">Diamond: Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- ID -->
+                <div>
+                    <label class="field-label">ID FAYA</label>
+                    <div class="field editable" id="idFaya" contenteditable="true" aria-label="ID Faya"></div>
+                </div>
+
+                <!-- Nama -->
+                <div>
+                    <label class="field-label">NAMA FAYA</label>
+                    <div class="field editable" id="namaFaya" contenteditable="true" aria-label="Nama Faya"></div>
+                </div>
+
+                <!-- Nomor HP -->
+                <div>
+                    <label class="field-label">NOMOR HP</label>
+                    <div class="field editable" id="nomorHP" contenteditable="true" aria-label="Nomor HP"></div>
+                </div>
+
+                <!-- Jenis Akun -->
+                <div>
+                    <label class="field-label">JENIS AKUN</label>
+                    <div class="field">
+                        <div class="radio-group">
+                            <label><input type="radio" name="jenisAkun" value="bank" checked onchange="updateAkunOptions()"> Bank</label>
+                            <label><input type="radio" name="jenisAkun" value="ewallet" onchange="updateAkunOptions()"> E-Wallet</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank/E-Wallet -->
+                <div>
+                    <label class="field-label">BANK / E-WALLET</label>
+                    <div class="field">
+                        <select id="selectAkun" class="bank-ewallet-select" onchange="updateNamaBank()"></select>
                         <input type="hidden" id="namaBank" value="">
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">NOMOR AKUN / HP</td>
-                    <td class="data-value" contenteditable="true" id="akunBank"></td>
-                </tr>
-                <tr>
-                    <td class="data-label">NAMA PEMILIK</td>
-                    <td class="data-value" contenteditable="true" id="namaPemilik"></td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">GAJI COIN (IDR)</td>
-                    <td class="data-value" id="gajiCoin">Rp 0</td>
-                </tr>
-                <tr>
-                    <td class="data-label">GAJI DIAMOND (IDR)</td>
-                    <td class="data-value" id="gajiDiamond">Rp 0</td>
-                </tr>
-                <tr>
-                    <td class="data-label">BONUS (IDR)</td>
-                    <td class="data-value" id="bonus">Rp 0</td>
-                </tr>
-                
-                <tr>
-                    <td class="data-label">DOLAR (Angka Saja)</td>
-                    <td class="data-value editable-cell">
-                        <input type="text" id="dolarInput" value="0" oninput="hitungTotalGaji()">
-                    </td>
-                </tr>
-                
-                <tr id="totalGajiRow">
-                    <td class="data-label"><strong>TOTAL GAJIH (IDR)</strong></td>
-                    <td class="data-value" id="totalGaji"><strong>Rp 0</strong></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <button id="downloadImgBtn">⬇️ DOWNLOAD DATA JADI GAMBAR (IMG)</button>
-        
-        <div class="catatan">
-            <strong>CATATAN:</strong>
-            <br>1. Kurs **1 Dolar = Rp 17.000**.
-            <br>2. Pilih **Bank** atau **E-Wallet** untuk memuat daftar yang sesuai.
-        </div>
+                    </div>
+                </div>
+
+                <!-- Nomor Akun -->
+                <div>
+                    <label class="field-label">NOMOR AKUN / HP</label>
+                    <div class="field editable" id="akunBank" contenteditable="true"></div>
+                </div>
+
+                <!-- Nama Pemilik -->
+                <div>
+                    <label class="field-label">NAMA PEMILIK</label>
+                    <div class="field editable" id="namaPemilik" contenteditable="true"></div>
+                </div>
+
+                <!-- Gaji Coin -->
+                <div>
+                    <label class="field-label">GAJI COIN (IDR)</label>
+                    <div class="field">
+                        <span id="gajiCoin" class="money">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Gaji Diamond -->
+                <div>
+                    <label class="field-label">GAJI DIAMOND (IDR)</label>
+                    <div class="field">
+                        <span id="gajiDiamond" class="money">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Bonus -->
+                <div>
+                    <label class="field-label">BONUS (IDR)</label>
+                    <div class="field">
+                        <span id="bonus" class="money">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Dolar -->
+                <div>
+                    <label class="field-label">DOLAR (Angka Saja)</label>
+                    <div class="field">
+                        <input type="text" id="dolarInput" value="0" oninput="hitungTotalGaji()" inputmode="numeric" pattern="[0-9]*" aria-label="Dolar"/>
+                        <span class="sub-muted">Kurs saat ini: 1 USD = Rp <strong id="kursValue">17.000</strong></span>
+                    </div>
+                </div>
+
+                <!-- Setatis (baru) -->
+                <div>
+                    <label class="field-label">SETATIS (Wakil / Oner / Admin / Member)</label>
+                    <div class="field">
+                        <select id="statusSelect" onchange="updateStatus(); hitungTotalGaji();" aria-label="Setatis">
+                            <option value="Wakil">Wakil</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Member">Member</option>
+                        </select>
+                        <input type="hidden" id="statusHidden" value="Member">
+                        <span class="sub-muted" id="statusDisplay">Status terpilih: <strong>Member</strong></span>
+                    </div>
+                </div>
+
+                <!-- Total Gaji (full width) -->
+                <div class="full">
+                    <label class="field-label">TOTAL GAJI</label>
+                    <div class="total-box">
+                        <div class="total-row">
+                            <div class="total-left">TOTAL GAJI (IDR)</div>
+                            <div class="total-right" id="totalGaji"><strong>Rp 0</strong></div>
+                        </div>
+                        <div class="total-row">
+                            <div class="total-small">Setatis Bonus</div>
+                            <div class="total-small" id="statusBonusDisplay">Rp 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="full">
+                    <div class="actions">
+                        <button id="downloadImgBtn" class="btn btn-download" title="Download sebagai gambar">
+                            ⬇️ DOWNLOAD DATA JADI GAMBAR (IMG)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="full">
+                    <div class="notes">
+                        <strong>CATATAN:</strong><br>
+                        1. Kurs <strong>1 Dolar = Rp <span id="kursValue2">17.000</span></strong>.<br>
+                        2. Pilih <strong>Bank</strong> atau <strong>E-Wallet</strong> untuk memuat daftar yang sesuai.<br>
+                        3. Klik tombol download untuk menyimpan tabel sebagai gambar. Nama file akan berisi level, status, dan nama FAYA.
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-    
+
     <script>
         // Data Gaji per Level (Nilai disimpan dalam format angka MURNI)
         const dataGajiLevel = [
-            // Level 0 (Kosong/Default)
             { lvl: 0, pustCoin: 0, pustDM: 0, gajiCoin: 0, gajiDiamond: 0, bonus: 0 },
             { lvl: 1, pustCoin: 50000, pustDM: 50000, gajiCoin: 10000, gajiDiamond: 10000, bonus: 7000 },
             { lvl: 2, pustCoin: 100000, pustDM: 100000, gajiCoin: 20000, gajiDiamond: 20000, bonus: 11000 },
@@ -256,116 +444,139 @@
         };
 
         // Konstanta Kurs Dolar yang baru
-        const KURS_DOLAR = 17000; 
+        const KURS_DOLAR = 17000;
 
-        // Fungsi untuk memformat angka kembali menjadi format mata uang
-        function formatRupiah(number, includeRp = true) {
+        // Mapping bonus Setatis (nilai dalam IDR)
+        const STATUS_BONUS = {
+            'Wakil': 2000,
+            'Admin': 1000,
+            'Member': 0,
+            'Oner': 0 // jika Oner tidak diberikan tambahan, tetap 0 (ubah bila perlu)
+        };
+
+        // Helper: format rupiah (tanpa desimal)
+        function formatRupiah(number) {
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
                 minimumFractionDigits: 0
-            }).format(number).replace('IDR', includeRp ? 'Rp' : '');
+            }).format(number).replace('IDR', 'Rp');
         }
 
-        // Fungsi untuk Mengisi Opsi Level pada Dropdown
-        function populateLevelOptions() {
+        // Populate level dropdown
+        function populateLevelOptions(){
             const select = document.getElementById('levelGaji');
-            for (let i = 1; i <= 20; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Level ${i}`;
-                select.appendChild(option);
+            for(let i=1;i<=20;i++){
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = `Level ${i}`;
+                select.appendChild(opt);
             }
         }
-        
-        // Fungsi untuk mengupdate opsi Bank/E-Wallet
-        function updateAkunOptions() {
+
+        // Update options untuk Bank/E-Wallet
+        function updateAkunOptions(){
             const jenis = document.querySelector('input[name="jenisAkun"]:checked').value;
             const selectAkun = document.getElementById('selectAkun');
-            
-            // Bersihkan opsi lama
             selectAkun.innerHTML = '';
-            
-            // Isi opsi baru
-            optionsAkun[jenis].forEach(nama => {
-                const option = document.createElement('option');
-                option.value = nama;
-                option.textContent = nama;
-                selectAkun.appendChild(option);
+            optionsAkun[jenis].forEach(nama=>{
+                const opt = document.createElement('option');
+                opt.value = nama;
+                opt.textContent = nama;
+                selectAkun.appendChild(opt);
             });
-            
-            // Update hidden input agar nama bank/ewallet terbawa saat download
             updateNamaBank();
         }
 
-        // Fungsi untuk menyimpan pilihan Bank/E-Wallet ke hidden input
-        function updateNamaBank() {
+        // Save selected bank/ewallet to hidden input
+        function updateNamaBank(){
             const selectAkun = document.getElementById('selectAkun');
             document.getElementById('namaBank').value = selectAkun.value;
         }
-        
-        // Fungsi untuk Mengisi Data Gaji Otomatis Berdasarkan Level
-        function isiGajiOtomatis() {
-            const selectedLevel = parseInt(document.getElementById('levelGaji').value);
-            const data = dataGajiLevel.find(item => item.lvl === selectedLevel);
 
-            if (data) {
-                // Isi data PUST COIN dan PUST DM
-                document.getElementById('pustData').textContent = `Coin: ${formatRupiah(data.pustCoin, false)} | Diamond: ${formatRupiah(data.pustDM, false)} | LVL ${data.lvl}`;
-                
-                // Isi data GAJI COIN, GAJI DIAMOND, dan BONUS
+        // Update status select -> hidden + display
+        function updateStatus(){
+            const sel = document.getElementById('statusSelect');
+            const val = sel.value;
+            document.getElementById('statusHidden').value = val;
+            document.getElementById('statusDisplay').innerHTML = `Status terpilih: <strong>${val}</strong>`;
+        }
+
+        // Isi gaji otomatis berdasarkan level
+        function isiGajiOtomatis(){
+            const lvl = parseInt(document.getElementById('levelGaji').value);
+            const data = dataGajiLevel.find(it=> it.lvl === lvl);
+            if(data){
+                // Update pust badges
+                const pustEl = document.getElementById('pustData');
+                pustEl.innerHTML = '';
+                const b1 = document.createElement('span'); b1.className='badge'; b1.textContent = `Coin: ${formatRupiah(data.pustCoin)}`;
+                const b2 = document.createElement('span'); b2.className='badge'; b2.textContent = `Diamond: ${formatRupiah(data.pustDM)}`;
+                const b3 = document.createElement('span'); b3.className='badge'; b3.textContent = `LVL ${data.lvl}`;
+                pustEl.appendChild(b1); pustEl.appendChild(b2); pustEl.appendChild(b3);
+
                 document.getElementById('gajiCoin').textContent = formatRupiah(data.gajiCoin);
                 document.getElementById('gajiDiamond').textContent = formatRupiah(data.gajiDiamond);
                 document.getElementById('bonus').textContent = formatRupiah(data.bonus);
-                
-                // Hitung Total Gaji
+
                 hitungTotalGaji();
             }
         }
-        
-        // Fungsi Perhitungan Total Gaji
-        function hitungTotalGaji() {
-            // Ambil data gaji yang sudah terisi otomatis
-            const gajiCoin = parseInt(document.getElementById('gajiCoin').textContent.replace(/[^0-9]/g, '')) || 0;
-            const gajiDiamond = parseInt(document.getElementById('gajiDiamond').textContent.replace(/[^0-9]/g, '')) || 0;
-            const bonus = parseInt(document.getElementById('bonus').textContent.replace(/[^0-9]/g, '')) || 0;
-            
-            // Ambil nilai Dolar manual
-            const dolar = parseInt(document.getElementById('dolarInput').value.replace(/[^0-9]/g, '')) || 0;
+
+        // Hitung total gaji (termasuk bonus setatis dan dolar)
+        function hitungTotalGaji(){
+            const gajiCoin = parseInt(document.getElementById('gajiCoin').textContent.replace(/[^0-9]/g,'')) || 0;
+            const gajiDiamond = parseInt(document.getElementById('gajiDiamond').textContent.replace(/[^0-9]/g,'')) || 0;
+            const bonus = parseInt(document.getElementById('bonus').textContent.replace(/[^0-9]/g,'')) || 0;
+            const dolar = parseInt(document.getElementById('dolarInput').value.replace(/[^0-9]/g,'')) || 0;
             const nilaiDolar = dolar * KURS_DOLAR;
-            
-            const totalGaji = gajiCoin + gajiDiamond + bonus + nilaiDolar;
-            
-            // Tampilkan hasil total gaji
-            document.getElementById('totalGaji').innerHTML = `<strong>${formatRupiah(totalGaji)}</strong>`;
+
+            const status = document.getElementById('statusSelect').value || document.getElementById('statusHidden').value || 'Member';
+            const statusBonus = STATUS_BONUS[status] || 0;
+
+            const total = gajiCoin + gajiDiamond + bonus + nilaiDolar + statusBonus;
+
+            document.getElementById('totalGaji').innerHTML = `<strong>${formatRupiah(total)}</strong>`;
+            document.getElementById('statusBonusDisplay').textContent = formatRupiah(statusBonus);
         }
 
-        // Pemicu Download Gambar (menggunakan html2canvas)
-        document.getElementById('downloadImgBtn').addEventListener('click', function() {
-            const table = document.getElementById('dataGaji');
-            
-            html2canvas(table, {
-                scale: 2, 
-                logging: false,
-                useCORS: true 
-            }).then(function(canvas) {
-                const image = canvas.toDataURL('image/png'); 
+        // Download as image using html2canvas
+        document.getElementById('downloadImgBtn').addEventListener('click', function(){
+            const el = document.querySelector('main.card');
+            // small temporary style tweak for download clarity
+            const originalBG = el.style.background;
+            el.style.background = '#ffffff';
+            html2canvas(el, { scale: 2, logging: false, useCORS: true }).then(canvas=>{
+                el.style.background = originalBG;
+                const image = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
-                
-                const namaFaya = document.getElementById('namaFaya').textContent.trim() || 'Karyawan';
+                const namaFaya = (document.getElementById('namaFaya').textContent || 'Karyawan').trim() || 'Karyawan';
+                const level = document.getElementById('levelGaji').value || '0';
+                const status = document.getElementById('statusHidden').value || 'Member';
+                // Nama file menyertakan status juga
                 link.href = image;
-                link.download = `Data_Gaji_Lvl${document.getElementById('levelGaji').value}_${namaFaya.replace(/\s/g, '_')}.png`;
-                
+                link.download = `Data_Gaji_Lvl${level}_${status}_${namaFaya.replace(/\s+/g,'_')}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+            }).catch(err=>{
+                console.error(err);
+                alert('Terjadi masalah saat membuat gambar. Coba lagi.');
             });
         });
-        
-        // Inisialisasi:
+
+        // Init
         populateLevelOptions();
-        updateAkunOptions(); // Memuat daftar Bank di awal
-        isiGajiOtomatis(); // Menghitung total gaji di awal (Level 0)
+        updateAkunOptions();
+        isiGajiOtomatis();
+
+        // Set kurs display
+        document.getElementById('kursValue').textContent = new Intl.NumberFormat('id-ID').format(KURS_DOLAR);
+        document.getElementById('kursValue2').textContent = new Intl.NumberFormat('id-ID').format(KURS_DOLAR);
+
+        // Pastikan status awal ter-set dan total dihitung
+        updateStatus();
+        hitungTotalGaji();
     </script>
 </body>
 </html>
