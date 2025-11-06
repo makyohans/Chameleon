@@ -258,6 +258,112 @@
             header.app-header{ gap:10px }
             .card-header{ padding:14px 0 6px 0; }
         }
+
+
+        /* ============================
+           Export-mode styles (dipakai hanya untuk hasil download)
+           Saat pengguna klik download, kita menambahkan class .export-mode
+           ke main.card sehingga tampilan di canvas berbeda dari tampilan web
+           ============================ */
+        .card.export-mode {
+            background: #ffffff !important;
+            box-shadow: none !important;
+            padding: 28px !important;
+            width: 860px;
+            max-width: none;
+            border-radius: 10px;
+        }
+
+        /* rapikan header untuk export */
+        .card.export-mode .card-header{
+            justify-content: flex-start;
+            padding-bottom: 12px;
+        }
+        .card.export-mode .card-header h2{
+            font-size: 28px;
+            color: #0b1220;
+            letter-spacing: 0.6px;
+            text-align: left;
+        }
+
+        /* ubah grid jadi daftar vertikal rapih */
+        .card.export-mode .grid{
+            display:block;
+            gap:0;
+        }
+        .card.export-mode .grid > div{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:10px 8px;
+            border-bottom: 1px dashed #eee;
+        }
+        .card.export-mode .grid > div.full{
+            border-bottom: none;
+            padding: 0;
+        }
+
+        /* buat label/value tampil rapi */
+        .card.export-mode .field{
+            background: transparent;
+            border: none;
+            padding: 0;
+            min-height: auto;
+            text-align: right;
+        }
+        .card.export-mode label.field-label{
+            margin: 0;
+            padding-right: 12px;
+            font-size: 13px;
+            color: #374151;
+            font-weight: 700;
+            width: 38%;
+            text-align: left;
+        }
+        .card.export-mode .field,
+        .card.export-mode .pust-badges{
+            width: 60%;
+        }
+        .card.export-mode .pust-badges{ justify-content: flex-end; gap:10px; }
+
+        /* total box terlihat jelas */
+        .card.export-mode .total-box{
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+        }
+        .card.export-mode .total-row{ padding:6px 0; }
+        .card.export-mode .total-right{ font-size:22px; color:#0b1220; }
+
+        /* sembunyikan kontrol yang tidak relevan di hasil export */
+        .card.export-mode .actions,
+        .card.export-mode .notes,
+        .card.export-mode input,
+        .card.export-mode select,
+        .card.export-mode .radio-group{
+            display: none !important;
+        }
+
+        /* pastikan badges terlihat sederhana */
+        .card.export-mode .badge{
+            padding:6px 10px;
+            font-size:12px;
+            border-radius:6px;
+        }
+
+        /* perbaikan minor untuk teks editable agar tampil rapi */
+        .card.export-mode .editable{
+            padding: 0;
+            min-height: auto;
+            font-weight:700;
+            text-align:right;
+        }
+
+        /* small print adjustments for export */
+        @media print {
+            .card.export-mode { width: 860px; }
+        }
+
     </style>
 </head>
 <body>
@@ -566,8 +672,10 @@
         // Download as image using html2canvas
         document.getElementById('downloadImgBtn').addEventListener('click', function(){
             const el = document.querySelector('main.card');
-            // small temporary style tweak for download clarity
-            const originalBG = el.style.background;
+
+            // Save previous inline width and export-mode state
+            const originalWidth = el.style.width || '';
+            const originalClass = el.className;
 
             // Hide tombol download (.actions) dan catatan (.notes) sementara saat capture
             const hiddenEls = document.querySelectorAll('.actions, .notes');
@@ -577,29 +685,35 @@
                 h.style.display = 'none';
             });
 
-            el.style.background = '#ffffff';
-            html2canvas(el, { scale: 2, logging: false, useCORS: true }).then(canvas=>{
-                const image = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                const namaFaya = (document.getElementById('namaFaya').textContent || 'Karyawan').trim() || 'Karyawan';
-                const level = document.getElementById('levelGaji').value || '0';
-                const status = document.getElementById('statusHidden').value || 'Member';
-                // Nama file menyertakan status juga
-                link.href = image;
-                link.download = `Data_Gaji_Lvl${level}_${status}_${namaFaya.replace(/\s+/g,'_')}.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }).catch(err=>{
-                console.error(err);
-                alert('Terjadi masalah saat membuat gambar. Coba lagi.');
-            }).finally(()=>{
-                // restore background & tampilkan lagi tombol/notes
-                el.style.background = originalBG;
-                prev.forEach(p => {
-                    p.el.style.display = p.display || '';
+            // Tambahkan class export-mode untuk mendapatkan tampilan yang berbeda rapih
+            el.classList.add('export-mode');
+
+            // Small delay supaya browser merender ulang dengan gaya export-mode
+            setTimeout(() => {
+                html2canvas(el, { scale: 2, logging: false, useCORS: true }).then(canvas=>{
+                    const image = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    const namaFaya = (document.getElementById('namaFaya').textContent || 'Karyawan').trim() || 'Karyawan';
+                    const level = document.getElementById('levelGaji').value || '0';
+                    const status = document.getElementById('statusHidden').value || 'Member';
+                    // Nama file menyertakan status juga
+                    link.href = image;
+                    link.download = `Data_Gaji_Lvl${level}_${status}_${namaFaya.replace(/\s+/g,'_')}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }).catch(err=>{
+                    console.error(err);
+                    alert('Terjadi masalah saat membuat gambar. Coba lagi.');
+                }).finally(()=>{
+                    // restore background & tampilkan lagi tombol/notes
+                    el.className = originalClass; // restore classes (removes export-mode)
+                    el.style.width = originalWidth;
+                    prev.forEach(p => {
+                        p.el.style.display = p.display || '';
+                    });
                 });
-            });
+            }, 80);
         });
 
         // Init
